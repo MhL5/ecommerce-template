@@ -13,3 +13,17 @@ Before any Next.js work, find and read the relevant doc in `node_modules/next/di
 
 - When something is unclear or you're unsure
 - before anything destructive: deleting data, force-pushing, or changing anything outside this repository
+
+## Agent skills
+
+### Issue tracker
+
+Issues live in GitHub Issues for MhL5/ecommerce-template (via `gh`). See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Default vocabulary: needs-triage, needs-info, ready-for-agent, ready-for-human, wontfix. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context: one `GLOSSARY.md` + `docs/adr/` at the repo root. See `docs/agents/domain.md`.
