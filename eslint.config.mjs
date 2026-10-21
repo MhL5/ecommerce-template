@@ -13,6 +13,31 @@ const eslintConfig = defineConfig([
     "build/**",
     "next-env.d.ts",
   ]),
+  {
+    rules: {
+      "no-console": "warn",
+      "no-restricted-imports": [
+        "error",
+        {
+          name: "next/image",
+          message: "Please import from `@/components/ui/Img` instead.",
+          importNames: ["default"],
+        },
+        {
+          name: "next/link",
+          message: "Please import Link from `@/components/ui/link` instead.",
+          importNames: ["default"],
+        },
+      ],
+      "@typescript-eslint/naming-convention": [
+        "error",
+        {
+          selector: "typeLike",
+          format: ["PascalCase"],
+        },
+      ],
+    },
+  },
 ]);
 
 export default eslintConfig;

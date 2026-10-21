@@ -1,9 +1,15 @@
-<!-- BEGIN:nextjs-agent-rules -->
+# Next.js: ALWAYS read docs before coding
 
-## This is NOT the Next.js you know
+Before any Next.js work, find and read the relevant doc in `node_modules/next/dist/docs/`. Your training data is outdated — the docs are the source of truth.
 
-This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+## What I need from you
 
-This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+- End every turn where you're blocked on me, or where the next step needs me, with a short "**What I need from you**" section. Numbered, one concrete action or decision per item: exactly what to do, where (which site, app, file or person), and what to send back. e.g. "Open the Convex dashboard, add `OPENAI_API_KEY` under Settings → Environment Variables, then reply 'done'", not "I need the API key set up".
+- If there are several, put the quickest or most blocking one first, and say what you'll get on with in the meantime.
+- If you don't need anything from me, say "Nothing needed from you right now", and say whether the work is finished or still going.
+- Never bury a request for me in the middle of a long update.
 
-<!-- END:nextjs-agent-rules -->
+## When to stop and ask me
+
+- When something is unclear or you're unsure
+- before anything destructive: deleting data, force-pushing, or changing anything outside this repository
