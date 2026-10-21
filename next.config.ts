@@ -1,3 +1,5 @@
+import "@/env/clientEnv";
+import "@/env/serverEnv";
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
