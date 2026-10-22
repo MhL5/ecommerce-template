@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800">
+<defs>
+<linearGradient id="bg-p25-2" x1="0.970" y1="0.329" x2="0.030" y2="0.671">
+<stop offset="0" stop-color="hsl(330 30% 22%)"/>
+<stop offset="1" stop-color="hsl(350 35% 12%)"/>
+</linearGradient>
+<radialGradient id="glow-p25-2" cx="0.5" cy="0.48" r="0.42">
+<stop offset="0" stop-color="hsl(330 50% 34%)" stop-opacity="0.9"/>
+<stop offset="1" stop-color="hsl(330 50% 34%)" stop-opacity="0"/>
+</radialGradient>
+</defs>
+<rect width="800" height="800" fill="url(#bg-p25-2)"/>
+<circle cx="400" cy="384" r="330" fill="url(#glow-p25-2)"/>
+<ellipse cx="400" cy="604" rx="120.96" ry="18" fill="hsl(330 70% 88%)" opacity="0.08"/>
+<g fill="none" transform="rotate(8 400 400) translate(232 216) scale(14)"><path d="M3.5 13.678C3.5 9.49387 7.08079 5.35907 9.59413 2.97222C10.9591 1.67593 13.0409 1.67593 14.4059 2.97222C16.9192 5.35907 20.5 9.49387 20.5 13.678C20.5 17.7804 17.2812 22 12 22C6.71878 22 3.5 17.7804 3.5 13.678Z" stroke="hsl(330 70% 88%)" stroke-width="1.5"/><path d="M16 14C16 16.2091 14.2091 18 12 18" stroke="hsl(330 70% 88%)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/></g>
+</svg>

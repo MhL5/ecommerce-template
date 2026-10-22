@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800">
+<defs>
+<linearGradient id="bg-p17-0" x1="0.854" y1="0.146" x2="0.146" y2="0.854">
+<stop offset="0" stop-color="hsl(161 70% 96%)"/>
+<stop offset="1" stop-color="hsl(179 55% 84%)"/>
+</linearGradient>
+<radialGradient id="glow-p17-0" cx="0.5" cy="0.48" r="0.42">
+<stop offset="0" stop-color="hsl(161 80% 99%)" stop-opacity="0.9"/>
+<stop offset="1" stop-color="hsl(161 80% 99%)" stop-opacity="0"/>
+</radialGradient>
+</defs>
+<rect width="800" height="800" fill="url(#bg-p17-0)"/>
+<circle cx="400" cy="384" r="330" fill="url(#glow-p17-0)"/>
+<ellipse cx="400" cy="616" rx="129.6" ry="18" fill="hsl(161 45% 28%)" opacity="0.08"/>
+<g fill="none" transform="rotate(0 400 400) translate(220 204) scale(15)"><path d="M2 17C2 18.9497 2.02815 21 4.4 21H15.6C17.9718 21 18 18.9497 18 17C18 12.5817 14.4183 9 10 9C5.58172 9 2 12.5817 2 17Z" stroke="hsl(161 45% 28%)" stroke-linejoin="round" stroke-width="1.5"/><path d="M8 9V8C8 6.89543 8.89543 6 10 6C11.1046 6 12 6.89543 12 8V9" stroke="hsl(161 45% 28%)" stroke-linejoin="round" stroke-width="1.5"/><path d="M18 17C19.1046 17 20 16.1046 20 15V13C20 11.8954 20.8954 11 22 11" stroke="hsl(161 45% 28%)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/><path d="M16 11.5V9C16 5.68629 13.3137 3 10 3C6.68629 3 4 5.68629 4 9V11.5" stroke="hsl(161 45% 28%)" stroke-linejoin="round" stroke-width="1.5"/><path d="M2 17H12" stroke="hsl(161 45% 28%)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/></g>
+</svg>

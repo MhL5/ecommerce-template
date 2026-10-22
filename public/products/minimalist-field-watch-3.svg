@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800">
+<defs>
+<linearGradient id="bg-p33-2" x1="0.970" y1="0.329" x2="0.030" y2="0.671">
+<stop offset="0" stop-color="hsl(43 30% 22%)"/>
+<stop offset="1" stop-color="hsl(63 35% 12%)"/>
+</linearGradient>
+<radialGradient id="glow-p33-2" cx="0.5" cy="0.48" r="0.42">
+<stop offset="0" stop-color="hsl(43 50% 34%)" stop-opacity="0.9"/>
+<stop offset="1" stop-color="hsl(43 50% 34%)" stop-opacity="0"/>
+</radialGradient>
+</defs>
+<rect width="800" height="800" fill="url(#bg-p33-2)"/>
+<circle cx="400" cy="384" r="330" fill="url(#glow-p33-2)"/>
+<ellipse cx="400" cy="604" rx="120.96" ry="18" fill="hsl(43 70% 88%)" opacity="0.08"/>
+<g fill="none" transform="rotate(8 400 400) translate(232 216) scale(14)"><circle cx="12" cy="12" r="7" stroke="hsl(43 70% 88%)" stroke-width="1.5"/><path d="M16 6L15.7276 4.91043C15.3931 3.5724 15.2258 2.90339 14.7499 2.49004C14.6973 2.44433 14.6423 2.40141 14.5852 2.36145C14.0688 2 13.3792 2 12 2C10.6208 2 9.93119 2 9.41476 2.36145C9.35765 2.40141 9.30268 2.44433 9.25006 2.49004C8.77415 2.90339 8.6069 3.5724 8.27239 4.91043L8 6" stroke="hsl(43 70% 88%)" stroke-width="1.5"/><path d="M8 18L8.27239 19.0896C8.6069 20.4276 8.77415 21.0966 9.25006 21.51C9.30268 21.5557 9.35765 21.5986 9.41476 21.6386C9.93119 22 10.6208 22 12 22C13.3792 22 14.0688 22 14.5852 21.6386C14.6423 21.5986 14.6973 21.5557 14.7499 21.51C15.2258 21.0966 15.3931 20.4276 15.7276 19.0896L16 18" stroke="hsl(43 70% 88%)" stroke-width="1.5"/><path d="M12 10V12.005L13 13" stroke="hsl(43 70% 88%)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/></g>
+</svg>

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800">
+<defs>
+<linearGradient id="bg-p24-0" x1="0.854" y1="0.146" x2="0.146" y2="0.854">
+<stop offset="0" stop-color="hsl(178 70% 96%)"/>
+<stop offset="1" stop-color="hsl(196 55% 84%)"/>
+</linearGradient>
+<radialGradient id="glow-p24-0" cx="0.5" cy="0.48" r="0.42">
+<stop offset="0" stop-color="hsl(178 80% 99%)" stop-opacity="0.9"/>
+<stop offset="1" stop-color="hsl(178 80% 99%)" stop-opacity="0"/>
+</radialGradient>
+</defs>
+<rect width="800" height="800" fill="url(#bg-p24-0)"/>
+<circle cx="400" cy="384" r="330" fill="url(#glow-p24-0)"/>
+<ellipse cx="400" cy="616" rx="129.6" ry="18" fill="hsl(178 45% 28%)" opacity="0.08"/>
+<g fill="none" transform="rotate(0 400 400) translate(220 204) scale(15)"><path d="M10.2112 16.4234L8.00003 21L16 21L13.7889 16.4234C13.0083 14.8078 12.6181 14 12 14C11.382 14 10.9917 14.8078 10.2112 16.4234Z" stroke="hsl(178 45% 28%)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/><path d="M9.99997 3L19.2905 14.8243C20.1372 15.9019 20.5605 16.4407 20.7803 17.076C21 17.7113 21 18.3965 21 19.7669V21" stroke="hsl(178 45% 28%)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/><path d="M14 3L4.70943 14.8244C3.86277 15.902 3.43945 16.4407 3.21973 17.076C3.00002 17.7112 3.00001 18.3964 2.99999 19.7668L2.99997 21" stroke="hsl(178 45% 28%)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/><path d="M2 21H22" stroke="hsl(178 45% 28%)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/></g>
+</svg>

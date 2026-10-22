@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800">
+<defs>
+<linearGradient id="bg-p05-2" x1="0.970" y1="0.329" x2="0.030" y2="0.671">
+<stop offset="0" stop-color="hsl(221 30% 22%)"/>
+<stop offset="1" stop-color="hsl(241 35% 12%)"/>
+</linearGradient>
+<radialGradient id="glow-p05-2" cx="0.5" cy="0.48" r="0.42">
+<stop offset="0" stop-color="hsl(221 50% 34%)" stop-opacity="0.9"/>
+<stop offset="1" stop-color="hsl(221 50% 34%)" stop-opacity="0"/>
+</radialGradient>
+</defs>
+<rect width="800" height="800" fill="url(#bg-p05-2)"/>
+<circle cx="400" cy="384" r="330" fill="url(#glow-p05-2)"/>
+<ellipse cx="400" cy="604" rx="120.96" ry="18" fill="hsl(221 70% 88%)" opacity="0.08"/>
+<g fill="none" transform="rotate(8 400 400) translate(232 216) scale(14)"><path d="M4.74061 17.0888C4.93047 19.4803 6.82417 21.511 9.26502 21.8118C10.1626 21.9223 11.0752 22 12 22C12.9247 22 13.8373 21.9223 14.7349 21.8118C17.1758 21.511 19.0694 19.4803 19.2593 17.0888C19.3909 15.4317 19.5 13.732 19.5 12C19.5 10.268 19.3909 8.56832 19.2593 6.91118C19.0694 4.51965 17.1758 2.48893 14.7349 2.1882C13.8373 2.07762 12.9247 2 12 2C11.0752 2 10.1626 2.07762 9.26502 2.1882C6.82417 2.48893 4.93047 4.51965 4.74061 6.91118C4.60903 8.56832 4.5 10.268 4.5 12C4.5 13.732 4.60903 15.4317 4.74061 17.0888Z" stroke="hsl(221 70% 88%)" stroke-width="1.5"/><path d="M12 6L12 9" stroke="hsl(221 70% 88%)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/></g>
+</svg>

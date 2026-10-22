@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800">
+<defs>
+<linearGradient id="bg-p06-0" x1="0.854" y1="0.146" x2="0.146" y2="0.854">
+<stop offset="0" stop-color="hsl(228 70% 96%)"/>
+<stop offset="1" stop-color="hsl(246 55% 84%)"/>
+</linearGradient>
+<radialGradient id="glow-p06-0" cx="0.5" cy="0.48" r="0.42">
+<stop offset="0" stop-color="hsl(228 80% 99%)" stop-opacity="0.9"/>
+<stop offset="1" stop-color="hsl(228 80% 99%)" stop-opacity="0"/>
+</radialGradient>
+</defs>
+<rect width="800" height="800" fill="url(#bg-p06-0)"/>
+<circle cx="400" cy="384" r="330" fill="url(#glow-p06-0)"/>
+<ellipse cx="400" cy="616" rx="129.6" ry="18" fill="hsl(228 45% 28%)" opacity="0.08"/>
+<g fill="none" transform="rotate(0 400 400) translate(220 204) scale(15)"><circle cx="12" cy="10" r="8" stroke="hsl(228 45% 28%)" stroke-width="1.5"/><path d="M15.125 6.25H15M15.25 6.25C15.25 6.11193 15.1381 6 15 6C14.8619 6 14.75 6.11193 14.75 6.25C14.75 6.38807 14.8619 6.5 15 6.5C15.1381 6.5 15.25 6.38807 15.25 6.25Z" stroke="hsl(228 45% 28%)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/><circle cx="12" cy="10" r="2" stroke="hsl(228 45% 28%)" stroke-width="1.5"/><path d="M12 18V22" stroke="hsl(228 45% 28%)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/><path d="M8 22H16" stroke="hsl(228 45% 28%)" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/></g>
+</svg>
