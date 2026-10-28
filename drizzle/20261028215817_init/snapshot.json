@@ -1,0 +1,7798 @@
+{
+  "type": "base",
+  "version": "9",
+  "dialect": "postgres",
+  "id": "231cfc14-9fe0-4d30-8ac1-a55bf491fbe8",
+  "prevIds": [
+    "00000000-0000-0000-0000-000000000000"
+  ],
+  "footprints": [
+    {
+      "statementType": "create_enum",
+      "statementTarget": [
+        "enum",
+        "public",
+        "attribute_type"
+      ],
+      "writes": [
+        "s|enum|public.attribute_type",
+        "n|enum|public.attribute_type",
+        "e|enum|public.attribute_type",
+        "n|type|public.attribute_type"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_enum",
+      "statementTarget": [
+        "enum",
+        "public",
+        "product_status"
+      ],
+      "writes": [
+        "s|enum|public.product_status",
+        "n|enum|public.product_status",
+        "e|enum|public.product_status",
+        "n|type|public.product_status"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_enum",
+      "statementTarget": [
+        "enum",
+        "public",
+        "discount_kind"
+      ],
+      "writes": [
+        "s|enum|public.discount_kind",
+        "n|enum|public.discount_kind",
+        "e|enum|public.discount_kind",
+        "n|type|public.discount_kind"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_enum",
+      "statementTarget": [
+        "enum",
+        "public",
+        "order_status"
+      ],
+      "writes": [
+        "s|enum|public.order_status",
+        "n|enum|public.order_status",
+        "e|enum|public.order_status",
+        "n|type|public.order_status"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_enum",
+      "statementTarget": [
+        "enum",
+        "public",
+        "payment_status"
+      ],
+      "writes": [
+        "s|enum|public.payment_status",
+        "n|enum|public.payment_status",
+        "e|enum|public.payment_status",
+        "n|type|public.payment_status"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_enum",
+      "statementTarget": [
+        "enum",
+        "public",
+        "review_status"
+      ],
+      "writes": [
+        "s|enum|public.review_status",
+        "n|enum|public.review_status",
+        "e|enum|public.review_status",
+        "n|type|public.review_status"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "attribute"
+      ],
+      "writes": [
+        "s|tbl|public.attribute",
+        "n|tbl|public.attribute",
+        "e|tbl|public.attribute",
+        "n|rel|public.attribute",
+        "n|type|public.attribute",
+        "n|rel|public.attribute_pkey",
+        "n|rel|public.attribute_slug_key"
+      ],
+      "reads": [
+        "n|sch|public",
+        "n|enum|public.attribute_type"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "attribute_option"
+      ],
+      "writes": [
+        "s|tbl|public.attribute_option",
+        "n|tbl|public.attribute_option",
+        "e|tbl|public.attribute_option",
+        "n|rel|public.attribute_option",
+        "n|type|public.attribute_option",
+        "n|rel|public.attribute_option_pkey",
+        "n|rel|public.attribute_option_attribute_value_uq",
+        "n|rel|public.attribute_option_attribute_id_uq"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "category_attribute"
+      ],
+      "writes": [
+        "s|tbl|public.category_attribute",
+        "n|tbl|public.category_attribute",
+        "e|tbl|public.category_attribute",
+        "n|rel|public.category_attribute",
+        "n|type|public.category_attribute",
+        "n|rel|public.category_attribute_pkey"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "product_attribute_value"
+      ],
+      "writes": [
+        "s|tbl|public.product_attribute_value",
+        "n|tbl|public.product_attribute_value",
+        "e|tbl|public.product_attribute_value",
+        "n|rel|public.product_attribute_value",
+        "n|type|public.product_attribute_value",
+        "n|rel|public.product_attribute_value_pkey",
+        "n|rel|public.product_attribute_value_uq"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "account"
+      ],
+      "writes": [
+        "s|tbl|public.account",
+        "n|tbl|public.account",
+        "e|tbl|public.account",
+        "n|rel|public.account",
+        "n|type|public.account",
+        "n|rel|public.account_pkey"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "session"
+      ],
+      "writes": [
+        "s|tbl|public.session",
+        "n|tbl|public.session",
+        "e|tbl|public.session",
+        "n|rel|public.session",
+        "n|type|public.session",
+        "n|rel|public.session_pkey",
+        "n|rel|public.session_token_key"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "user"
+      ],
+      "writes": [
+        "s|tbl|public.user",
+        "n|tbl|public.user",
+        "e|tbl|public.user",
+        "n|rel|public.user",
+        "n|type|public.user",
+        "n|rel|public.user_pkey",
+        "n|rel|public.user_email_key"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "verification"
+      ],
+      "writes": [
+        "s|tbl|public.verification",
+        "n|tbl|public.verification",
+        "e|tbl|public.verification",
+        "n|rel|public.verification",
+        "n|type|public.verification",
+        "n|rel|public.verification_pkey"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "brand"
+      ],
+      "writes": [
+        "s|tbl|public.brand",
+        "n|tbl|public.brand",
+        "e|tbl|public.brand",
+        "n|rel|public.brand",
+        "n|type|public.brand",
+        "n|rel|public.brand_pkey",
+        "n|rel|public.brand_slug_key"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "category"
+      ],
+      "writes": [
+        "s|tbl|public.category",
+        "n|tbl|public.category",
+        "e|tbl|public.category",
+        "n|rel|public.category",
+        "n|type|public.category",
+        "n|rel|public.category_pkey",
+        "n|rel|public.category_slug_key"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "product"
+      ],
+      "writes": [
+        "s|tbl|public.product",
+        "n|tbl|public.product",
+        "e|tbl|public.product",
+        "n|rel|public.product",
+        "n|type|public.product",
+        "n|rel|public.product_pkey",
+        "n|rel|public.product_slug_key"
+      ],
+      "reads": [
+        "n|sch|public",
+        "n|enum|public.product_status"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "product_image"
+      ],
+      "writes": [
+        "s|tbl|public.product_image",
+        "n|tbl|public.product_image",
+        "e|tbl|public.product_image",
+        "n|rel|public.product_image",
+        "n|type|public.product_image",
+        "n|rel|public.product_image_pkey"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "product_option"
+      ],
+      "writes": [
+        "s|tbl|public.product_option",
+        "n|tbl|public.product_option",
+        "e|tbl|public.product_option",
+        "n|rel|public.product_option",
+        "n|type|public.product_option",
+        "n|rel|public.product_option_pkey",
+        "n|rel|public.product_option_product_name_uq"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "product_option_value"
+      ],
+      "writes": [
+        "s|tbl|public.product_option_value",
+        "n|tbl|public.product_option_value",
+        "e|tbl|public.product_option_value",
+        "n|rel|public.product_option_value",
+        "n|type|public.product_option_value",
+        "n|rel|public.product_option_value_pkey",
+        "n|rel|public.product_option_value_option_value_uq",
+        "n|rel|public.product_option_value_option_id_uq"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "product_variant"
+      ],
+      "writes": [
+        "s|tbl|public.product_variant",
+        "n|tbl|public.product_variant",
+        "e|tbl|public.product_variant",
+        "n|rel|public.product_variant",
+        "n|type|public.product_variant",
+        "n|rel|public.product_variant_pkey",
+        "n|rel|public.product_variant_product_id_uq",
+        "n|rel|public.product_variant_sku_key"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "product_variant_option_value"
+      ],
+      "writes": [
+        "s|tbl|public.product_variant_option_value",
+        "n|tbl|public.product_variant_option_value",
+        "e|tbl|public.product_variant_option_value",
+        "n|rel|public.product_variant_option_value",
+        "n|type|public.product_variant_option_value",
+        "n|rel|public.product_variant_option_value_pkey"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "discount"
+      ],
+      "writes": [
+        "s|tbl|public.discount",
+        "n|tbl|public.discount",
+        "e|tbl|public.discount",
+        "n|rel|public.discount",
+        "n|type|public.discount",
+        "n|rel|public.discount_pkey",
+        "n|rel|public.discount_code_key"
+      ],
+      "reads": [
+        "n|sch|public",
+        "n|enum|public.discount_kind"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "shipping_method"
+      ],
+      "writes": [
+        "s|tbl|public.shipping_method",
+        "n|tbl|public.shipping_method",
+        "e|tbl|public.shipping_method",
+        "n|rel|public.shipping_method",
+        "n|type|public.shipping_method",
+        "n|rel|public.shipping_method_pkey",
+        "n|rel|public.shipping_method_code_key"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "address"
+      ],
+      "writes": [
+        "s|tbl|public.address",
+        "n|tbl|public.address",
+        "e|tbl|public.address",
+        "n|rel|public.address",
+        "n|type|public.address",
+        "n|rel|public.address_pkey"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "cart"
+      ],
+      "writes": [
+        "s|tbl|public.cart",
+        "n|tbl|public.cart",
+        "e|tbl|public.cart",
+        "n|rel|public.cart",
+        "n|type|public.cart",
+        "n|rel|public.cart_pkey",
+        "n|rel|public.cart_user_id_key",
+        "n|rel|public.cart_token_key"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "cart_item"
+      ],
+      "writes": [
+        "s|tbl|public.cart_item",
+        "n|tbl|public.cart_item",
+        "e|tbl|public.cart_item",
+        "n|rel|public.cart_item",
+        "n|type|public.cart_item",
+        "n|rel|public.cart_item_pkey",
+        "n|rel|public.cart_item_cart_variant_uq"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "wishlist_item"
+      ],
+      "writes": [
+        "s|tbl|public.wishlist_item",
+        "n|tbl|public.wishlist_item",
+        "e|tbl|public.wishlist_item",
+        "n|rel|public.wishlist_item",
+        "n|type|public.wishlist_item",
+        "n|rel|public.wishlist_item_pkey"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "discount_redemption"
+      ],
+      "writes": [
+        "s|tbl|public.discount_redemption",
+        "n|tbl|public.discount_redemption",
+        "e|tbl|public.discount_redemption",
+        "n|rel|public.discount_redemption",
+        "n|type|public.discount_redemption",
+        "n|rel|public.discount_redemption_pkey",
+        "n|rel|public.discount_redemption_discount_order_uq"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "order"
+      ],
+      "writes": [
+        "s|tbl|public.order",
+        "n|tbl|public.order",
+        "e|tbl|public.order",
+        "n|rel|public.order",
+        "n|type|public.order",
+        "n|rel|public.order_pkey",
+        "n|rel|public.order_number_key"
+      ],
+      "reads": [
+        "n|sch|public",
+        "n|enum|public.order_status",
+        "n|enum|public.payment_status"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "order_item"
+      ],
+      "writes": [
+        "s|tbl|public.order_item",
+        "n|tbl|public.order_item",
+        "e|tbl|public.order_item",
+        "n|rel|public.order_item",
+        "n|type|public.order_item",
+        "n|rel|public.order_item_pkey"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "order_status_event"
+      ],
+      "writes": [
+        "s|tbl|public.order_status_event",
+        "n|tbl|public.order_status_event",
+        "e|tbl|public.order_status_event",
+        "n|rel|public.order_status_event",
+        "n|type|public.order_status_event",
+        "n|rel|public.order_status_event_pkey"
+      ],
+      "reads": [
+        "n|sch|public",
+        "n|enum|public.order_status"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "payment"
+      ],
+      "writes": [
+        "s|tbl|public.payment",
+        "n|tbl|public.payment",
+        "e|tbl|public.payment",
+        "n|rel|public.payment",
+        "n|type|public.payment",
+        "n|rel|public.payment_pkey"
+      ],
+      "reads": [
+        "n|sch|public",
+        "n|enum|public.payment_status"
+      ]
+    },
+    {
+      "statementType": "create_table",
+      "statementTarget": [
+        "table",
+        "public",
+        "review"
+      ],
+      "writes": [
+        "s|tbl|public.review",
+        "n|tbl|public.review",
+        "e|tbl|public.review",
+        "n|rel|public.review",
+        "n|type|public.review",
+        "n|rel|public.review_pkey",
+        "n|rel|public.review_product_user_uq"
+      ],
+      "reads": [
+        "n|sch|public",
+        "n|enum|public.review_status"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "product_attribute_value",
+        "product_attribute_value_product_id_idx"
+      ],
+      "writes": [
+        "s|idx|public.product_attribute_value_product_id_idx",
+        "n|idx|public.product_attribute_value_product_id_idx",
+        "e|idx|public.product_attribute_value_product_id_idx",
+        "n|rel|public.product_attribute_value_product_id_idx"
+      ],
+      "reads": [
+        "n|tbl|public.product_attribute_value",
+        "n|sch|public",
+        "n|col|public.product_attribute_value.product_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "product_attribute_value",
+        "product_attribute_value_option_idx"
+      ],
+      "writes": [
+        "s|idx|public.product_attribute_value_option_idx",
+        "n|idx|public.product_attribute_value_option_idx",
+        "e|idx|public.product_attribute_value_option_idx",
+        "n|rel|public.product_attribute_value_option_idx"
+      ],
+      "reads": [
+        "n|tbl|public.product_attribute_value",
+        "n|sch|public",
+        "n|col|public.product_attribute_value.attribute_id",
+        "n|col|public.product_attribute_value.option_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "product_attribute_value",
+        "product_attribute_value_number_idx"
+      ],
+      "writes": [
+        "s|idx|public.product_attribute_value_number_idx",
+        "n|idx|public.product_attribute_value_number_idx",
+        "e|idx|public.product_attribute_value_number_idx",
+        "n|rel|public.product_attribute_value_number_idx"
+      ],
+      "reads": [
+        "n|tbl|public.product_attribute_value",
+        "n|sch|public",
+        "n|col|public.product_attribute_value.attribute_id",
+        "n|col|public.product_attribute_value.value_number"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "account",
+        "account_user_id_idx"
+      ],
+      "writes": [
+        "s|idx|public.account_user_id_idx",
+        "n|idx|public.account_user_id_idx",
+        "e|idx|public.account_user_id_idx",
+        "n|rel|public.account_user_id_idx"
+      ],
+      "reads": [
+        "n|tbl|public.account",
+        "n|sch|public",
+        "n|col|public.account.user_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "session",
+        "session_user_id_idx"
+      ],
+      "writes": [
+        "s|idx|public.session_user_id_idx",
+        "n|idx|public.session_user_id_idx",
+        "e|idx|public.session_user_id_idx",
+        "n|rel|public.session_user_id_idx"
+      ],
+      "reads": [
+        "n|tbl|public.session",
+        "n|sch|public",
+        "n|col|public.session.user_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "verification",
+        "verification_identifier_idx"
+      ],
+      "writes": [
+        "s|idx|public.verification_identifier_idx",
+        "n|idx|public.verification_identifier_idx",
+        "e|idx|public.verification_identifier_idx",
+        "n|rel|public.verification_identifier_idx"
+      ],
+      "reads": [
+        "n|tbl|public.verification",
+        "n|sch|public",
+        "n|col|public.verification.identifier"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "category",
+        "category_parent_id_idx"
+      ],
+      "writes": [
+        "s|idx|public.category_parent_id_idx",
+        "n|idx|public.category_parent_id_idx",
+        "e|idx|public.category_parent_id_idx",
+        "n|rel|public.category_parent_id_idx"
+      ],
+      "reads": [
+        "n|tbl|public.category",
+        "n|sch|public",
+        "n|col|public.category.parent_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "product",
+        "product_category_id_idx"
+      ],
+      "writes": [
+        "s|idx|public.product_category_id_idx",
+        "n|idx|public.product_category_id_idx",
+        "e|idx|public.product_category_id_idx",
+        "n|rel|public.product_category_id_idx"
+      ],
+      "reads": [
+        "n|tbl|public.product",
+        "n|sch|public",
+        "n|col|public.product.category_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "product",
+        "product_brand_id_idx"
+      ],
+      "writes": [
+        "s|idx|public.product_brand_id_idx",
+        "n|idx|public.product_brand_id_idx",
+        "e|idx|public.product_brand_id_idx",
+        "n|rel|public.product_brand_id_idx"
+      ],
+      "reads": [
+        "n|tbl|public.product",
+        "n|sch|public",
+        "n|col|public.product.brand_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "product",
+        "product_status_idx"
+      ],
+      "writes": [
+        "s|idx|public.product_status_idx",
+        "n|idx|public.product_status_idx",
+        "e|idx|public.product_status_idx",
+        "n|rel|public.product_status_idx"
+      ],
+      "reads": [
+        "n|tbl|public.product",
+        "n|sch|public",
+        "n|col|public.product.status"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "product_image",
+        "product_image_product_id_idx"
+      ],
+      "writes": [
+        "s|idx|public.product_image_product_id_idx",
+        "n|idx|public.product_image_product_id_idx",
+        "e|idx|public.product_image_product_id_idx",
+        "n|rel|public.product_image_product_id_idx"
+      ],
+      "reads": [
+        "n|tbl|public.product_image",
+        "n|sch|public",
+        "n|col|public.product_image.product_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "product_variant",
+        "product_variant_product_id_idx"
+      ],
+      "writes": [
+        "s|idx|public.product_variant_product_id_idx",
+        "n|idx|public.product_variant_product_id_idx",
+        "e|idx|public.product_variant_product_id_idx",
+        "n|rel|public.product_variant_product_id_idx"
+      ],
+      "reads": [
+        "n|tbl|public.product_variant",
+        "n|sch|public",
+        "n|col|public.product_variant.product_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "product_variant",
+        "product_variant_one_default_uq"
+      ],
+      "writes": [
+        "s|idx|public.product_variant_one_default_uq",
+        "n|idx|public.product_variant_one_default_uq",
+        "e|idx|public.product_variant_one_default_uq",
+        "n|rel|public.product_variant_one_default_uq"
+      ],
+      "reads": [
+        "n|tbl|public.product_variant",
+        "n|sch|public",
+        "n|col|public.product_variant.product_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "product_variant_option_value",
+        "product_variant_option_value_value_idx"
+      ],
+      "writes": [
+        "s|idx|public.product_variant_option_value_value_idx",
+        "n|idx|public.product_variant_option_value_value_idx",
+        "e|idx|public.product_variant_option_value_value_idx",
+        "n|rel|public.product_variant_option_value_value_idx"
+      ],
+      "reads": [
+        "n|tbl|public.product_variant_option_value",
+        "n|sch|public",
+        "n|col|public.product_variant_option_value.option_value_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "address",
+        "address_user_id_idx"
+      ],
+      "writes": [
+        "s|idx|public.address_user_id_idx",
+        "n|idx|public.address_user_id_idx",
+        "e|idx|public.address_user_id_idx",
+        "n|rel|public.address_user_id_idx"
+      ],
+      "reads": [
+        "n|tbl|public.address",
+        "n|sch|public",
+        "n|col|public.address.user_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "discount_redemption",
+        "discount_redemption_discount_email_idx"
+      ],
+      "writes": [
+        "s|idx|public.discount_redemption_discount_email_idx",
+        "n|idx|public.discount_redemption_discount_email_idx",
+        "e|idx|public.discount_redemption_discount_email_idx",
+        "n|rel|public.discount_redemption_discount_email_idx"
+      ],
+      "reads": [
+        "n|tbl|public.discount_redemption",
+        "n|sch|public",
+        "n|col|public.discount_redemption.discount_id",
+        "n|col|public.discount_redemption.email"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "order",
+        "order_user_id_idx"
+      ],
+      "writes": [
+        "s|idx|public.order_user_id_idx",
+        "n|idx|public.order_user_id_idx",
+        "e|idx|public.order_user_id_idx",
+        "n|rel|public.order_user_id_idx"
+      ],
+      "reads": [
+        "n|tbl|public.order",
+        "n|sch|public",
+        "n|col|public.order.user_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "order",
+        "order_email_idx"
+      ],
+      "writes": [
+        "s|idx|public.order_email_idx",
+        "n|idx|public.order_email_idx",
+        "e|idx|public.order_email_idx",
+        "n|rel|public.order_email_idx"
+      ],
+      "reads": [
+        "n|tbl|public.order",
+        "n|sch|public",
+        "n|col|public.order.email"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "order",
+        "order_status_idx"
+      ],
+      "writes": [
+        "s|idx|public.order_status_idx",
+        "n|idx|public.order_status_idx",
+        "e|idx|public.order_status_idx",
+        "n|rel|public.order_status_idx"
+      ],
+      "reads": [
+        "n|tbl|public.order",
+        "n|sch|public",
+        "n|col|public.order.status"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "order",
+        "order_created_at_idx"
+      ],
+      "writes": [
+        "s|idx|public.order_created_at_idx",
+        "n|idx|public.order_created_at_idx",
+        "e|idx|public.order_created_at_idx",
+        "n|rel|public.order_created_at_idx"
+      ],
+      "reads": [
+        "n|tbl|public.order",
+        "n|sch|public",
+        "n|col|public.order.created_at"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "order_item",
+        "order_item_order_id_idx"
+      ],
+      "writes": [
+        "s|idx|public.order_item_order_id_idx",
+        "n|idx|public.order_item_order_id_idx",
+        "e|idx|public.order_item_order_id_idx",
+        "n|rel|public.order_item_order_id_idx"
+      ],
+      "reads": [
+        "n|tbl|public.order_item",
+        "n|sch|public",
+        "n|col|public.order_item.order_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "order_item",
+        "order_item_variant_id_idx"
+      ],
+      "writes": [
+        "s|idx|public.order_item_variant_id_idx",
+        "n|idx|public.order_item_variant_id_idx",
+        "e|idx|public.order_item_variant_id_idx",
+        "n|rel|public.order_item_variant_id_idx"
+      ],
+      "reads": [
+        "n|tbl|public.order_item",
+        "n|sch|public",
+        "n|col|public.order_item.variant_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "order_status_event",
+        "order_status_event_order_id_idx"
+      ],
+      "writes": [
+        "s|idx|public.order_status_event_order_id_idx",
+        "n|idx|public.order_status_event_order_id_idx",
+        "e|idx|public.order_status_event_order_id_idx",
+        "n|rel|public.order_status_event_order_id_idx"
+      ],
+      "reads": [
+        "n|tbl|public.order_status_event",
+        "n|sch|public",
+        "n|col|public.order_status_event.order_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "payment",
+        "payment_order_id_idx"
+      ],
+      "writes": [
+        "s|idx|public.payment_order_id_idx",
+        "n|idx|public.payment_order_id_idx",
+        "e|idx|public.payment_order_id_idx",
+        "n|rel|public.payment_order_id_idx"
+      ],
+      "reads": [
+        "n|tbl|public.payment",
+        "n|sch|public",
+        "n|col|public.payment.order_id"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "payment",
+        "payment_provider_reference_idx"
+      ],
+      "writes": [
+        "s|idx|public.payment_provider_reference_idx",
+        "n|idx|public.payment_provider_reference_idx",
+        "e|idx|public.payment_provider_reference_idx",
+        "n|rel|public.payment_provider_reference_idx"
+      ],
+      "reads": [
+        "n|tbl|public.payment",
+        "n|sch|public",
+        "n|col|public.payment.provider",
+        "n|col|public.payment.provider_reference"
+      ]
+    },
+    {
+      "statementType": "create_index",
+      "statementTarget": [
+        "index",
+        "public",
+        "review",
+        "review_product_id_idx"
+      ],
+      "writes": [
+        "s|idx|public.review_product_id_idx",
+        "n|idx|public.review_product_id_idx",
+        "e|idx|public.review_product_id_idx",
+        "n|rel|public.review_product_id_idx"
+      ],
+      "reads": [
+        "n|tbl|public.review",
+        "n|sch|public",
+        "n|col|public.review.product_id",
+        "n|col|public.review.status"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "attribute_option"
+      ],
+      "writes": [
+        "s|fk|public.attribute_option.attribute_option_attribute_id_attribute_id_fkey",
+        "n|fk|public.attribute_option.attribute_option_attribute_id_attribute_id_fkey",
+        "e|fk|public.attribute_option.attribute_option_attribute_id_attribute_id_fkey",
+        "n|con|public.attribute_option.attribute_option_attribute_id_attribute_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.attribute_option",
+        "n|sch|public",
+        "n|tbl|public.attribute",
+        "n|sch|public",
+        "n|col|public.attribute_option.attribute_id",
+        "n|col|public.attribute.id",
+        "e|uniqueness|public.attribute.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "category_attribute"
+      ],
+      "writes": [
+        "s|fk|public.category_attribute.category_attribute_category_id_category_id_fkey",
+        "n|fk|public.category_attribute.category_attribute_category_id_category_id_fkey",
+        "e|fk|public.category_attribute.category_attribute_category_id_category_id_fkey",
+        "n|con|public.category_attribute.category_attribute_category_id_category_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.category_attribute",
+        "n|sch|public",
+        "n|tbl|public.category",
+        "n|sch|public",
+        "n|col|public.category_attribute.category_id",
+        "n|col|public.category.id",
+        "e|uniqueness|public.category.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "category_attribute"
+      ],
+      "writes": [
+        "s|fk|public.category_attribute.category_attribute_attribute_id_attribute_id_fkey",
+        "n|fk|public.category_attribute.category_attribute_attribute_id_attribute_id_fkey",
+        "e|fk|public.category_attribute.category_attribute_attribute_id_attribute_id_fkey",
+        "n|con|public.category_attribute.category_attribute_attribute_id_attribute_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.category_attribute",
+        "n|sch|public",
+        "n|tbl|public.attribute",
+        "n|sch|public",
+        "n|col|public.category_attribute.attribute_id",
+        "n|col|public.attribute.id",
+        "e|uniqueness|public.attribute.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "product_attribute_value"
+      ],
+      "writes": [
+        "s|fk|public.product_attribute_value.product_attribute_value_product_id_product_id_fkey",
+        "n|fk|public.product_attribute_value.product_attribute_value_product_id_product_id_fkey",
+        "e|fk|public.product_attribute_value.product_attribute_value_product_id_product_id_fkey",
+        "n|con|public.product_attribute_value.product_attribute_value_product_id_product_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.product_attribute_value",
+        "n|sch|public",
+        "n|tbl|public.product",
+        "n|sch|public",
+        "n|col|public.product_attribute_value.product_id",
+        "n|col|public.product.id",
+        "e|uniqueness|public.product.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "product_attribute_value"
+      ],
+      "writes": [
+        "s|fk|public.product_attribute_value.product_attribute_value_attribute_id_attribute_id_fkey",
+        "n|fk|public.product_attribute_value.product_attribute_value_attribute_id_attribute_id_fkey",
+        "e|fk|public.product_attribute_value.product_attribute_value_attribute_id_attribute_id_fkey",
+        "n|con|public.product_attribute_value.product_attribute_value_attribute_id_attribute_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.product_attribute_value",
+        "n|sch|public",
+        "n|tbl|public.attribute",
+        "n|sch|public",
+        "n|col|public.product_attribute_value.attribute_id",
+        "n|col|public.attribute.id",
+        "e|uniqueness|public.attribute.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "product_attribute_value"
+      ],
+      "writes": [
+        "s|fk|public.product_attribute_value.product_attribute_value_variant_fk",
+        "n|fk|public.product_attribute_value.product_attribute_value_variant_fk",
+        "e|fk|public.product_attribute_value.product_attribute_value_variant_fk",
+        "n|con|public.product_attribute_value.product_attribute_value_variant_fk"
+      ],
+      "reads": [
+        "n|tbl|public.product_attribute_value",
+        "n|sch|public",
+        "n|tbl|public.product_variant",
+        "n|sch|public",
+        "n|col|public.product_attribute_value.product_id",
+        "n|col|public.product_attribute_value.variant_id",
+        "n|col|public.product_variant.product_id",
+        "n|col|public.product_variant.id",
+        "e|uniqueness|public.product_variant.id.product_id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "product_attribute_value"
+      ],
+      "writes": [
+        "s|fk|public.product_attribute_value.product_attribute_value_option_fk",
+        "n|fk|public.product_attribute_value.product_attribute_value_option_fk",
+        "e|fk|public.product_attribute_value.product_attribute_value_option_fk",
+        "n|con|public.product_attribute_value.product_attribute_value_option_fk"
+      ],
+      "reads": [
+        "n|tbl|public.product_attribute_value",
+        "n|sch|public",
+        "n|tbl|public.attribute_option",
+        "n|sch|public",
+        "n|col|public.product_attribute_value.attribute_id",
+        "n|col|public.product_attribute_value.option_id",
+        "n|col|public.attribute_option.attribute_id",
+        "n|col|public.attribute_option.id",
+        "e|uniqueness|public.attribute_option.attribute_id.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "account"
+      ],
+      "writes": [
+        "s|fk|public.account.account_user_id_user_id_fkey",
+        "n|fk|public.account.account_user_id_user_id_fkey",
+        "e|fk|public.account.account_user_id_user_id_fkey",
+        "n|con|public.account.account_user_id_user_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.account",
+        "n|sch|public",
+        "n|tbl|public.user",
+        "n|sch|public",
+        "n|col|public.account.user_id",
+        "n|col|public.user.id",
+        "e|uniqueness|public.user.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "session"
+      ],
+      "writes": [
+        "s|fk|public.session.session_user_id_user_id_fkey",
+        "n|fk|public.session.session_user_id_user_id_fkey",
+        "e|fk|public.session.session_user_id_user_id_fkey",
+        "n|con|public.session.session_user_id_user_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.session",
+        "n|sch|public",
+        "n|tbl|public.user",
+        "n|sch|public",
+        "n|col|public.session.user_id",
+        "n|col|public.user.id",
+        "e|uniqueness|public.user.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "category"
+      ],
+      "writes": [
+        "s|fk|public.category.category_parent_id_category_id_fkey",
+        "n|fk|public.category.category_parent_id_category_id_fkey",
+        "e|fk|public.category.category_parent_id_category_id_fkey",
+        "n|con|public.category.category_parent_id_category_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.category",
+        "n|sch|public",
+        "n|tbl|public.category",
+        "n|sch|public",
+        "n|col|public.category.parent_id",
+        "n|col|public.category.id",
+        "e|uniqueness|public.category.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "product"
+      ],
+      "writes": [
+        "s|fk|public.product.product_brand_id_brand_id_fkey",
+        "n|fk|public.product.product_brand_id_brand_id_fkey",
+        "e|fk|public.product.product_brand_id_brand_id_fkey",
+        "n|con|public.product.product_brand_id_brand_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.product",
+        "n|sch|public",
+        "n|tbl|public.brand",
+        "n|sch|public",
+        "n|col|public.product.brand_id",
+        "n|col|public.brand.id",
+        "e|uniqueness|public.brand.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "product"
+      ],
+      "writes": [
+        "s|fk|public.product.product_category_id_category_id_fkey",
+        "n|fk|public.product.product_category_id_category_id_fkey",
+        "e|fk|public.product.product_category_id_category_id_fkey",
+        "n|con|public.product.product_category_id_category_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.product",
+        "n|sch|public",
+        "n|tbl|public.category",
+        "n|sch|public",
+        "n|col|public.product.category_id",
+        "n|col|public.category.id",
+        "e|uniqueness|public.category.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "product_image"
+      ],
+      "writes": [
+        "s|fk|public.product_image.product_image_product_id_product_id_fkey",
+        "n|fk|public.product_image.product_image_product_id_product_id_fkey",
+        "e|fk|public.product_image.product_image_product_id_product_id_fkey",
+        "n|con|public.product_image.product_image_product_id_product_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.product_image",
+        "n|sch|public",
+        "n|tbl|public.product",
+        "n|sch|public",
+        "n|col|public.product_image.product_id",
+        "n|col|public.product.id",
+        "e|uniqueness|public.product.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "product_image"
+      ],
+      "writes": [
+        "s|fk|public.product_image.product_image_variant_fk",
+        "n|fk|public.product_image.product_image_variant_fk",
+        "e|fk|public.product_image.product_image_variant_fk",
+        "n|con|public.product_image.product_image_variant_fk"
+      ],
+      "reads": [
+        "n|tbl|public.product_image",
+        "n|sch|public",
+        "n|tbl|public.product_variant",
+        "n|sch|public",
+        "n|col|public.product_image.product_id",
+        "n|col|public.product_image.variant_id",
+        "n|col|public.product_variant.product_id",
+        "n|col|public.product_variant.id",
+        "e|uniqueness|public.product_variant.id.product_id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "product_option"
+      ],
+      "writes": [
+        "s|fk|public.product_option.product_option_product_id_product_id_fkey",
+        "n|fk|public.product_option.product_option_product_id_product_id_fkey",
+        "e|fk|public.product_option.product_option_product_id_product_id_fkey",
+        "n|con|public.product_option.product_option_product_id_product_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.product_option",
+        "n|sch|public",
+        "n|tbl|public.product",
+        "n|sch|public",
+        "n|col|public.product_option.product_id",
+        "n|col|public.product.id",
+        "e|uniqueness|public.product.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "product_option_value"
+      ],
+      "writes": [
+        "s|fk|public.product_option_value.product_option_value_option_id_product_option_id_fkey",
+        "n|fk|public.product_option_value.product_option_value_option_id_product_option_id_fkey",
+        "e|fk|public.product_option_value.product_option_value_option_id_product_option_id_fkey",
+        "n|con|public.product_option_value.product_option_value_option_id_product_option_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.product_option_value",
+        "n|sch|public",
+        "n|tbl|public.product_option",
+        "n|sch|public",
+        "n|col|public.product_option_value.option_id",
+        "n|col|public.product_option.id",
+        "e|uniqueness|public.product_option.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "product_variant"
+      ],
+      "writes": [
+        "s|fk|public.product_variant.product_variant_product_id_product_id_fkey",
+        "n|fk|public.product_variant.product_variant_product_id_product_id_fkey",
+        "e|fk|public.product_variant.product_variant_product_id_product_id_fkey",
+        "n|con|public.product_variant.product_variant_product_id_product_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.product_variant",
+        "n|sch|public",
+        "n|tbl|public.product",
+        "n|sch|public",
+        "n|col|public.product_variant.product_id",
+        "n|col|public.product.id",
+        "e|uniqueness|public.product.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "product_variant_option_value"
+      ],
+      "writes": [
+        "s|fk|public.product_variant_option_value.product_variant_option_value_variant_id_product_variant_id_fkey",
+        "n|fk|public.product_variant_option_value.product_variant_option_value_variant_id_product_variant_id_fkey",
+        "e|fk|public.product_variant_option_value.product_variant_option_value_variant_id_product_variant_id_fkey",
+        "n|con|public.product_variant_option_value.product_variant_option_value_variant_id_product_variant_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.product_variant_option_value",
+        "n|sch|public",
+        "n|tbl|public.product_variant",
+        "n|sch|public",
+        "n|col|public.product_variant_option_value.variant_id",
+        "n|col|public.product_variant.id",
+        "e|uniqueness|public.product_variant.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "product_variant_option_value"
+      ],
+      "writes": [
+        "s|fk|public.product_variant_option_value.product_variant_option_value_option_id_product_option_id_fkey",
+        "n|fk|public.product_variant_option_value.product_variant_option_value_option_id_product_option_id_fkey",
+        "e|fk|public.product_variant_option_value.product_variant_option_value_option_id_product_option_id_fkey",
+        "n|con|public.product_variant_option_value.product_variant_option_value_option_id_product_option_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.product_variant_option_value",
+        "n|sch|public",
+        "n|tbl|public.product_option",
+        "n|sch|public",
+        "n|col|public.product_variant_option_value.option_id",
+        "n|col|public.product_option.id",
+        "e|uniqueness|public.product_option.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "product_variant_option_value"
+      ],
+      "writes": [
+        "s|fk|public.product_variant_option_value.product_variant_option_value_value_fk",
+        "n|fk|public.product_variant_option_value.product_variant_option_value_value_fk",
+        "e|fk|public.product_variant_option_value.product_variant_option_value_value_fk",
+        "n|con|public.product_variant_option_value.product_variant_option_value_value_fk"
+      ],
+      "reads": [
+        "n|tbl|public.product_variant_option_value",
+        "n|sch|public",
+        "n|tbl|public.product_option_value",
+        "n|sch|public",
+        "n|col|public.product_variant_option_value.option_id",
+        "n|col|public.product_variant_option_value.option_value_id",
+        "n|col|public.product_option_value.option_id",
+        "n|col|public.product_option_value.id",
+        "e|uniqueness|public.product_option_value.id.option_id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "address"
+      ],
+      "writes": [
+        "s|fk|public.address.address_user_id_user_id_fkey",
+        "n|fk|public.address.address_user_id_user_id_fkey",
+        "e|fk|public.address.address_user_id_user_id_fkey",
+        "n|con|public.address.address_user_id_user_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.address",
+        "n|sch|public",
+        "n|tbl|public.user",
+        "n|sch|public",
+        "n|col|public.address.user_id",
+        "n|col|public.user.id",
+        "e|uniqueness|public.user.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "cart"
+      ],
+      "writes": [
+        "s|fk|public.cart.cart_user_id_user_id_fkey",
+        "n|fk|public.cart.cart_user_id_user_id_fkey",
+        "e|fk|public.cart.cart_user_id_user_id_fkey",
+        "n|con|public.cart.cart_user_id_user_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.cart",
+        "n|sch|public",
+        "n|tbl|public.user",
+        "n|sch|public",
+        "n|col|public.cart.user_id",
+        "n|col|public.user.id",
+        "e|uniqueness|public.user.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "cart"
+      ],
+      "writes": [
+        "s|fk|public.cart.cart_discount_id_discount_id_fkey",
+        "n|fk|public.cart.cart_discount_id_discount_id_fkey",
+        "e|fk|public.cart.cart_discount_id_discount_id_fkey",
+        "n|con|public.cart.cart_discount_id_discount_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.cart",
+        "n|sch|public",
+        "n|tbl|public.discount",
+        "n|sch|public",
+        "n|col|public.cart.discount_id",
+        "n|col|public.discount.id",
+        "e|uniqueness|public.discount.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "cart_item"
+      ],
+      "writes": [
+        "s|fk|public.cart_item.cart_item_cart_id_cart_id_fkey",
+        "n|fk|public.cart_item.cart_item_cart_id_cart_id_fkey",
+        "e|fk|public.cart_item.cart_item_cart_id_cart_id_fkey",
+        "n|con|public.cart_item.cart_item_cart_id_cart_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.cart_item",
+        "n|sch|public",
+        "n|tbl|public.cart",
+        "n|sch|public",
+        "n|col|public.cart_item.cart_id",
+        "n|col|public.cart.id",
+        "e|uniqueness|public.cart.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "cart_item"
+      ],
+      "writes": [
+        "s|fk|public.cart_item.cart_item_variant_id_product_variant_id_fkey",
+        "n|fk|public.cart_item.cart_item_variant_id_product_variant_id_fkey",
+        "e|fk|public.cart_item.cart_item_variant_id_product_variant_id_fkey",
+        "n|con|public.cart_item.cart_item_variant_id_product_variant_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.cart_item",
+        "n|sch|public",
+        "n|tbl|public.product_variant",
+        "n|sch|public",
+        "n|col|public.cart_item.variant_id",
+        "n|col|public.product_variant.id",
+        "e|uniqueness|public.product_variant.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "wishlist_item"
+      ],
+      "writes": [
+        "s|fk|public.wishlist_item.wishlist_item_user_id_user_id_fkey",
+        "n|fk|public.wishlist_item.wishlist_item_user_id_user_id_fkey",
+        "e|fk|public.wishlist_item.wishlist_item_user_id_user_id_fkey",
+        "n|con|public.wishlist_item.wishlist_item_user_id_user_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.wishlist_item",
+        "n|sch|public",
+        "n|tbl|public.user",
+        "n|sch|public",
+        "n|col|public.wishlist_item.user_id",
+        "n|col|public.user.id",
+        "e|uniqueness|public.user.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "wishlist_item"
+      ],
+      "writes": [
+        "s|fk|public.wishlist_item.wishlist_item_product_id_product_id_fkey",
+        "n|fk|public.wishlist_item.wishlist_item_product_id_product_id_fkey",
+        "e|fk|public.wishlist_item.wishlist_item_product_id_product_id_fkey",
+        "n|con|public.wishlist_item.wishlist_item_product_id_product_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.wishlist_item",
+        "n|sch|public",
+        "n|tbl|public.product",
+        "n|sch|public",
+        "n|col|public.wishlist_item.product_id",
+        "n|col|public.product.id",
+        "e|uniqueness|public.product.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "discount_redemption"
+      ],
+      "writes": [
+        "s|fk|public.discount_redemption.discount_redemption_discount_id_discount_id_fkey",
+        "n|fk|public.discount_redemption.discount_redemption_discount_id_discount_id_fkey",
+        "e|fk|public.discount_redemption.discount_redemption_discount_id_discount_id_fkey",
+        "n|con|public.discount_redemption.discount_redemption_discount_id_discount_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.discount_redemption",
+        "n|sch|public",
+        "n|tbl|public.discount",
+        "n|sch|public",
+        "n|col|public.discount_redemption.discount_id",
+        "n|col|public.discount.id",
+        "e|uniqueness|public.discount.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "discount_redemption"
+      ],
+      "writes": [
+        "s|fk|public.discount_redemption.discount_redemption_order_id_order_id_fkey",
+        "n|fk|public.discount_redemption.discount_redemption_order_id_order_id_fkey",
+        "e|fk|public.discount_redemption.discount_redemption_order_id_order_id_fkey",
+        "n|con|public.discount_redemption.discount_redemption_order_id_order_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.discount_redemption",
+        "n|sch|public",
+        "n|tbl|public.order",
+        "n|sch|public",
+        "n|col|public.discount_redemption.order_id",
+        "n|col|public.order.id",
+        "e|uniqueness|public.order.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "discount_redemption"
+      ],
+      "writes": [
+        "s|fk|public.discount_redemption.discount_redemption_user_id_user_id_fkey",
+        "n|fk|public.discount_redemption.discount_redemption_user_id_user_id_fkey",
+        "e|fk|public.discount_redemption.discount_redemption_user_id_user_id_fkey",
+        "n|con|public.discount_redemption.discount_redemption_user_id_user_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.discount_redemption",
+        "n|sch|public",
+        "n|tbl|public.user",
+        "n|sch|public",
+        "n|col|public.discount_redemption.user_id",
+        "n|col|public.user.id",
+        "e|uniqueness|public.user.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "order"
+      ],
+      "writes": [
+        "s|fk|public.order.order_user_id_user_id_fkey",
+        "n|fk|public.order.order_user_id_user_id_fkey",
+        "e|fk|public.order.order_user_id_user_id_fkey",
+        "n|con|public.order.order_user_id_user_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.order",
+        "n|sch|public",
+        "n|tbl|public.user",
+        "n|sch|public",
+        "n|col|public.order.user_id",
+        "n|col|public.user.id",
+        "e|uniqueness|public.user.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "order"
+      ],
+      "writes": [
+        "s|fk|public.order.order_discount_id_discount_id_fkey",
+        "n|fk|public.order.order_discount_id_discount_id_fkey",
+        "e|fk|public.order.order_discount_id_discount_id_fkey",
+        "n|con|public.order.order_discount_id_discount_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.order",
+        "n|sch|public",
+        "n|tbl|public.discount",
+        "n|sch|public",
+        "n|col|public.order.discount_id",
+        "n|col|public.discount.id",
+        "e|uniqueness|public.discount.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "order"
+      ],
+      "writes": [
+        "s|fk|public.order.order_shipping_method_id_shipping_method_id_fkey",
+        "n|fk|public.order.order_shipping_method_id_shipping_method_id_fkey",
+        "e|fk|public.order.order_shipping_method_id_shipping_method_id_fkey",
+        "n|con|public.order.order_shipping_method_id_shipping_method_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.order",
+        "n|sch|public",
+        "n|tbl|public.shipping_method",
+        "n|sch|public",
+        "n|col|public.order.shipping_method_id",
+        "n|col|public.shipping_method.id",
+        "e|uniqueness|public.shipping_method.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "order_item"
+      ],
+      "writes": [
+        "s|fk|public.order_item.order_item_order_id_order_id_fkey",
+        "n|fk|public.order_item.order_item_order_id_order_id_fkey",
+        "e|fk|public.order_item.order_item_order_id_order_id_fkey",
+        "n|con|public.order_item.order_item_order_id_order_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.order_item",
+        "n|sch|public",
+        "n|tbl|public.order",
+        "n|sch|public",
+        "n|col|public.order_item.order_id",
+        "n|col|public.order.id",
+        "e|uniqueness|public.order.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "order_item"
+      ],
+      "writes": [
+        "s|fk|public.order_item.order_item_product_id_product_id_fkey",
+        "n|fk|public.order_item.order_item_product_id_product_id_fkey",
+        "e|fk|public.order_item.order_item_product_id_product_id_fkey",
+        "n|con|public.order_item.order_item_product_id_product_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.order_item",
+        "n|sch|public",
+        "n|tbl|public.product",
+        "n|sch|public",
+        "n|col|public.order_item.product_id",
+        "n|col|public.product.id",
+        "e|uniqueness|public.product.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "order_item"
+      ],
+      "writes": [
+        "s|fk|public.order_item.order_item_variant_id_product_variant_id_fkey",
+        "n|fk|public.order_item.order_item_variant_id_product_variant_id_fkey",
+        "e|fk|public.order_item.order_item_variant_id_product_variant_id_fkey",
+        "n|con|public.order_item.order_item_variant_id_product_variant_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.order_item",
+        "n|sch|public",
+        "n|tbl|public.product_variant",
+        "n|sch|public",
+        "n|col|public.order_item.variant_id",
+        "n|col|public.product_variant.id",
+        "e|uniqueness|public.product_variant.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "order_status_event"
+      ],
+      "writes": [
+        "s|fk|public.order_status_event.order_status_event_order_id_order_id_fkey",
+        "n|fk|public.order_status_event.order_status_event_order_id_order_id_fkey",
+        "e|fk|public.order_status_event.order_status_event_order_id_order_id_fkey",
+        "n|con|public.order_status_event.order_status_event_order_id_order_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.order_status_event",
+        "n|sch|public",
+        "n|tbl|public.order",
+        "n|sch|public",
+        "n|col|public.order_status_event.order_id",
+        "n|col|public.order.id",
+        "e|uniqueness|public.order.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "order_status_event"
+      ],
+      "writes": [
+        "s|fk|public.order_status_event.order_status_event_actor_id_user_id_fkey",
+        "n|fk|public.order_status_event.order_status_event_actor_id_user_id_fkey",
+        "e|fk|public.order_status_event.order_status_event_actor_id_user_id_fkey",
+        "n|con|public.order_status_event.order_status_event_actor_id_user_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.order_status_event",
+        "n|sch|public",
+        "n|tbl|public.user",
+        "n|sch|public",
+        "n|col|public.order_status_event.actor_id",
+        "n|col|public.user.id",
+        "e|uniqueness|public.user.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "payment"
+      ],
+      "writes": [
+        "s|fk|public.payment.payment_order_id_order_id_fkey",
+        "n|fk|public.payment.payment_order_id_order_id_fkey",
+        "e|fk|public.payment.payment_order_id_order_id_fkey",
+        "n|con|public.payment.payment_order_id_order_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.payment",
+        "n|sch|public",
+        "n|tbl|public.order",
+        "n|sch|public",
+        "n|col|public.payment.order_id",
+        "n|col|public.order.id",
+        "e|uniqueness|public.order.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "review"
+      ],
+      "writes": [
+        "s|fk|public.review.review_product_id_product_id_fkey",
+        "n|fk|public.review.review_product_id_product_id_fkey",
+        "e|fk|public.review.review_product_id_product_id_fkey",
+        "n|con|public.review.review_product_id_product_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.review",
+        "n|sch|public",
+        "n|tbl|public.product",
+        "n|sch|public",
+        "n|col|public.review.product_id",
+        "n|col|public.product.id",
+        "e|uniqueness|public.product.id"
+      ]
+    },
+    {
+      "statementType": "create_fk",
+      "statementTarget": [
+        "table",
+        "public",
+        "review"
+      ],
+      "writes": [
+        "s|fk|public.review.review_user_id_user_id_fkey",
+        "n|fk|public.review.review_user_id_user_id_fkey",
+        "e|fk|public.review.review_user_id_user_id_fkey",
+        "n|con|public.review.review_user_id_user_id_fkey"
+      ],
+      "reads": [
+        "n|tbl|public.review",
+        "n|sch|public",
+        "n|tbl|public.user",
+        "n|sch|public",
+        "n|col|public.review.user_id",
+        "n|col|public.user.id",
+        "e|uniqueness|public.user.id"
+      ]
+    }
+  ],
+  "ddl": [
+    {
+      "schema": "public",
+      "name": "attribute",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "attribute_option",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "category_attribute",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "product_attribute_value",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "account",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "session",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "user",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "verification",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "brand",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "category",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "product",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "product_image",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "product_option",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "product_option_value",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "product_variant",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "product_variant_option_value",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "discount",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "shipping_method",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "address",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "cart",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "cart_item",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "wishlist_item",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "discount_redemption",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "order",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "order_item",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "order_status_event",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "payment",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "review",
+      "isRlsEnabled": false,
+      "entityType": "tables"
+    },
+    {
+      "schema": "public",
+      "name": "attribute_type",
+      "values": [
+        "text",
+        "number",
+        "boolean",
+        "select",
+        "multiselect"
+      ],
+      "entityType": "enums"
+    },
+    {
+      "schema": "public",
+      "name": "product_status",
+      "values": [
+        "draft",
+        "active",
+        "archived"
+      ],
+      "entityType": "enums"
+    },
+    {
+      "schema": "public",
+      "name": "discount_kind",
+      "values": [
+        "percent",
+        "fixed",
+        "free_shipping"
+      ],
+      "entityType": "enums"
+    },
+    {
+      "schema": "public",
+      "name": "order_status",
+      "values": [
+        "pending",
+        "processing",
+        "shipped",
+        "delivered",
+        "cancelled",
+        "refunded"
+      ],
+      "entityType": "enums"
+    },
+    {
+      "schema": "public",
+      "name": "payment_status",
+      "values": [
+        "pending",
+        "authorized",
+        "paid",
+        "failed",
+        "refunded",
+        "partially_refunded"
+      ],
+      "entityType": "enums"
+    },
+    {
+      "schema": "public",
+      "name": "review_status",
+      "values": [
+        "pending",
+        "published",
+        "rejected"
+      ],
+      "entityType": "enums"
+    },
+    {
+      "schema": "public",
+      "table": "attribute",
+      "name": "id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "gen_random_uuid()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "attribute",
+      "name": "slug",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "attribute",
+      "name": "name",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "attribute",
+      "name": "description",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "attribute",
+      "name": "type",
+      "type": "attribute_type",
+      "typeSchema": "public",
+      "notNull": true,
+      "dimensions": 0,
+      "default": "'text'",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "attribute",
+      "name": "unit",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "attribute",
+      "name": "is_filterable",
+      "type": "boolean",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "false",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "attribute",
+      "name": "position",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "0",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "attribute",
+      "name": "created_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "attribute",
+      "name": "updated_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "attribute_option",
+      "name": "id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "gen_random_uuid()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "attribute_option",
+      "name": "attribute_id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "attribute_option",
+      "name": "value",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "attribute_option",
+      "name": "position",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "0",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "category_attribute",
+      "name": "category_id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "category_attribute",
+      "name": "attribute_id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "category_attribute",
+      "name": "is_required",
+      "type": "boolean",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "false",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "category_attribute",
+      "name": "position",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "0",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product_attribute_value",
+      "name": "id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "gen_random_uuid()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product_attribute_value",
+      "name": "product_id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product_attribute_value",
+      "name": "variant_id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product_attribute_value",
+      "name": "attribute_id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product_attribute_value",
+      "name": "value_text",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product_attribute_value",
+      "name": "value_number",
+      "type": "numeric",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product_attribute_value",
+      "name": "value_boolean",
+      "type": "boolean",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product_attribute_value",
+      "name": "option_id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product_attribute_value",
+      "name": "position",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "0",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "account",
+      "name": "id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "account",
+      "name": "user_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "account",
+      "name": "account_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "account",
+      "name": "provider_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "account",
+      "name": "access_token",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "account",
+      "name": "refresh_token",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "account",
+      "name": "id_token",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "account",
+      "name": "access_token_expires_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "account",
+      "name": "refresh_token_expires_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "account",
+      "name": "scope",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "account",
+      "name": "password",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "account",
+      "name": "created_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "account",
+      "name": "updated_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "session",
+      "name": "id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "session",
+      "name": "user_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "session",
+      "name": "token",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "session",
+      "name": "expires_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "session",
+      "name": "ip_address",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "session",
+      "name": "user_agent",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "session",
+      "name": "impersonated_by",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "session",
+      "name": "created_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "session",
+      "name": "updated_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "user",
+      "name": "id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "user",
+      "name": "name",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "user",
+      "name": "email",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "user",
+      "name": "email_verified",
+      "type": "boolean",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "false",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "user",
+      "name": "image",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "user",
+      "name": "role",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "'customer'",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "user",
+      "name": "banned",
+      "type": "boolean",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "false",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "user",
+      "name": "ban_reason",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "user",
+      "name": "ban_expires",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "user",
+      "name": "created_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "user",
+      "name": "updated_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "verification",
+      "name": "id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "verification",
+      "name": "identifier",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "verification",
+      "name": "value",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "verification",
+      "name": "expires_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "verification",
+      "name": "created_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "verification",
+      "name": "updated_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "brand",
+      "name": "id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "gen_random_uuid()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "brand",
+      "name": "slug",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "brand",
+      "name": "name",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "brand",
+      "name": "description",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "brand",
+      "name": "logo",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "brand",
+      "name": "created_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "brand",
+      "name": "updated_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "category",
+      "name": "id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "gen_random_uuid()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "category",
+      "name": "parent_id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "category",
+      "name": "slug",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "category",
+      "name": "name",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "category",
+      "name": "description",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "category",
+      "name": "image",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "category",
+      "name": "position",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "0",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "category",
+      "name": "is_active",
+      "type": "boolean",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "true",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "category",
+      "name": "created_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "category",
+      "name": "updated_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product",
+      "name": "id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "gen_random_uuid()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product",
+      "name": "slug",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product",
+      "name": "name",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product",
+      "name": "brand_id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product",
+      "name": "category_id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product",
+      "name": "description",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "''",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product",
+      "name": "highlights",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 1,
+      "default": "'{}'",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product",
+      "name": "tags",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 1,
+      "default": "'{}'",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product",
+      "name": "status",
+      "type": "product_status",
+      "typeSchema": "public",
+      "notNull": true,
+      "dimensions": 0,
+      "default": "'draft'",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product",
+      "name": "featured",
+      "type": "boolean",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "false",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product",
+      "name": "rating_average",
+      "type": "numeric(3,2)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "'0'",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product",
+      "name": "review_count",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "0",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product",
+      "name": "seo_title",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product",
+      "name": "seo_description",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product",
+      "name": "metadata",
+      "type": "jsonb",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "'{}'",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product",
+      "name": "published_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product",
+      "name": "created_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product",
+      "name": "updated_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product_image",
+      "name": "id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "gen_random_uuid()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product_image",
+      "name": "product_id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product_image",
+      "name": "variant_id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product_image",
+      "name": "url",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product_image",
+      "name": "alt",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "''",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product_image",
+      "name": "position",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "0",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product_image",
+      "name": "created_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product_image",
+      "name": "updated_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product_option",
+      "name": "id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "gen_random_uuid()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product_option",
+      "name": "product_id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product_option",
+      "name": "name",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product_option",
+      "name": "position",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "0",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product_option_value",
+      "name": "id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "gen_random_uuid()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product_option_value",
+      "name": "option_id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product_option_value",
+      "name": "value",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product_option_value",
+      "name": "swatch",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product_option_value",
+      "name": "position",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "0",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product_variant",
+      "name": "id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "gen_random_uuid()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product_variant",
+      "name": "product_id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product_variant",
+      "name": "sku",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product_variant",
+      "name": "barcode",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product_variant",
+      "name": "title",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "''",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product_variant",
+      "name": "price",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product_variant",
+      "name": "compare_at_price",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product_variant",
+      "name": "cost_price",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product_variant",
+      "name": "stock",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "0",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product_variant",
+      "name": "track_inventory",
+      "type": "boolean",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "true",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product_variant",
+      "name": "allow_backorder",
+      "type": "boolean",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "false",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product_variant",
+      "name": "weight_grams",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product_variant",
+      "name": "is_default",
+      "type": "boolean",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "false",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product_variant",
+      "name": "is_active",
+      "type": "boolean",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "true",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product_variant",
+      "name": "position",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "0",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product_variant",
+      "name": "created_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product_variant",
+      "name": "updated_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product_variant_option_value",
+      "name": "variant_id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product_variant_option_value",
+      "name": "option_id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product_variant_option_value",
+      "name": "option_value_id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "discount",
+      "name": "id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "gen_random_uuid()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "discount",
+      "name": "code",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "discount",
+      "name": "description",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "''",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "discount",
+      "name": "kind",
+      "type": "discount_kind",
+      "typeSchema": "public",
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "discount",
+      "name": "value",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "0",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "discount",
+      "name": "min_subtotal",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "discount",
+      "name": "starts_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "discount",
+      "name": "ends_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "discount",
+      "name": "usage_limit",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "discount",
+      "name": "usage_limit_per_customer",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "discount",
+      "name": "used_count",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "0",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "discount",
+      "name": "is_active",
+      "type": "boolean",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "true",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "discount",
+      "name": "created_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "discount",
+      "name": "updated_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "shipping_method",
+      "name": "id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "gen_random_uuid()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "shipping_method",
+      "name": "code",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "shipping_method",
+      "name": "name",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "shipping_method",
+      "name": "description",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "shipping_method",
+      "name": "price",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "shipping_method",
+      "name": "free_over_subtotal",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "shipping_method",
+      "name": "min_delivery_days",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "shipping_method",
+      "name": "max_delivery_days",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "shipping_method",
+      "name": "is_active",
+      "type": "boolean",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "true",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "shipping_method",
+      "name": "position",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "0",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "shipping_method",
+      "name": "created_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "shipping_method",
+      "name": "updated_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "address",
+      "name": "id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "gen_random_uuid()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "address",
+      "name": "user_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "address",
+      "name": "label",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "address",
+      "name": "first_name",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "address",
+      "name": "last_name",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "address",
+      "name": "company",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "address",
+      "name": "address1",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "address",
+      "name": "address2",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "address",
+      "name": "city",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "address",
+      "name": "region",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "address",
+      "name": "postal_code",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "address",
+      "name": "country",
+      "type": "char(2)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "address",
+      "name": "phone",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "address",
+      "name": "is_default_shipping",
+      "type": "boolean",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "false",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "address",
+      "name": "is_default_billing",
+      "type": "boolean",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "false",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "address",
+      "name": "created_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "address",
+      "name": "updated_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "cart",
+      "name": "id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "gen_random_uuid()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "cart",
+      "name": "user_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "cart",
+      "name": "token",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "cart",
+      "name": "discount_id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "cart",
+      "name": "expires_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "cart",
+      "name": "created_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "cart",
+      "name": "updated_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "cart_item",
+      "name": "id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "gen_random_uuid()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "cart_item",
+      "name": "cart_id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "cart_item",
+      "name": "variant_id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "cart_item",
+      "name": "quantity",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "cart_item",
+      "name": "created_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "cart_item",
+      "name": "updated_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "wishlist_item",
+      "name": "user_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "wishlist_item",
+      "name": "product_id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "wishlist_item",
+      "name": "created_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "discount_redemption",
+      "name": "id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "gen_random_uuid()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "discount_redemption",
+      "name": "discount_id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "discount_redemption",
+      "name": "order_id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "discount_redemption",
+      "name": "user_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "discount_redemption",
+      "name": "email",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "discount_redemption",
+      "name": "amount",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "discount_redemption",
+      "name": "created_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "order",
+      "name": "id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "gen_random_uuid()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "order",
+      "name": "number",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "order",
+      "name": "user_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "order",
+      "name": "email",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "order",
+      "name": "status",
+      "type": "order_status",
+      "typeSchema": "public",
+      "notNull": true,
+      "dimensions": 0,
+      "default": "'pending'",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "order",
+      "name": "payment_status",
+      "type": "payment_status",
+      "typeSchema": "public",
+      "notNull": true,
+      "dimensions": 0,
+      "default": "'pending'",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "order",
+      "name": "currency",
+      "type": "char(3)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "'USD'",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "order",
+      "name": "subtotal",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "order",
+      "name": "discount_total",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "0",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "order",
+      "name": "shipping_total",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "0",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "order",
+      "name": "tax_total",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "0",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "order",
+      "name": "total",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "order",
+      "name": "discount_id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "order",
+      "name": "discount_code",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "order",
+      "name": "shipping_method_id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "order",
+      "name": "shipping_method_name",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "order",
+      "name": "shipping_address",
+      "type": "jsonb",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "order",
+      "name": "billing_address",
+      "type": "jsonb",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "order",
+      "name": "customer_note",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "order",
+      "name": "cancelled_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "order",
+      "name": "created_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "order",
+      "name": "updated_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "order_item",
+      "name": "id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "gen_random_uuid()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "order_item",
+      "name": "order_id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "order_item",
+      "name": "product_id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "order_item",
+      "name": "variant_id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "order_item",
+      "name": "product_name",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "order_item",
+      "name": "product_slug",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "order_item",
+      "name": "brand_name",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "order_item",
+      "name": "variant_title",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "''",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "order_item",
+      "name": "options",
+      "type": "jsonb",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "'[]'",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "order_item",
+      "name": "sku",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "order_item",
+      "name": "image",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "order_item",
+      "name": "unit_price",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "order_item",
+      "name": "quantity",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "order_item",
+      "name": "line_total",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "order_item",
+      "name": "created_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "order_status_event",
+      "name": "id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "gen_random_uuid()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "order_status_event",
+      "name": "order_id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "order_status_event",
+      "name": "status",
+      "type": "order_status",
+      "typeSchema": "public",
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "order_status_event",
+      "name": "note",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "order_status_event",
+      "name": "actor_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "order_status_event",
+      "name": "created_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "payment",
+      "name": "id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "gen_random_uuid()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "payment",
+      "name": "order_id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "payment",
+      "name": "provider",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "payment",
+      "name": "provider_reference",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "payment",
+      "name": "status",
+      "type": "payment_status",
+      "typeSchema": "public",
+      "notNull": true,
+      "dimensions": 0,
+      "default": "'pending'",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "payment",
+      "name": "amount",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "payment",
+      "name": "refunded_amount",
+      "type": "integer",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "0",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "payment",
+      "name": "currency",
+      "type": "char(3)",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "'USD'",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "payment",
+      "name": "card_brand",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "payment",
+      "name": "card_last4",
+      "type": "char(4)",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "payment",
+      "name": "failure_reason",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "payment",
+      "name": "created_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "payment",
+      "name": "updated_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "review",
+      "name": "id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "gen_random_uuid()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "review",
+      "name": "product_id",
+      "type": "uuid",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "review",
+      "name": "user_id",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": false,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "review",
+      "name": "author_name",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "review",
+      "name": "rating",
+      "type": "smallint",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "review",
+      "name": "title",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "review",
+      "name": "body",
+      "type": "text",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": null,
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "review",
+      "name": "status",
+      "type": "review_status",
+      "typeSchema": "public",
+      "notNull": true,
+      "dimensions": 0,
+      "default": "'published'",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "review",
+      "name": "is_verified_purchase",
+      "type": "boolean",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "false",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "review",
+      "name": "created_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "review",
+      "name": "updated_at",
+      "type": "timestamp with time zone",
+      "typeSchema": null,
+      "notNull": true,
+      "dimensions": 0,
+      "default": "now()",
+      "generated": null,
+      "identity": null,
+      "entityType": "columns"
+    },
+    {
+      "schema": "public",
+      "table": "product_attribute_value",
+      "name": "product_attribute_value_product_id_idx",
+      "nameExplicit": true,
+      "columns": [
+        {
+          "value": "product_id",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "product_attribute_value",
+      "name": "product_attribute_value_option_idx",
+      "nameExplicit": true,
+      "columns": [
+        {
+          "value": "attribute_id",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        },
+        {
+          "value": "option_id",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "product_attribute_value",
+      "name": "product_attribute_value_number_idx",
+      "nameExplicit": true,
+      "columns": [
+        {
+          "value": "attribute_id",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        },
+        {
+          "value": "value_number",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "account",
+      "name": "account_user_id_idx",
+      "nameExplicit": true,
+      "columns": [
+        {
+          "value": "user_id",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "session",
+      "name": "session_user_id_idx",
+      "nameExplicit": true,
+      "columns": [
+        {
+          "value": "user_id",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "verification",
+      "name": "verification_identifier_idx",
+      "nameExplicit": true,
+      "columns": [
+        {
+          "value": "identifier",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "category",
+      "name": "category_parent_id_idx",
+      "nameExplicit": true,
+      "columns": [
+        {
+          "value": "parent_id",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "product",
+      "name": "product_category_id_idx",
+      "nameExplicit": true,
+      "columns": [
+        {
+          "value": "category_id",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "product",
+      "name": "product_brand_id_idx",
+      "nameExplicit": true,
+      "columns": [
+        {
+          "value": "brand_id",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "product",
+      "name": "product_status_idx",
+      "nameExplicit": true,
+      "columns": [
+        {
+          "value": "status",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "product_image",
+      "name": "product_image_product_id_idx",
+      "nameExplicit": true,
+      "columns": [
+        {
+          "value": "product_id",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "product_variant",
+      "name": "product_variant_product_id_idx",
+      "nameExplicit": true,
+      "columns": [
+        {
+          "value": "product_id",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "product_variant",
+      "name": "product_variant_one_default_uq",
+      "nameExplicit": true,
+      "columns": [
+        {
+          "value": "product_id",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": true,
+      "where": "\"is_default\"",
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "product_variant_option_value",
+      "name": "product_variant_option_value_value_idx",
+      "nameExplicit": true,
+      "columns": [
+        {
+          "value": "option_value_id",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "address",
+      "name": "address_user_id_idx",
+      "nameExplicit": true,
+      "columns": [
+        {
+          "value": "user_id",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "discount_redemption",
+      "name": "discount_redemption_discount_email_idx",
+      "nameExplicit": true,
+      "columns": [
+        {
+          "value": "discount_id",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        },
+        {
+          "value": "email",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "order",
+      "name": "order_user_id_idx",
+      "nameExplicit": true,
+      "columns": [
+        {
+          "value": "user_id",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "order",
+      "name": "order_email_idx",
+      "nameExplicit": true,
+      "columns": [
+        {
+          "value": "email",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "order",
+      "name": "order_status_idx",
+      "nameExplicit": true,
+      "columns": [
+        {
+          "value": "status",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "order",
+      "name": "order_created_at_idx",
+      "nameExplicit": true,
+      "columns": [
+        {
+          "value": "created_at",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "order_item",
+      "name": "order_item_order_id_idx",
+      "nameExplicit": true,
+      "columns": [
+        {
+          "value": "order_id",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "order_item",
+      "name": "order_item_variant_id_idx",
+      "nameExplicit": true,
+      "columns": [
+        {
+          "value": "variant_id",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "order_status_event",
+      "name": "order_status_event_order_id_idx",
+      "nameExplicit": true,
+      "columns": [
+        {
+          "value": "order_id",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "payment",
+      "name": "payment_order_id_idx",
+      "nameExplicit": true,
+      "columns": [
+        {
+          "value": "order_id",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "payment",
+      "name": "payment_provider_reference_idx",
+      "nameExplicit": true,
+      "columns": [
+        {
+          "value": "provider",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        },
+        {
+          "value": "provider_reference",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "review",
+      "name": "review_product_id_idx",
+      "nameExplicit": true,
+      "columns": [
+        {
+          "value": "product_id",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        },
+        {
+          "value": "status",
+          "isExpression": false,
+          "asc": true,
+          "nullsFirst": false,
+          "opclass": null
+        }
+      ],
+      "isUnique": false,
+      "where": null,
+      "with": "",
+      "method": "btree",
+      "concurrently": false,
+      "entityType": "indexes"
+    },
+    {
+      "schema": "public",
+      "table": "attribute_option",
+      "name": "attribute_option_attribute_id_attribute_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "attribute_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "attribute",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "category_attribute",
+      "name": "category_attribute_category_id_category_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "category_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "category",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "category_attribute",
+      "name": "category_attribute_attribute_id_attribute_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "attribute_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "attribute",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "product_attribute_value",
+      "name": "product_attribute_value_product_id_product_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "product_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "product",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "product_attribute_value",
+      "name": "product_attribute_value_attribute_id_attribute_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "attribute_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "attribute",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "product_attribute_value",
+      "name": "product_attribute_value_variant_fk",
+      "nameExplicit": true,
+      "columns": [
+        "product_id",
+        "variant_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "product_variant",
+      "columnsTo": [
+        "product_id",
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "product_attribute_value",
+      "name": "product_attribute_value_option_fk",
+      "nameExplicit": true,
+      "columns": [
+        "attribute_id",
+        "option_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "attribute_option",
+      "columnsTo": [
+        "attribute_id",
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "account",
+      "name": "account_user_id_user_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "user_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "user",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "session",
+      "name": "session_user_id_user_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "user_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "user",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "category",
+      "name": "category_parent_id_category_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "parent_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "category",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "SET NULL",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "product",
+      "name": "product_brand_id_brand_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "brand_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "brand",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "SET NULL",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "product",
+      "name": "product_category_id_category_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "category_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "category",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "SET NULL",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "product_image",
+      "name": "product_image_product_id_product_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "product_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "product",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "product_image",
+      "name": "product_image_variant_fk",
+      "nameExplicit": true,
+      "columns": [
+        "product_id",
+        "variant_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "product_variant",
+      "columnsTo": [
+        "product_id",
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "product_option",
+      "name": "product_option_product_id_product_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "product_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "product",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "product_option_value",
+      "name": "product_option_value_option_id_product_option_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "option_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "product_option",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "product_variant",
+      "name": "product_variant_product_id_product_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "product_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "product",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "product_variant_option_value",
+      "name": "product_variant_option_value_variant_id_product_variant_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "variant_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "product_variant",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "product_variant_option_value",
+      "name": "product_variant_option_value_option_id_product_option_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "option_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "product_option",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "product_variant_option_value",
+      "name": "product_variant_option_value_value_fk",
+      "nameExplicit": true,
+      "columns": [
+        "option_id",
+        "option_value_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "product_option_value",
+      "columnsTo": [
+        "option_id",
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "address",
+      "name": "address_user_id_user_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "user_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "user",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "cart",
+      "name": "cart_user_id_user_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "user_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "user",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "cart",
+      "name": "cart_discount_id_discount_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "discount_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "discount",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "SET NULL",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "cart_item",
+      "name": "cart_item_cart_id_cart_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "cart_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "cart",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "cart_item",
+      "name": "cart_item_variant_id_product_variant_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "variant_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "product_variant",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "wishlist_item",
+      "name": "wishlist_item_user_id_user_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "user_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "user",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "wishlist_item",
+      "name": "wishlist_item_product_id_product_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "product_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "product",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "discount_redemption",
+      "name": "discount_redemption_discount_id_discount_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "discount_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "discount",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "discount_redemption",
+      "name": "discount_redemption_order_id_order_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "order_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "order",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "discount_redemption",
+      "name": "discount_redemption_user_id_user_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "user_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "user",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "SET NULL",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "order",
+      "name": "order_user_id_user_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "user_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "user",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "SET NULL",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "order",
+      "name": "order_discount_id_discount_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "discount_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "discount",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "SET NULL",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "order",
+      "name": "order_shipping_method_id_shipping_method_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "shipping_method_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "shipping_method",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "SET NULL",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "order_item",
+      "name": "order_item_order_id_order_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "order_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "order",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "order_item",
+      "name": "order_item_product_id_product_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "product_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "product",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "SET NULL",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "order_item",
+      "name": "order_item_variant_id_product_variant_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "variant_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "product_variant",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "SET NULL",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "order_status_event",
+      "name": "order_status_event_order_id_order_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "order_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "order",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "order_status_event",
+      "name": "order_status_event_actor_id_user_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "actor_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "user",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "SET NULL",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "payment",
+      "name": "payment_order_id_order_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "order_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "order",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "review",
+      "name": "review_product_id_product_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "product_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "product",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "CASCADE",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "review",
+      "name": "review_user_id_user_id_fkey",
+      "nameExplicit": false,
+      "columns": [
+        "user_id"
+      ],
+      "schemaTo": "public",
+      "tableTo": "user",
+      "columnsTo": [
+        "id"
+      ],
+      "onUpdate": "NO ACTION",
+      "onDelete": "SET NULL",
+      "entityType": "fks"
+    },
+    {
+      "schema": "public",
+      "table": "category_attribute",
+      "name": "category_attribute_pkey",
+      "columns": [
+        "category_id",
+        "attribute_id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "product_variant_option_value",
+      "name": "product_variant_option_value_pkey",
+      "columns": [
+        "variant_id",
+        "option_id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "wishlist_item",
+      "name": "wishlist_item_pkey",
+      "columns": [
+        "user_id",
+        "product_id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "attribute",
+      "name": "attribute_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "attribute_option",
+      "name": "attribute_option_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "product_attribute_value",
+      "name": "product_attribute_value_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "account",
+      "name": "account_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "session",
+      "name": "session_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "user",
+      "name": "user_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "verification",
+      "name": "verification_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "brand",
+      "name": "brand_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "category",
+      "name": "category_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "product",
+      "name": "product_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "product_image",
+      "name": "product_image_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "product_option",
+      "name": "product_option_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "product_option_value",
+      "name": "product_option_value_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "product_variant",
+      "name": "product_variant_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "discount",
+      "name": "discount_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "shipping_method",
+      "name": "shipping_method_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "address",
+      "name": "address_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "cart",
+      "name": "cart_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "cart_item",
+      "name": "cart_item_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "discount_redemption",
+      "name": "discount_redemption_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "order",
+      "name": "order_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "order_item",
+      "name": "order_item_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "order_status_event",
+      "name": "order_status_event_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "payment",
+      "name": "payment_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "review",
+      "name": "review_pkey",
+      "columns": [
+        "id"
+      ],
+      "nameExplicit": false,
+      "entityType": "pks"
+    },
+    {
+      "schema": "public",
+      "table": "attribute_option",
+      "name": "attribute_option_attribute_value_uq",
+      "nameExplicit": true,
+      "columns": [
+        "attribute_id",
+        "value"
+      ],
+      "nullsNotDistinct": false,
+      "entityType": "uniques"
+    },
+    {
+      "schema": "public",
+      "table": "attribute_option",
+      "name": "attribute_option_attribute_id_uq",
+      "nameExplicit": true,
+      "columns": [
+        "attribute_id",
+        "id"
+      ],
+      "nullsNotDistinct": false,
+      "entityType": "uniques"
+    },
+    {
+      "schema": "public",
+      "table": "product_attribute_value",
+      "name": "product_attribute_value_uq",
+      "nameExplicit": true,
+      "columns": [
+        "product_id",
+        "variant_id",
+        "attribute_id",
+        "option_id"
+      ],
+      "nullsNotDistinct": true,
+      "entityType": "uniques"
+    },
+    {
+      "schema": "public",
+      "table": "product_option",
+      "name": "product_option_product_name_uq",
+      "nameExplicit": true,
+      "columns": [
+        "product_id",
+        "name"
+      ],
+      "nullsNotDistinct": false,
+      "entityType": "uniques"
+    },
+    {
+      "schema": "public",
+      "table": "product_option_value",
+      "name": "product_option_value_option_value_uq",
+      "nameExplicit": true,
+      "columns": [
+        "option_id",
+        "value"
+      ],
+      "nullsNotDistinct": false,
+      "entityType": "uniques"
+    },
+    {
+      "schema": "public",
+      "table": "product_option_value",
+      "name": "product_option_value_option_id_uq",
+      "nameExplicit": true,
+      "columns": [
+        "option_id",
+        "id"
+      ],
+      "nullsNotDistinct": false,
+      "entityType": "uniques"
+    },
+    {
+      "schema": "public",
+      "table": "product_variant",
+      "name": "product_variant_product_id_uq",
+      "nameExplicit": true,
+      "columns": [
+        "product_id",
+        "id"
+      ],
+      "nullsNotDistinct": false,
+      "entityType": "uniques"
+    },
+    {
+      "schema": "public",
+      "table": "cart_item",
+      "name": "cart_item_cart_variant_uq",
+      "nameExplicit": true,
+      "columns": [
+        "cart_id",
+        "variant_id"
+      ],
+      "nullsNotDistinct": false,
+      "entityType": "uniques"
+    },
+    {
+      "schema": "public",
+      "table": "discount_redemption",
+      "name": "discount_redemption_discount_order_uq",
+      "nameExplicit": true,
+      "columns": [
+        "discount_id",
+        "order_id"
+      ],
+      "nullsNotDistinct": false,
+      "entityType": "uniques"
+    },
+    {
+      "schema": "public",
+      "table": "review",
+      "name": "review_product_user_uq",
+      "nameExplicit": true,
+      "columns": [
+        "product_id",
+        "user_id"
+      ],
+      "nullsNotDistinct": false,
+      "entityType": "uniques"
+    },
+    {
+      "schema": "public",
+      "table": "attribute",
+      "name": "attribute_slug_key",
+      "nameExplicit": false,
+      "columns": [
+        "slug"
+      ],
+      "nullsNotDistinct": false,
+      "entityType": "uniques"
+    },
+    {
+      "schema": "public",
+      "table": "session",
+      "name": "session_token_key",
+      "nameExplicit": false,
+      "columns": [
+        "token"
+      ],
+      "nullsNotDistinct": false,
+      "entityType": "uniques"
+    },
+    {
+      "schema": "public",
+      "table": "user",
+      "name": "user_email_key",
+      "nameExplicit": false,
+      "columns": [
+        "email"
+      ],
+      "nullsNotDistinct": false,
+      "entityType": "uniques"
+    },
+    {
+      "schema": "public",
+      "table": "brand",
+      "name": "brand_slug_key",
+      "nameExplicit": false,
+      "columns": [
+        "slug"
+      ],
+      "nullsNotDistinct": false,
+      "entityType": "uniques"
+    },
+    {
+      "schema": "public",
+      "table": "category",
+      "name": "category_slug_key",
+      "nameExplicit": false,
+      "columns": [
+        "slug"
+      ],
+      "nullsNotDistinct": false,
+      "entityType": "uniques"
+    },
+    {
+      "schema": "public",
+      "table": "product",
+      "name": "product_slug_key",
+      "nameExplicit": false,
+      "columns": [
+        "slug"
+      ],
+      "nullsNotDistinct": false,
+      "entityType": "uniques"
+    },
+    {
+      "schema": "public",
+      "table": "product_variant",
+      "name": "product_variant_sku_key",
+      "nameExplicit": false,
+      "columns": [
+        "sku"
+      ],
+      "nullsNotDistinct": false,
+      "entityType": "uniques"
+    },
+    {
+      "schema": "public",
+      "table": "discount",
+      "name": "discount_code_key",
+      "nameExplicit": false,
+      "columns": [
+        "code"
+      ],
+      "nullsNotDistinct": false,
+      "entityType": "uniques"
+    },
+    {
+      "schema": "public",
+      "table": "shipping_method",
+      "name": "shipping_method_code_key",
+      "nameExplicit": false,
+      "columns": [
+        "code"
+      ],
+      "nullsNotDistinct": false,
+      "entityType": "uniques"
+    },
+    {
+      "schema": "public",
+      "table": "cart",
+      "name": "cart_user_id_key",
+      "nameExplicit": false,
+      "columns": [
+        "user_id"
+      ],
+      "nullsNotDistinct": false,
+      "entityType": "uniques"
+    },
+    {
+      "schema": "public",
+      "table": "cart",
+      "name": "cart_token_key",
+      "nameExplicit": false,
+      "columns": [
+        "token"
+      ],
+      "nullsNotDistinct": false,
+      "entityType": "uniques"
+    },
+    {
+      "schema": "public",
+      "table": "order",
+      "name": "order_number_key",
+      "nameExplicit": false,
+      "columns": [
+        "number"
+      ],
+      "nullsNotDistinct": false,
+      "entityType": "uniques"
+    },
+    {
+      "schema": "public",
+      "table": "product_attribute_value",
+      "name": "product_attribute_value_one_value_check",
+      "value": "num_nonnulls(\"value_text\", \"value_number\", \"value_boolean\", \"option_id\") = 1",
+      "entityType": "checks"
+    },
+    {
+      "schema": "public",
+      "table": "product_variant",
+      "name": "product_variant_price_check",
+      "value": "\"price\" >= 0",
+      "entityType": "checks"
+    },
+    {
+      "schema": "public",
+      "table": "product_variant",
+      "name": "product_variant_compare_at_price_check",
+      "value": "\"compare_at_price\" is null or \"compare_at_price\" > \"price\"",
+      "entityType": "checks"
+    },
+    {
+      "schema": "public",
+      "table": "discount",
+      "name": "discount_value_check",
+      "value": "\"value\" >= 0",
+      "entityType": "checks"
+    },
+    {
+      "schema": "public",
+      "table": "discount",
+      "name": "discount_percent_check",
+      "value": "\"kind\" <> 'percent' or \"value\" <= 100",
+      "entityType": "checks"
+    },
+    {
+      "schema": "public",
+      "table": "cart",
+      "name": "cart_owner_check",
+      "value": "\"user_id\" is not null or \"token\" is not null",
+      "entityType": "checks"
+    },
+    {
+      "schema": "public",
+      "table": "cart_item",
+      "name": "cart_item_quantity_check",
+      "value": "\"quantity\" > 0",
+      "entityType": "checks"
+    },
+    {
+      "schema": "public",
+      "table": "order_item",
+      "name": "order_item_quantity_check",
+      "value": "\"quantity\" > 0",
+      "entityType": "checks"
+    },
+    {
+      "schema": "public",
+      "table": "review",
+      "name": "review_rating_check",
+      "value": "\"rating\" between 1 and 5",
+      "entityType": "checks"
+    }
+  ]
+}

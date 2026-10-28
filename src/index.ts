@@ -1,6 +1,8 @@
 import "dotenv/config";
 import { drizzle } from "drizzle-orm/node-postgres";
 
-const db = drizzle(process.env.NEXT_DATABASE_URL!);
+import { relations } from "./db/relations";
+
+const db = drizzle(process.env.NEXT_DATABASE_URL!, { relations });
 
 export { db };

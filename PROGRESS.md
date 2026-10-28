@@ -133,3 +133,61 @@ ALL DONE
 - Known limits (by design, no backend): all writes live in one browser's localStorage; the server renders base catalogue data, so an edited product shows its original values for a moment before hydration; route protection is client-side only.
 
 ALL DONE
+
+---
+
+# Phase 3 — database models (Drizzle + Postgres)
+
+Goal: replace the localStorage mock data with real Postgres tables. This phase is **schema only** (tables, enums, relations, first migration). Wiring the app to the DB is a later phase.
+
+## How to continue (for the next agent)
+- Work through the checklist below top to bottom; tick a box and add a `## Log` line after each step.
+- Schema lives in `src/db/schema/*.ts`, re-exported from `src/db/schema/index.ts`; relations in `src/db/relations.ts`. `drizzle.config.ts` points at the schema folder.
+- Drizzle is **1.0.0-rc.5**: extra config returns an array (`(t) => [index().on(t.x)]`), relations use `defineRelations` (RQB v2), not the old `relations()` helper.
+- Verify with `pnpm typecheck` and `pnpm drizzle-kit generate` (no DB connection needed for generate).
+
+## Decisions
+- **Better Auth is coming later.** `user`, `session`, `account`, `verification` follow Better Auth's core schema exactly (text ids, same column names) so its Drizzle adapter maps onto them without changes. Extra user fields (`role`, `banned`, `banReason`, `banExpires`, `session.impersonatedBy`) match Better Auth's `admin` plugin. When Better Auth is added, run its CLI `generate` and diff against `src/db/schema/auth.ts` instead of letting it overwrite the file. No `passwordHash` on user: Better Auth keeps passwords in `account.password`.
+- Every other table references `user.id` as `text`.
+- Domain tables use `uuid` primary keys (`defaultRandom()`).
+- Money is integer cents (same as the UI). Orders store `currency` (default `USD`).
+- **Products are open-ended:** product → options (Color, Size, …) → option values (Red, XL, …) → variants (one row per sellable combination, with its own SKU, price, stock and images). A simple product has exactly one default variant with no option values. Price and stock live on the variant, not the product.
+- **Attributes** (Material, Fabric weight, Wattage, …) are defined once in `attribute` (typed: text / number / boolean / select / multiselect, optional unit, filterable flag) and set per product (or per variant) in `product_attribute_value`. Categories can list which attributes they suggest. This replaces the free-form `specs` array.
+- Orders snapshot everything they show (product name, variant title, chosen options, SKU, image, unit price, address) so editing or deleting a product never changes an old order.
+- Added things the mock UI didn't have but a real shop needs: brands table, nested categories, saved addresses, shipping methods table, payments table, order status history, discount usage limits/dates, review moderation, guest carts.
+
+## Checklist
+- [x] Auth schema (Better Auth compatible): user, session, account, verification
+- [x] Catalog: category (nested), brand, product, product_image
+- [x] Variants: product_option, product_option_value, product_variant, product_variant_option_value
+- [x] Attributes: attribute, attribute_option, category_attribute, product_attribute_value
+- [x] Reviews
+- [x] Customer: address, wishlist_item, cart, cart_item
+- [x] Checkout: discount, shipping_method
+- [x] Orders: order, order_item, order_status_event, payment, discount_redemption
+- [x] Relations (`defineRelations`), db client uses schema + relations, drizzle.config points at schema folder
+- [x] `pnpm typecheck` + `pnpm lint` pass
+- [x] `drizzle-kit generate` produces the first migration
+- [x] ADR in `docs/adr/` for the product/variant/attribute model
+- [x] Phase 3 final: PROGRESS.md says PHASE 3 DONE
+
+## Log
+- ✅ Auth schema (Better Auth compatible): user, session, account, verification — `src/db/schema/auth.ts`; shared column helpers (uuid id, timestamps) in `src/db/schema/columns.ts`
+- ✅ Catalog: category (nested via parent_id), brand, product (status draft/active/archived, cached rating, metadata jsonb), product_image (optional variant) — `src/db/schema/catalog.ts`
+- ✅ Variants: product_option, product_option_value (with swatch), product_variant (sku, price/compareAt/cost cents, stock, backorder, one default per product), product_variant_option_value (one value per option; composite FK keeps the value on the right option) — `src/db/schema/catalog.ts`
+- ✅ Attributes: attribute (text/number/boolean/select/multiselect, unit, filterable), attribute_option, category_attribute, product_attribute_value (product- or variant-level; check that exactly one value column is set; needs Postgres 15+ for NULLS NOT DISTINCT) — `src/db/schema/attributes.ts`
+- ✅ Reviews: review (rating 1–5 check, pending/published/rejected, verified purchase, one per user per product) — `src/db/schema/reviews.ts`
+- ✅ Customer: address (default shipping/billing), wishlist_item, cart (user or guest token), cart_item (per variant) — `src/db/schema/customer.ts`
+- ✅ Checkout: discount (percent/fixed/free_shipping, dates, usage limits), shipping_method — `src/db/schema/checkout.ts`
+- ✅ Orders: order (snapshotted address/totals, status + payment status), order_item (product/variant snapshot incl. options), order_status_event, payment, discount_redemption — `src/db/schema/orders.ts`
+- ✅ Relations in `src/db/relations.ts` (defineRelations); `src/index.ts` passes `{ relations }`; drizzle.config schema → `./src/db/schema/index.ts`. tsc + eslint clean.
+- ✅ First migration: `pnpm exec drizzle-kit generate --name init` → `drizzle/<timestamp>_init/` (28 tables). Not applied to a database yet (`drizzle-kit migrate` needs `NEXT_DATABASE_URL`).
+- ✅ ADR `docs/adr/0001-product-variants-and-attributes.md`
+
+## Next (not part of this phase)
+- Apply the migration to a real Postgres 15+ (`drizzle-kit migrate`).
+- Seed script: turn the mock data in `src/features/*/api/data` into rows (each mock product → one default variant; `specs` → attributes; discount codes; standard/express shipping methods).
+- Add Better Auth (drizzle adapter, `usePlural: false`, admin plugin with `defaultRole: "customer"`), then diff its generated schema against `src/db/schema/auth.ts`.
+- Swap the localStorage stores for DB queries.
+
+PHASE 3 DONE
