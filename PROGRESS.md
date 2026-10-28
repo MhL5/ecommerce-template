@@ -191,3 +191,60 @@ Goal: replace the localStorage mock data with real Postgres tables. This phase i
 - Swap the localStorage stores for DB queries.
 
 PHASE 3 DONE
+
+---
+
+# Phase 4 — seed, variants in the UI, top loader
+
+Constraint: oRPC is being added next, so no API layer (procedures, route handlers, server data-access) was written here. Everything below either feeds the database or is UI that stays when the data source changes.
+
+## Decisions
+- Seed reads the existing mock data (`src/features/*/api/data`), so the mock UI and the seeded database show the same catalogue, users and orders. Row ids come from a SHA-1 of a seed key (`src/db/seed/ids.ts`), so reseeding keeps ids stable.
+- The seed refuses to run when `product` has rows; `--reset` truncates every schema table (cascade) in the same transaction.
+- `product.rating_average` / `review_count` are seeded from the mock values (e.g. 1,284 reviews) rather than the 3–5 mock reviews actually inserted, so listings look like the mock UI. Recompute them once real reviews exist.
+- Spec rows become `text` attributes, one per distinct label, linked to the categories that use them.
+- Variants in the mock UI mirror the DB model: `Product.options` + `Product.variants` (values in option order, own stock and SKU, shared price). Only 3 products have them. The chosen variant is in `?variant=` (written with `history.replaceState`), and that part of the PDP sits in its own Suspense so the rest of the page stays prerendered.
+- Product cards show a "Choose options" link instead of quick-add for products with variants.
+- `products.ts` imports `buildVariants` by relative path with `.ts`, because `scripts/generate-product-images.mts` loads it under plain Node.
+- Top loader: `nextjs-toploader` in the root providers (primary colour, 2px, no spinner). It reacts to link clicks; filter changes that call `router.push` already dim the results instead.
+
+## Log
+- ✅ `pnpm db:seed` (`src/db/seed/{index,seed,data,ids}.ts`) + `db:generate` / `db:migrate` / `db:studio` scripts. Verified against an in-memory PGlite (temporary install, removed; lockfile restored): migration applies, 36 products / 56 variants / 108 images / 76 attributes / 144 reviews / 42 orders / 85 order items insert with every check and FK passing; a second run is refused; `--reset` reseeds.
+- ✅ Variants in the UI: VariantPicker (ToggleGroup per option, colour swatches, sold-out values struck through), ProductPurchase, cart lines keyed by product + variant, variant title in mini cart / cart / checkout / order details, order items snapshot `variantId` + `variantTitle`, stock adjusts per variant on order and cancel, admin product sheet edits stock per variant, admin table shows the variant count. Browser-tested: picking options updates the URL, sold-out combo disables add-to-cart, cart shows "Navy / L", test checkout snapshots the variant and takes Navy / L from 10 to 7, admin save sets Navy / XL to 5 (total 122). Test data cleared afterwards.
+- ✅ Top loader.
+- ✅ `pnpm typecheck`, `pnpm lint` (0 errors, the 3 vendored warnings) and `pnpm build` pass.
+
+## Not done (needs a decision or belongs with oRPC)
+- next-intl: the zod locale is already set to `fa` and there's a DirectionProvider, so which languages, RTL and the URL strategy (prefix vs cookie) need deciding first.
+- Better Auth, and replacing the localStorage stores with oRPC procedures.
+
+PHASE 4 DONE
+
+---
+
+# Phase 5 — address book, reviews, discount admin, order timeline
+
+Constraint (same as phase 4): oRPC lands next, so no procedures, route handlers or server data access. New data goes through the same small `createLocalStore` stores as the rest of the app, behind hooks (`useAddresses`, `useCustomerReviews`, `useDiscountCodes`, `useAllOrders`). The types and zod schemas mirror the DB tables, so they can be reused as oRPC inputs/outputs; swapping a store for an oRPC query should only touch the store + hook files.
+
+## Decisions
+- Saved addresses (`features/addresses`) mirror the `address` table: one default per user, the first saved address becomes the default, deleting the default promotes the oldest remaining one. The address zod schema is picked from the checkout schema, so the rules match.
+- Checkout: signed-in shoppers with saved addresses get choice cards (default pre-selected, plus "New address"). The fields stay uncontrolled and remount per choice. "Save this address to my account" (on by default) saves a new address when the order is placed.
+- Discount codes are now data (`DiscountCode` mirrors the `discount` table: dates, usage limit, active flag). The store keeps the whole list once the admin edits it (`null` = the mock codes). Usage = non-cancelled orders that used the code, like `discount_redemption`. Dates are whole days (start of `startsAt` to end of `endsAt`). The checkout hint lists active codes with no minimum. The DB seed now writes the extra columns.
+- Reviews (`features/reviews`) mirror the `review` table: one per user per product (rewriting replaces it and sends it back to pending), `isVerifiedPurchase` when the user has a delivered order with the product. Published customer reviews are folded into the product's aggregate rating and count, which the PDP header and reviews tab both use. Four seed reviews from the demo shoppers (3 pending, 1 published) give the moderation queue something on a fresh browser.
+- Order timeline mirrors `order_status_event`: status changes now store a history; seed orders get the same derived history as the DB seed (shipped +26 h, delivered +98 h, cancelled +3 h). Shown at the top of `OrderDetails` (confirmation, account, admin sheet).
+- Admin pages that read the clock (`Date.now()`) do it in a child rendered after the admin check; reading it at the top of a prerendered client page fails `next build` under cacheComponents.
+
+## Log
+- ✅ Address book: `/account/addresses` (cards, add/edit dialog with validation, set default, delete with confirm), Addresses link in account nav, user menu and mobile nav; `AddressLines` shared with `OrderDetails`.
+- ✅ Checkout saved-address picker + "save this address".
+- ✅ `/admin/discounts`: table (value, minimum, validity, used / limit, status Active/Scheduled/Expired/Used up/Off, active switch), add/edit sheet, delete, reset codes. Checkout lookup reports "not active yet", "expired", "fully redeemed".
+- ✅ Reviews: write/edit dialog with star picker on the PDP reviews tab (sign-in link when signed out; pending/rejected notices), `/admin/reviews` moderation queue with status filter.
+- ✅ Order status timeline.
+- ✅ `pnpm typecheck`, `pnpm lint` (0 errors, the 3 vendored warnings) and `pnpm build` (58 pages) pass.
+- ✅ Browser-tested: address validation + save (default), checkout pre-fills it and toggles to "New address"; review validation, submit → pending notice → admin publish; discount form shows all errors at once, HOLIDAY25 created as Scheduled, WELCOME10 switched off → checkout rejects both and the hint only offers FREESHIP; admin "Mark as shipped" adds the date to the timeline. Test data cleared afterwards.
+
+## Not done (needs a decision or belongs with oRPC)
+- next-intl: still needs the language list, RTL plan and URL strategy (prefix vs cookie).
+- Better Auth, and replacing the localStorage stores with oRPC procedures.
+
+PHASE 5 DONE

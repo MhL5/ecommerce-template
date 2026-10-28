@@ -95,7 +95,14 @@ function AdminProductTable({
               </span>
             </TableCell>
             <TableCell className="text-end tabular-nums">
-              {product.stock}
+              <span className="flex flex-col">
+                {product.stock}
+                {product.variants?.length ? (
+                  <span className="text-xs text-muted-foreground">
+                    {product.variants.length} variants
+                  </span>
+                ) : null}
+              </span>
             </TableCell>
             <TableCell>
               <div className="flex flex-wrap gap-1">

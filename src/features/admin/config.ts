@@ -1,5 +1,7 @@
 import {
   DashboardSquare02Icon,
+  DiscountTag01Icon,
+  MessageMultiple01Icon,
   PackageIcon,
   ShoppingBag02Icon,
   UserMultipleIcon,
@@ -37,6 +39,18 @@ const adminNav: AdminNavItem[] = [
     href: "/admin/customers",
     icon: UserMultipleIcon,
     description: "Accounts and guest shoppers with their order history.",
+  },
+  {
+    label: "Reviews",
+    href: "/admin/reviews",
+    icon: MessageMultiple01Icon,
+    description: "Approve or reject reviews before they appear in the shop.",
+  },
+  {
+    label: "Discounts",
+    href: "/admin/discounts",
+    icon: DiscountTag01Icon,
+    description: "Promo codes shoppers can enter at checkout.",
   },
 ];
 

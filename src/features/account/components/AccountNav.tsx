@@ -5,6 +5,7 @@ import { Link } from "@/components/ui/link";
 import type { UserRole } from "@/features/auth/types";
 import {
   DashboardSquare02Icon,
+  Location01Icon,
   PackageIcon,
   UserIcon,
 } from "@hugeicons/core-free-icons";
@@ -15,6 +16,7 @@ import { usePathname } from "next/navigation";
 const links: { label: string; href: Route; icon: typeof UserIcon }[] = [
   { label: "Overview", href: "/account", icon: UserIcon },
   { label: "Orders", href: "/account/orders", icon: PackageIcon },
+  { label: "Addresses", href: "/account/addresses", icon: Location01Icon },
 ];
 
 function AccountNav({ role }: { role: UserRole }) {

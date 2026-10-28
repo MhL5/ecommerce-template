@@ -7,6 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Empty,
   EmptyDescription,
@@ -14,7 +15,14 @@ import {
   EmptyMedia,
   EmptyTitle,
 } from "@/components/ui/empty";
+import { Field, FieldLabel } from "@/components/ui/field";
 import { Spinner } from "@/components/ui/spinner";
+import { saveAddress } from "@/features/addresses/api/address-store";
+import {
+  NEW_ADDRESS,
+  SavedAddressPicker,
+} from "@/features/addresses/components/SavedAddressPicker";
+import { useAddresses } from "@/features/addresses/hooks/use-addresses";
 import { useSession } from "@/features/auth/hooks/use-session";
 import { clearCart } from "@/features/cart/api/cart-store";
 import { CartViewSkeleton } from "@/features/cart/components/CartViewSkeleton";
@@ -78,6 +86,10 @@ function CheckoutForm() {
   const [placing, setPlacing] = useState(false);
   const [discount, setDiscount] = useState<Discount | null>(null);
   const [placedOrderId, setPlacedOrderId] = useState<string | null>(null);
+  const { addresses } = useAddresses(user?.id);
+  // `null` until the shopper picks, which means "their default address".
+  const [pickedAddressId, setPickedAddressId] = useState<string | null>(null);
+  const [saveNewAddress, setSaveNewAddress] = useState(true);
   const router = useRouter();
 
   if (!hydrated) return <CartViewSkeleton />;
@@ -90,9 +102,13 @@ function CheckoutForm() {
     discount && subtotal >= (discount.minSubtotal ?? 0) ? discount : null;
   const totals = computeTotals(subtotal, shippingMethod, activeDiscount);
   const [firstName = "", ...rest] = (user?.name ?? "").split(" ");
-  const defaults = user
-    ? { email: user.email, firstName, lastName: rest.join(" ") }
-    : {};
+  const addressId = pickedAddressId ?? addresses[0]?.id ?? NEW_ADDRESS;
+  const savedAddress = addresses.find((entry) => entry.id === addressId);
+  const defaults = {
+    ...(user ? { email: user.email, firstName, lastName: rest.join(" ") } : {}),
+    ...savedAddress,
+  };
+  const canSaveAddress = !!user && !savedAddress;
 
   // After the first submit, re-validate as the user fixes fields.
   function revalidate() {
@@ -123,6 +139,21 @@ function CheckoutForm() {
     // Pretend to talk to a payment provider.
     await new Promise((resolve) => setTimeout(resolve, 900));
 
+    const shippingAddress = {
+      firstName: values.firstName,
+      lastName: values.lastName,
+      address1: values.address1,
+      address2: values.address2,
+      city: values.city,
+      region: values.region,
+      postalCode: values.postalCode,
+      country: values.country,
+      phone: values.phone,
+    };
+    if (user && canSaveAddress && saveNewAddress) {
+      saveAddress(user.id, { ...shippingAddress, label: "" });
+    }
+
     const order = createOrder({
       items,
       email: values.email,
@@ -130,17 +161,7 @@ function CheckoutForm() {
       shippingMethod: values.shippingMethod,
       cardNumber: values.cardNumber,
       discount: activeDiscount,
-      shippingAddress: {
-        firstName: values.firstName,
-        lastName: values.lastName,
-        address1: values.address1,
-        address2: values.address2,
-        city: values.city,
-        region: values.region,
-        postalCode: values.postalCode,
-        country: values.country,
-        phone: values.phone,
-      },
+      shippingAddress,
     });
 
     setPlacedOrderId(order.id);
@@ -173,8 +194,37 @@ function CheckoutForm() {
             <CardTitle>Shipping address</CardTitle>
             <CardDescription>Where should we send it?</CardDescription>
           </CardHeader>
-          <CardContent>
-            <AddressFields errors={errors} defaults={defaults} />
+          <CardContent className="flex flex-col gap-6">
+            {addresses.length > 0 && (
+              <SavedAddressPicker
+                addresses={addresses}
+                value={addressId}
+                onChange={(next) => {
+                  setPickedAddressId(next);
+                  // The fields remount with the new values; re-check them.
+                  requestAnimationFrame(revalidate);
+                }}
+              />
+            )}
+            <AddressFields
+              // Remount so the uncontrolled inputs take the picked address.
+              key={addressId}
+              errors={errors}
+              defaults={defaults}
+            />
+            {canSaveAddress && (
+              <Field orientation="horizontal">
+                <Checkbox
+                  id="save-address"
+                  checked={saveNewAddress}
+                  onCheckedChange={setSaveNewAddress}
+                  aria-label="Save this address to my account"
+                />
+                <FieldLabel htmlFor="save-address" className="font-normal">
+                  Save this address to my account
+                </FieldLabel>
+              </Field>
+            )}
           </CardContent>
         </Card>
         <Card>

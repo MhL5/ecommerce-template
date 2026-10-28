@@ -21,6 +21,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { lineKeyOf } from "@/features/cart/api/cart-store";
 import { CartCountBadge } from "@/features/cart/components/CartCountBadge";
 import { CartLineItem } from "@/features/cart/components/CartLineItem";
 import { useCart } from "@/features/cart/hooks/use-cart";
@@ -95,7 +96,7 @@ function CartSheet() {
             <ScrollArea className="min-h-0 flex-1">
               <ul className="flex flex-col gap-4 p-4">
                 {items.map((item, index) => (
-                  <li key={item.productId} className="flex flex-col gap-4">
+                  <li key={lineKeyOf(item)} className="flex flex-col gap-4">
                     {index > 0 && <Separator />}
                     <CartLineItem item={item} size="sm" />
                   </li>

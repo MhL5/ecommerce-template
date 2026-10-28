@@ -16,7 +16,13 @@ function useAllOrders() {
   const all = [...orders, ...seedOrders]
     .map((order) => {
       const update = statuses[order.id];
-      return update ? { ...order, status: update.status } : order;
+      return update
+        ? {
+            ...order,
+            status: update.status,
+            statusHistory: [...(order.statusHistory ?? []), ...update.history],
+          }
+        : order;
     })
     .sort((a, b) => b.createdAt.localeCompare(a.createdAt));
 

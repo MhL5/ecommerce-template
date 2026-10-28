@@ -26,14 +26,18 @@ function CartLineItem({
   size = "default",
   className,
 }: CartLineItemProps) {
-  const { product, quantity } = item;
-  const max = Math.max(quantity, maxQuantityFor(product.id));
+  const { product, variant, quantity } = item;
+  const key = { productId: item.productId, variantId: item.variantId };
+  const max = Math.max(quantity, maxQuantityFor(key));
+  const href = variant
+    ? (`/products/${product.slug}?variant=${variant.id}` as const)
+    : (`/products/${product.slug}` as const);
   const compact = size === "sm";
 
   return (
     <div className={cn("flex gap-4", className)}>
       <Link
-        href={`/products/${product.slug}`}
+        href={href}
         className={cn(
           "relative shrink-0 overflow-hidden rounded-lg bg-muted ring-1 ring-foreground/10 outline-none focus-visible:ring-3 focus-visible:ring-ring/50",
           compact ? "size-16" : "size-24",
@@ -52,11 +56,12 @@ function CartLineItem({
         <div className="flex items-start justify-between gap-3">
           <div className="flex min-w-0 flex-col gap-0.5">
             <Link
-              href={`/products/${product.slug}`}
+              href={href}
               className="truncate rounded-sm font-medium outline-none hover:underline focus-visible:ring-3 focus-visible:ring-ring/50"
             >
               {product.name}
             </Link>
+            {variant && <p className="text-xs">{variant.title}</p>}
             <p className="text-xs text-muted-foreground">
               {product.brand} · {formatPrice(product.price)} each
             </p>
@@ -72,13 +77,13 @@ function CartLineItem({
             value={quantity}
             max={max}
             label={`Quantity of ${product.name}`}
-            onChange={(next) => setCartQuantity(product.id, next)}
+            onChange={(next) => setCartQuantity(key, next)}
           />
           <Button
             variant="ghost"
             size={compact ? "icon-sm" : "sm"}
             aria-label={`Remove ${product.name}`}
-            onClick={() => removeFromCart(product.id)}
+            onClick={() => removeFromCart(key)}
           >
             <HugeiconsIcon
               icon={Delete02Icon}

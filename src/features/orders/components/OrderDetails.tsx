@@ -1,9 +1,10 @@
 import { Img } from "@/components/ui/Img";
 import { Link } from "@/components/ui/link";
 import { Separator } from "@/components/ui/separator";
+import { AddressLines } from "@/features/addresses/components/AddressLines";
 import { OrderTotals } from "@/features/cart/components/OrderTotals";
 import { getShippingMethod } from "@/features/cart/utils/totals";
-import { countryName } from "@/features/checkout/utils/countries";
+import { OrderTimeline } from "@/features/orders/components/OrderTimeline";
 import type { Order } from "@/features/orders/types";
 import { formatPrice } from "@/lib/format";
 import { cn } from "@/lib/utils";
@@ -34,14 +35,20 @@ function OrderDetails({
   order: Order;
   className?: string;
 }) {
-  const address = order.shippingAddress;
   const shipping = getShippingMethod(order.shippingMethod);
 
   return (
     <div className={cn("@container flex flex-col gap-6", className)}>
+      <OrderTimeline order={order} />
+
+      <Separator />
+
       <ul className="flex flex-col gap-4">
         {order.items.map((item) => (
-          <li key={item.productId} className="flex items-center gap-4">
+          <li
+            key={`${item.productId}:${item.variantId ?? ""}`}
+            className="flex items-center gap-4"
+          >
             <span className="relative size-16 shrink-0 overflow-hidden rounded-lg bg-muted ring-1 ring-foreground/10">
               {item.image && (
                 <Img
@@ -55,11 +62,18 @@ function OrderDetails({
             </span>
             <span className="flex min-w-0 flex-1 flex-col gap-0.5">
               <Link
-                href={`/products/${item.slug}`}
+                href={
+                  item.variantId
+                    ? `/products/${item.slug}?variant=${item.variantId}`
+                    : `/products/${item.slug}`
+                }
                 className="truncate rounded-sm font-medium outline-none hover:underline focus-visible:ring-3 focus-visible:ring-ring/50"
               >
                 {item.name}
               </Link>
+              {item.variantTitle && (
+                <span className="text-xs">{item.variantTitle}</span>
+              )}
               <span className="text-xs text-muted-foreground">
                 {item.brand} · {item.quantity} × {formatPrice(item.price)}
               </span>
@@ -75,17 +89,7 @@ function OrderDetails({
 
       <div className="grid gap-6 @md:grid-cols-2 @3xl:grid-cols-[1fr_1fr_1.2fr]">
         <InfoBlock title="Shipping to">
-          <span className="block">
-            {address.firstName} {address.lastName}
-          </span>
-          <span className="block">{address.address1}</span>
-          {address.address2 && (
-            <span className="block">{address.address2}</span>
-          )}
-          <span className="block">
-            {address.city}, {address.region} {address.postalCode}
-          </span>
-          <span className="block">{countryName(address.country)}</span>
+          <AddressLines address={order.shippingAddress} />
         </InfoBlock>
         <div className="flex flex-col gap-4">
           <InfoBlock title="Delivery">

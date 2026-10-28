@@ -18,6 +18,27 @@ type ProductSpec = {
   value: string;
 };
 
+/** An axis a product varies on, e.g. Color or Size. */
+type ProductOption = {
+  name: string;
+  values: {
+    value: string;
+    /** CSS colour for swatch pickers. */
+    swatch?: string;
+  }[];
+};
+
+/** One sellable combination of option values. */
+type ProductVariant = {
+  id: string;
+  /** Display name built from the values, e.g. "Black / M". */
+  title: string;
+  /** One value per option, in the same order as `Product.options`. */
+  values: string[];
+  sku: string;
+  stock: number;
+};
+
 type Product = {
   id: string;
   slug: string;
@@ -33,7 +54,11 @@ type Product = {
   compareAtPrice?: number;
   rating: number;
   reviewCount: number;
+  /** Units in stock; for products with variants, the sum of their stock. */
   stock: number;
+  /** Set together with `variants` when the product comes in options. */
+  options?: ProductOption[];
+  variants?: ProductVariant[];
   images: string[];
   tags: string[];
   featured: boolean;
@@ -79,7 +104,9 @@ export type {
   Product,
   ProductQuery,
   ProductQueryResult,
+  ProductOption,
   ProductSort,
   ProductSpec,
+  ProductVariant,
   Review,
 };

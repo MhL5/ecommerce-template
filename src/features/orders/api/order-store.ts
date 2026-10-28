@@ -4,7 +4,12 @@ import {
   type ShippingMethodId,
   computeOrderTotals,
 } from "@/features/cart/utils/totals";
-import type { Order, OrderAddress, OrderStatus } from "@/features/orders/types";
+import type {
+  Order,
+  OrderAddress,
+  OrderStatus,
+  OrderStatusEvent,
+} from "@/features/orders/types";
 import { adjustStock } from "@/features/products/api/catalog-store";
 import { createLocalStore } from "@/lib/createLocalStore";
 import { z } from "zod";
@@ -19,6 +24,8 @@ const orderSchema = z.object({
   items: z.array(
     z.object({
       productId: z.string(),
+      variantId: z.string().optional(),
+      variantTitle: z.string().optional(),
       slug: z.string(),
       name: z.string(),
       brand: z.string(),
@@ -103,8 +110,11 @@ function createOrder(input: CreateOrderInput): Order {
     status: "processing",
     userId: input.userId,
     email: input.email,
-    items: input.items.map(({ product, quantity }) => ({
+    items: input.items.map(({ product, variant, quantity }) => ({
       productId: product.id,
+      ...(variant
+        ? { variantId: variant.id, variantTitle: variant.title }
+        : {}),
       slug: product.slug,
       name: product.name,
       brand: product.brand,
@@ -123,13 +133,15 @@ function createOrder(input: CreateOrderInput): Order {
   };
 
   orderStore.setState((state) => ({ orders: [order, ...state.orders] }));
-  for (const item of order.items) adjustStock(item.productId, -item.quantity);
+  for (const item of order.items)
+    adjustStock(item.productId, -item.quantity, item.variantId);
   return order;
 }
 
 /** Puts an order’s units back into stock (used when it’s cancelled). */
 function restockOrder(order: Order) {
-  for (const item of order.items) adjustStock(item.productId, item.quantity);
+  for (const item of order.items)
+    adjustStock(item.productId, item.quantity, item.variantId);
 }
 
 /**
@@ -138,7 +150,10 @@ function restockOrder(order: Order) {
  * order, and applied when orders are read.
  */
 const statusStore = createLocalStore<
-  Record<string, { status: OrderStatus; updatedAt: string }>
+  Record<
+    string,
+    { status: OrderStatus; updatedAt: string; history: OrderStatusEvent[] }
+  >
 >(
   "northstar:order-status",
   {},
@@ -147,6 +162,15 @@ const statusStore = createLocalStore<
     z.object({
       status: z.enum(["processing", "shipped", "delivered", "cancelled"]),
       updatedAt: z.string(),
+      // Overrides saved before the timeline existed have no history.
+      history: z
+        .array(
+          z.object({
+            status: z.enum(["processing", "shipped", "delivered", "cancelled"]),
+            at: z.string(),
+          }),
+        )
+        .default([]),
     }),
   ),
 );
@@ -165,9 +189,14 @@ const STATUS_FLOW: Record<OrderStatus, OrderStatus[]> = {
  */
 function setOrderStatus(order: Order, status: OrderStatus) {
   if (!STATUS_FLOW[order.status].includes(status)) return false;
+  const at = new Date().toISOString();
   statusStore.setState((current) => ({
     ...current,
-    [order.id]: { status, updatedAt: new Date().toISOString() },
+    [order.id]: {
+      status,
+      updatedAt: at,
+      history: [...(current[order.id]?.history ?? []), { status, at }],
+    },
   }));
   if (status === "cancelled") restockOrder(order);
   return true;

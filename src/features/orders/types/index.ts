@@ -2,9 +2,16 @@ import type { ShippingMethodId } from "@/features/cart/utils/totals";
 
 type OrderStatus = "processing" | "shipped" | "delivered" | "cancelled";
 
+/** A status change after the order was placed (`order_status_event`). */
+type OrderStatusEvent = { status: OrderStatus; at: string };
+
 /** Snapshot of a product at purchase time, so old orders stay accurate. */
 type OrderItem = {
   productId: string;
+  /** Set for products with options. */
+  variantId?: string;
+  /** e.g. "Black / M". */
+  variantTitle?: string;
   slug: string;
   name: string;
   brand: string;
@@ -49,6 +56,8 @@ type Order = {
   /** Code applied at checkout, e.g. `WELCOME10`. */
   discountCode?: string;
   payment: { brand: string; last4: string };
+  /** Status changes made in this browser, oldest first. */
+  statusHistory?: OrderStatusEvent[];
 };
 
-export type { Order, OrderAddress, OrderItem, OrderStatus };
+export type { Order, OrderAddress, OrderItem, OrderStatus, OrderStatusEvent };

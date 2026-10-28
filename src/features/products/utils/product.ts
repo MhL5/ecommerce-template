@@ -1,4 +1,8 @@
-import type { Product } from "@/features/products/types";
+import type {
+  Product,
+  ProductOption,
+  ProductVariant,
+} from "@/features/products/types";
 
 const LOW_STOCK_THRESHOLD = 10;
 
@@ -27,7 +31,77 @@ function getDiscountPercent(
   );
 }
 
+function hasVariants(product: Pick<Product, "variants">): product is Product & {
+  options: ProductOption[];
+  variants: ProductVariant[];
+} {
+  return (product.variants?.length ?? 0) > 0;
+}
+
+function findVariant(
+  product: Pick<Product, "variants">,
+  variantId: string | undefined,
+) {
+  if (!variantId) return undefined;
+  return product.variants?.find((variant) => variant.id === variantId);
+}
+
+/** Stock for a cart line: the variant's when one is chosen, else the product's. */
+function getLineStock(
+  product: Pick<Product, "stock" | "variants">,
+  variantId: string | undefined,
+) {
+  if (!hasVariants(product)) return product.stock;
+  return findVariant(product, variantId)?.stock ?? 0;
+}
+
+function slugifyValue(value: string) {
+  return value
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
+/**
+ * Every combination of option values as a variant. `product.stock` is split
+ * evenly across the variants that aren't listed in `soldOut`.
+ */
+function buildVariants(
+  product: Pick<Product, "id" | "stock">,
+  options: ProductOption[],
+  soldOut: string[] = [],
+): ProductVariant[] {
+  const combos = options.reduce<string[][]>(
+    (acc, option) =>
+      acc.flatMap((combo) => option.values.map((v) => [...combo, v.value])),
+    [[]],
+  );
+  const titleOf = (values: string[]) => values.join(" / ");
+  let available = combos.filter((c) => !soldOut.includes(titleOf(c))).length;
+  let remaining = product.stock;
+
+  return combos.map((values) => {
+    const title = titleOf(values);
+    const stock = soldOut.includes(title)
+      ? 0
+      : Math.ceil(remaining / Math.max(1, available--));
+    remaining -= stock;
+    const suffix = values.map(slugifyValue).join("-");
+    return {
+      id: `${product.id}-${suffix}`,
+      title,
+      values,
+      sku: `NS-${product.id.toUpperCase()}-${suffix.toUpperCase()}`,
+      stock,
+    };
+  });
+}
+
 export {
+  buildVariants,
+  findVariant,
+  getLineStock,
+  hasVariants,
   getDiscountPercent,
   getStockStatus,
   isOnSale,

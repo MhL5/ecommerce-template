@@ -1,6 +1,7 @@
 import { cartStore } from "@/features/cart/api/cart-store";
-import type { CartItem } from "@/features/cart/types";
+import type { CartItem, CartLineKey } from "@/features/cart/types";
 import { useCatalog } from "@/features/products/api/catalog-store";
+import { findVariant, hasVariants } from "@/features/products/utils/product";
 import { useHydrated } from "@/hooks/use-hydrated";
 
 /**
@@ -13,11 +14,19 @@ function useCart() {
   const hydrated = useHydrated();
 
   const items: CartItem[] = state.lines.flatMap((line) => {
-    // Lines for products the admin deleted simply drop out.
+    // Lines for products (or variants) that no longer exist simply drop out.
     const product = catalog.find((entry) => entry.id === line.productId);
-    return product
-      ? [{ ...line, product, lineTotal: product.price * line.quantity }]
-      : [];
+    if (!product) return [];
+    const variant = findVariant(product, line.variantId);
+    if (hasVariants(product) !== Boolean(variant)) return [];
+    return [
+      {
+        ...line,
+        product,
+        ...(variant ? { variant } : {}),
+        lineTotal: product.price * line.quantity,
+      },
+    ];
   });
 
   const count = items.reduce((sum, item) => sum + item.quantity, 0);
@@ -26,11 +35,13 @@ function useCart() {
   return { items, count, subtotal, hydrated };
 }
 
-/** Quantity of one product currently in the cart. */
-function useCartQuantity(productId: string) {
+/** Quantity of one product (variant) currently in the cart. */
+function useCartQuantity({ productId, variantId }: CartLineKey) {
   const state = cartStore.useStore();
   return (
-    state.lines.find((line) => line.productId === productId)?.quantity ?? 0
+    state.lines.find(
+      (line) => line.productId === productId && line.variantId === variantId,
+    )?.quantity ?? 0
   );
 }
 

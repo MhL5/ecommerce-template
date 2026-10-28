@@ -10,6 +10,7 @@ import type {
   OrderItem,
   OrderStatus,
 } from "@/features/orders/types";
+import { seedStatusHistory } from "@/features/orders/utils/timeline";
 import { getProductById, getProducts } from "@/features/products/api";
 
 /** Builds an order item snapshot from the catalogue. */
@@ -44,6 +45,7 @@ function seedOrder({ discount, ...order }: SeedOrderInput): Order {
     ...order,
     totals: computeOrderTotals(subtotal, order.shippingMethod, applied),
     ...(applied ? { discountCode: applied.code } : {}),
+    statusHistory: seedStatusHistory(order.status, order.createdAt),
   };
 }
 

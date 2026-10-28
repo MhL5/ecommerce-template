@@ -35,6 +35,7 @@ const shopperLinks: NavLink[] = [
 const accountLinks: NavLink[] = [
   { label: "My account", href: "/account" },
   { label: "Order history", href: "/account/orders" },
+  { label: "Addresses", href: "/account/addresses" },
 ];
 
 function NavLinks({ label, links }: { label: string; links: NavLink[] }) {

@@ -1,7 +1,12 @@
-import type { Product } from "@/features/products/types";
+import type { Product, ProductVariant } from "@/features/products/types";
 
-type CartLine = {
+/** Identifies a cart line: a product, plus the variant for products with options. */
+type CartLineKey = {
   productId: string;
+  variantId?: string;
+};
+
+type CartLine = CartLineKey & {
   quantity: number;
 };
 
@@ -12,8 +17,9 @@ type CartState = {
 /** A cart line joined with its catalogue product. */
 type CartItem = CartLine & {
   product: Product;
+  variant?: ProductVariant;
   /** `product.price * quantity`, in cents. */
   lineTotal: number;
 };
 
-export type { CartItem, CartLine, CartState };
+export type { CartItem, CartLine, CartLineKey, CartState };

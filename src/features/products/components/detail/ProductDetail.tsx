@@ -10,13 +10,8 @@ import {
   EmptyTitle,
 } from "@/components/ui/empty";
 import { Link } from "@/components/ui/link";
-import { AddToCartForm } from "@/features/cart/components/AddToCartForm";
 import { SectionHeading } from "@/features/home/components/SectionHeading";
-import {
-  getCategoryById,
-  getProductReviews,
-  getRelatedProducts,
-} from "@/features/products/api";
+import { getCategoryById, getRelatedProducts } from "@/features/products/api";
 import {
   isBaseProduct,
   useCatalog,
@@ -26,8 +21,11 @@ import { ProductBreadcrumb } from "@/features/products/components/detail/Product
 import { ProductDetailSkeleton } from "@/features/products/components/detail/ProductDetailSkeleton";
 import { ProductGallery } from "@/features/products/components/detail/ProductGallery";
 import { ProductInfo } from "@/features/products/components/detail/ProductInfo";
+import { ProductPurchase } from "@/features/products/components/detail/ProductPurchase";
 import { ProductTabs } from "@/features/products/components/detail/ProductTabs";
+import type { Product } from "@/features/products/types";
 import { productsHref } from "@/features/products/utils/query";
+import { useProductReviews } from "@/features/reviews/hooks/use-reviews";
 import { WishlistButton } from "@/features/wishlist/components/WishlistButton";
 import { useHydrated } from "@/hooks/use-hydrated";
 import { PackageRemoveIcon } from "@hugeicons/core-free-icons";
@@ -69,6 +67,12 @@ function ProductDetail({ slug }: { slug: string }) {
     return hydrated ? <ProductUnavailable /> : <ProductDetailSkeleton />;
   }
 
+  return <ProductPage product={product} />;
+}
+
+function ProductPage({ product }: { product: Product }) {
+  const catalog = useCatalog();
+  const reviews = useProductReviews(product);
   const category = getCategoryById(product.categoryId);
 
   return (
@@ -85,15 +89,22 @@ function ProductDetail({ slug }: { slug: string }) {
             name={product.name}
             soldOut={product.stock <= 0}
           />
-          <ProductInfo product={product}>
+          <ProductInfo
+            // Published customer reviews count towards the header rating.
+            product={{
+              ...product,
+              rating: reviews.rating,
+              reviewCount: reviews.reviewCount,
+            }}
+          >
             <div className="flex flex-col gap-3">
-              <AddToCartForm product={product} />
+              <ProductPurchase product={product} />
               <WishlistButton product={product} className="sm:w-fit" />
             </div>
           </ProductInfo>
         </div>
       </div>
-      <ProductTabs product={product} reviews={getProductReviews(product)} />
+      <ProductTabs product={product} reviews={reviews} />
       <section className="flex flex-col gap-6">
         <SectionHeading
           title="You may also like"

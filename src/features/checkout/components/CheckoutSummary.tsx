@@ -11,6 +11,7 @@ import {
 import { Link } from "@/components/ui/link";
 import { Separator } from "@/components/ui/separator";
 import { Spinner } from "@/components/ui/spinner";
+import { lineKeyOf } from "@/features/cart/api/cart-store";
 import { OrderTotals } from "@/features/cart/components/OrderTotals";
 import type { CartItem } from "@/features/cart/types";
 import {
@@ -58,7 +59,7 @@ function CheckoutSummary({
       <CardContent className="flex flex-col gap-4">
         <ul className="flex flex-col gap-3">
           {items.map((item) => (
-            <li key={item.productId} className="flex items-center gap-3">
+            <li key={lineKeyOf(item)} className="flex items-center gap-3">
               <span className="relative size-14 shrink-0 rounded-lg bg-muted ring-1 ring-foreground/10">
                 <Img
                   src={item.product.images[0] ?? ""}
@@ -78,6 +79,9 @@ function CheckoutSummary({
                 <span className="truncate text-sm font-medium">
                   {item.product.name}
                 </span>
+                {item.variant && (
+                  <span className="text-xs">{item.variant.title}</span>
+                )}
                 <span className="text-xs text-muted-foreground">
                   {formatPrice(item.product.price)} each
                 </span>

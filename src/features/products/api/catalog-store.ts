@@ -43,6 +43,27 @@ const productSchema = z.object({
   rating: z.number(),
   reviewCount: z.number(),
   stock: z.number(),
+  options: z
+    .array(
+      z.object({
+        name: z.string(),
+        values: z.array(
+          z.object({ value: z.string(), swatch: z.string().optional() }),
+        ),
+      }),
+    )
+    .optional(),
+  variants: z
+    .array(
+      z.object({
+        id: z.string(),
+        title: z.string(),
+        values: z.array(z.string()),
+        sku: z.string(),
+        stock: z.number(),
+      }),
+    )
+    .optional(),
   images: z.array(z.string()),
   tags: z.array(z.string()),
   featured: z.boolean(),
@@ -205,11 +226,26 @@ function deleteProduct(id: string) {
   );
 }
 
-/** Adds `delta` units of stock (negative to sell), never below zero. */
-function adjustStock(id: string, delta: number) {
+/**
+ * Adds `delta` units of stock (negative to sell), never below zero. For a
+ * product with variants, changes that variant and keeps `stock` as the sum.
+ */
+function adjustStock(id: string, delta: number, variantId?: string) {
   const product = getCatalogProduct(id);
   if (!product) return;
-  updateProduct(id, { stock: Math.max(0, product.stock + delta) });
+  if (!product.variants?.length) {
+    updateProduct(id, { stock: Math.max(0, product.stock + delta) });
+    return;
+  }
+  const variants = product.variants.map((variant) =>
+    variant.id === variantId
+      ? { ...variant, stock: Math.max(0, variant.stock + delta) }
+      : variant,
+  );
+  updateProduct(id, {
+    variants,
+    stock: variants.reduce((sum, variant) => sum + variant.stock, 0),
+  });
 }
 
 function resetCatalog() {

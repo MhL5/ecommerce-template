@@ -15,7 +15,13 @@ import {
   InputGroupInput,
 } from "@/components/ui/input-group";
 import type { Discount } from "@/features/cart/utils/totals";
-import { lookupDiscount } from "@/features/checkout/utils/discounts";
+import { useDiscountCodes } from "@/features/checkout/api/discount-store";
+import {
+  countDiscountUses,
+  getDiscountStatus,
+  lookupDiscount,
+} from "@/features/checkout/utils/discounts";
+import { useAllOrders } from "@/features/orders/hooks/use-orders";
 import { Cancel01Icon, DiscountTag01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react";
 import { useState } from "react";
@@ -37,9 +43,23 @@ function DiscountCodeField({
 }: DiscountCodeFieldProps) {
   const [value, setValue] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const codes = useDiscountCodes();
+  const { orders } = useAllOrders();
+  const uses = countDiscountUses(orders);
+  // Only rendered after hydration (inside the checkout form), so reading the
+  // clock here can't cause a hydration mismatch.
+  const [now] = useState(() => Date.now());
+  const suggestions = codes
+    .filter(
+      (code) =>
+        !code.minSubtotal &&
+        getDiscountStatus(code, uses.get(code.code) ?? 0, now) === "active",
+    )
+    .slice(0, 3)
+    .map((code) => code.code);
 
   function apply() {
-    const result = lookupDiscount(value, subtotal);
+    const result = lookupDiscount(value, subtotal, codes, uses, now);
     if (!result.ok) {
       setError(result.error);
       return;
@@ -104,7 +124,9 @@ function DiscountCodeField({
       {error ? (
         <FieldError>{error}</FieldError>
       ) : (
-        <FieldDescription>Try WELCOME10, FREESHIP or SAVE20.</FieldDescription>
+        suggestions.length > 0 && (
+          <FieldDescription>Try {suggestions.join(" or ")}.</FieldDescription>
+        )
       )}
     </Field>
   );

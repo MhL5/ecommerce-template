@@ -10,9 +10,11 @@ import {
 } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ProductRating } from "@/features/products/components/ProductRating";
-import type { Product, Review } from "@/features/products/types";
-import { formatDate } from "@/lib/format";
-import { useState, useSyncExternalStore } from "react";
+import type { Product } from "@/features/products/types";
+import { ReviewPrompt } from "@/features/reviews/components/ReviewPrompt";
+import type { ProductReviewSummary } from "@/features/reviews/hooks/use-reviews";
+import { formatDate, pluralize } from "@/lib/format";
+import { type ReactNode, useState, useSyncExternalStore } from "react";
 
 type TabValue = "description" | "specs" | "reviews";
 
@@ -25,43 +27,57 @@ const getHash = () => window.location.hash;
 const getServerHash = () => "";
 
 function ReviewList({
-  product,
-  reviews,
+  summary,
+  children,
 }: {
-  product: Product;
-  reviews: Review[];
+  summary: ProductReviewSummary;
+  children: ReactNode;
 }) {
+  const { reviews, rating, reviewCount } = summary;
+
   return (
     <div className="grid gap-8 md:grid-cols-[14rem_1fr]">
-      <div className="flex flex-col gap-2">
-        <p className="text-4xl font-semibold tabular-nums">
-          {product.rating.toFixed(1)}
-        </p>
-        <ProductRating rating={product.rating} />
-        <p className="text-sm text-muted-foreground">
-          Based on {product.reviewCount.toLocaleString("en-US")} reviews
-        </p>
+      <div className="flex flex-col items-start gap-2">
+        {reviewCount > 0 && (
+          <>
+            <p className="text-4xl font-semibold tabular-nums">
+              {rating.toFixed(1)}
+            </p>
+            <ProductRating rating={rating} />
+            <p className="text-sm text-muted-foreground">
+              Based on {pluralize(reviewCount, "review")}
+            </p>
+          </>
+        )}
+        {children}
       </div>
-      <ul className="flex flex-col gap-6">
-        {reviews.map((review, index) => (
-          <li key={review.id} className="flex flex-col gap-2">
-            {index > 0 && <Separator className="mb-4" />}
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <ProductRating rating={review.rating} size="sm" />
-              <span className="text-xs text-muted-foreground">
-                {formatDate(review.date)}
-              </span>
-            </div>
-            <p className="font-medium">{review.title}</p>
-            <p className="text-sm text-pretty text-muted-foreground">
-              {review.body}
-            </p>
-            <p className="text-xs text-muted-foreground">
-              {review.author} · Verified buyer
-            </p>
-          </li>
-        ))}
-      </ul>
+      {reviews.length === 0 ? (
+        <p className="text-sm text-muted-foreground">
+          No reviews yet. Be the first to share what you think.
+        </p>
+      ) : (
+        <ul className="flex flex-col gap-6">
+          {reviews.map((review, index) => (
+            <li key={review.id} className="flex flex-col gap-2">
+              {index > 0 && <Separator className="mb-4" />}
+              <div className="flex flex-wrap items-center justify-between gap-2">
+                <ProductRating rating={review.rating} size="sm" />
+                <span className="text-xs text-muted-foreground">
+                  {formatDate(review.date)}
+                </span>
+              </div>
+              <p className="font-medium">{review.title}</p>
+              <p className="text-sm text-pretty text-muted-foreground">
+                {review.body}
+              </p>
+              <p className="text-xs text-muted-foreground">
+                {review.author}
+                {review.isVerifiedPurchase && " · Verified buyer"}
+              </p>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }
@@ -71,7 +87,7 @@ function ProductTabs({
   reviews,
 }: {
   product: Product;
-  reviews: Review[];
+  reviews: ProductReviewSummary;
 }) {
   const [value, setValue] = useState<TabValue>("description");
   const hash = useSyncExternalStore(subscribeToHash, getHash, getServerHash);
@@ -89,7 +105,9 @@ function ProductTabs({
         <TabsList>
           <TabsTrigger value="description">Description</TabsTrigger>
           <TabsTrigger value="specs">Specifications</TabsTrigger>
-          <TabsTrigger value="reviews">Reviews ({reviews.length})</TabsTrigger>
+          <TabsTrigger value="reviews">
+            Reviews ({reviews.reviewCount.toLocaleString("en-US")})
+          </TabsTrigger>
         </TabsList>
         <TabsContent value="description" className="max-w-3xl pt-4">
           <div className="flex flex-col gap-4 text-pretty text-muted-foreground">
@@ -130,7 +148,9 @@ function ProductTabs({
           </Table>
         </TabsContent>
         <TabsContent value="reviews" className="pt-4">
-          <ReviewList product={product} reviews={reviews} />
+          <ReviewList summary={reviews}>
+            <ReviewPrompt product={product} />
+          </ReviewList>
         </TabsContent>
       </Tabs>
     </section>

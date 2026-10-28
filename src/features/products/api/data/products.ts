@@ -1,4 +1,8 @@
-import type { Product } from "@/features/products/types";
+import type { Product, ProductOption } from "@/features/products/types";
+
+// Relative with an extension: scripts/generate-product-images.mts loads this
+// file under plain Node, which doesn't know the `@/` alias.
+import { buildVariants } from "../../utils/product.ts";
 
 type ProductInput = Omit<Product, "images">;
 
@@ -1045,6 +1049,75 @@ const productInputs: ProductInput[] = [
   },
 ];
 
-const products: Product[] = productInputs.map(withImages);
+/**
+ * Products sold in options. Their mock `stock` is split across the variants;
+ * the listed titles start sold out.
+ */
+const variantPlans: Record<
+  string,
+  { options: ProductOption[]; soldOut?: string[] }
+> = {
+  p07: {
+    options: [
+      {
+        name: "Color",
+        values: [
+          { value: "White", swatch: "#f5f5f4" },
+          { value: "Black", swatch: "#1c1917" },
+          { value: "Navy", swatch: "#1e3a8a" },
+        ],
+      },
+      {
+        name: "Size",
+        values: [
+          { value: "S" },
+          { value: "M" },
+          { value: "L" },
+          { value: "XL" },
+        ],
+      },
+    ],
+    soldOut: ["Navy / XL"],
+  },
+  p09: {
+    options: [
+      {
+        name: "Color",
+        values: [
+          { value: "Oatmeal", swatch: "#d6cbb5" },
+          { value: "Charcoal", swatch: "#3f3f46" },
+        ],
+      },
+      {
+        name: "Size",
+        values: [{ value: "S" }, { value: "M" }, { value: "L" }],
+      },
+    ],
+    soldOut: ["Charcoal / L"],
+  },
+  p19: {
+    options: [
+      {
+        name: "Size",
+        values: ["US 8", "US 9", "US 10", "US 11", "US 12"].map((value) => ({
+          value,
+        })),
+      },
+    ],
+    soldOut: ["US 12"],
+  },
+};
+
+function withVariants(product: Product): Product {
+  const plan = variantPlans[product.id];
+  if (!plan) return product;
+  return {
+    ...product,
+    options: plan.options,
+    variants: buildVariants(product, plan.options, plan.soldOut),
+  };
+}
+
+const products: Product[] = productInputs.map(withImages).map(withVariants);
 
 export { products };

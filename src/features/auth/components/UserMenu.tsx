@@ -18,6 +18,7 @@ import { useSession } from "@/features/auth/hooks/use-session";
 import { initials } from "@/features/auth/utils/initials";
 import {
   DashboardSquare02Icon,
+  Location01Icon,
   Logout03Icon,
   PackageIcon,
   UserCircleIcon,
@@ -81,6 +82,10 @@ function UserMenu() {
           <DropdownMenuItem render={<Link href="/account/orders" />}>
             <HugeiconsIcon icon={PackageIcon} strokeWidth={2} />
             Orders
+          </DropdownMenuItem>
+          <DropdownMenuItem render={<Link href="/account/addresses" />}>
+            <HugeiconsIcon icon={Location01Icon} strokeWidth={2} />
+            Addresses
           </DropdownMenuItem>
           {isAdmin && (
             <DropdownMenuItem render={<Link href="/admin" />}>

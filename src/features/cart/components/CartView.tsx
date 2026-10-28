@@ -12,7 +12,7 @@ import {
 import { Link } from "@/components/ui/link";
 import { Progress } from "@/components/ui/progress";
 import { Separator } from "@/components/ui/separator";
-import { clearCart } from "@/features/cart/api/cart-store";
+import { clearCart, lineKeyOf } from "@/features/cart/api/cart-store";
 import { CartLineItem } from "@/features/cart/components/CartLineItem";
 import { CartViewSkeleton } from "@/features/cart/components/CartViewSkeleton";
 import { EmptyCart } from "@/features/cart/components/EmptyCart";
@@ -71,7 +71,7 @@ function CartView() {
         <CardContent>
           <ul className="flex flex-col gap-5">
             {items.map((item, index) => (
-              <li key={item.productId} className="flex flex-col gap-5">
+              <li key={lineKeyOf(item)} className="flex flex-col gap-5">
                 {index > 0 && <Separator />}
                 <CartLineItem item={item} />
               </li>

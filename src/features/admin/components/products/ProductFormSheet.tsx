@@ -8,7 +8,9 @@ import {
   FieldError,
   FieldGroup,
   FieldLabel,
+  FieldLegend,
   FieldSeparator,
+  FieldSet,
 } from "@/components/ui/field";
 import {
   InputGroup,
@@ -117,6 +119,14 @@ function ProductFormSheet({
     toFormValues(product ?? undefined),
   );
   const [errors, setErrors] = useState<ProductFormErrors>({});
+  // Products with options keep stock per variant; `stock` is their sum.
+  const variants = product?.variants ?? [];
+  const [variantStock, setVariantStock] = useState<Record<string, string>>(() =>
+    Object.fromEntries(variants.map((v) => [v.id, String(v.stock)])),
+  );
+  const [variantErrors, setVariantErrors] = useState<Record<string, string>>(
+    {},
+  );
   const editing = product !== null;
 
   function set<K extends keyof ProductFormValues>(
@@ -129,9 +139,21 @@ function ProductFormSheet({
 
   function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const result = validateProductForm(values);
-    if (!result.success) {
-      setErrors(result.errors);
+    const nextVariantErrors: Record<string, string> = {};
+    const nextVariants = variants.map((variant) => {
+      const raw = (variantStock[variant.id] ?? "").trim();
+      if (!/^\d+$/.test(raw))
+        nextVariantErrors[variant.id] = "Use a whole number, 0 or more";
+      return { ...variant, stock: Number(raw) || 0 };
+    });
+    const variantTotal = nextVariants.reduce((sum, v) => sum + v.stock, 0);
+
+    const result = validateProductForm(
+      variants.length ? { ...values, stock: String(variantTotal) } : values,
+    );
+    setVariantErrors(nextVariantErrors);
+    if (!result.success || Object.keys(nextVariantErrors).length > 0) {
+      if (!result.success) setErrors(result.errors);
       const form = event.currentTarget;
       requestAnimationFrame(() =>
         form.querySelector<HTMLElement>("[aria-invalid=true]")?.focus(),
@@ -140,7 +162,12 @@ function ProductFormSheet({
     }
 
     if (product) {
-      updateProduct(product.id, result.data);
+      updateProduct(
+        product.id,
+        variants.length
+          ? { ...result.data, variants: nextVariants }
+          : result.data,
+      );
       toast.add({
         type: "success",
         title: "Product updated",
@@ -244,16 +271,53 @@ function ProductFormSheet({
                   onChange={(value) => set("compareAtPrice", value)}
                 />
               </div>
-              <TextField
-                name="stock"
-                idPrefix="product"
-                label="Stock"
-                inputMode="numeric"
-                value={values.stock}
-                onChange={(event) => set("stock", event.target.value)}
-                error={errors.stock}
-                description="Units available. 0 marks it sold out."
-              />
+              {variants.length > 0 ? (
+                <FieldSet>
+                  <FieldLegend variant="label">Stock per variant</FieldLegend>
+                  <FieldDescription>
+                    Units available for each option combination. 0 marks it sold
+                    out.
+                  </FieldDescription>
+                  <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+                    {variants.map((variant) => (
+                      <TextField
+                        key={variant.id}
+                        name={`stock-${variant.id}`}
+                        idPrefix="product"
+                        label={variant.title}
+                        inputMode="numeric"
+                        value={variantStock[variant.id] ?? ""}
+                        error={variantErrors[variant.id]}
+                        onChange={(event) => {
+                          const value = event.target.value;
+                          setVariantStock((previous) => ({
+                            ...previous,
+                            [variant.id]: value,
+                          }));
+                          setVariantErrors((previous) =>
+                            Object.fromEntries(
+                              Object.entries(previous).filter(
+                                ([id]) => id !== variant.id,
+                              ),
+                            ),
+                          );
+                        }}
+                      />
+                    ))}
+                  </div>
+                </FieldSet>
+              ) : (
+                <TextField
+                  name="stock"
+                  idPrefix="product"
+                  label="Stock"
+                  inputMode="numeric"
+                  value={values.stock}
+                  onChange={(event) => set("stock", event.target.value)}
+                  error={errors.stock}
+                  description="Units available. 0 marks it sold out."
+                />
+              )}
 
               <FieldSeparator>Details</FieldSeparator>
 
