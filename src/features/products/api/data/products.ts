@@ -1,16 +1,15 @@
 import type { Product, ProductOption } from "@/features/products/types";
+import { buildVariants } from "@/features/products/utils/product";
 
-// Relative with an extension: scripts/generate-product-images.mts loads this
-// file under plain Node, which doesn't know the `@/` alias.
-import { buildVariants } from "../../utils/product.ts";
+import { getProductImages } from "./product-images";
 
 type ProductInput = Omit<Product, "images">;
 
-/** Every product ships three generated SVG shots: `public/products/<slug>-<n>.svg`. */
+/** Every product ships three real photos: see `product-images.ts`. */
 function withImages(input: ProductInput): Product {
   return {
     ...input,
-    images: [1, 2, 3].map((n) => `/products/${input.slug}-${n}.svg`),
+    images: getProductImages(input.slug),
   };
 }
 

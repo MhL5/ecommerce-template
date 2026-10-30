@@ -8,6 +8,16 @@ const nextConfig: NextConfig = {
   reactCompiler: true,
   typedRoutes: true,
   logging: { browserToTerminal: true },
+  images: {
+    // Product and category photography is hotlinked from Pexels.
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "images.pexels.com",
+        pathname: "/photos/**",
+      },
+    ],
+  },
   turbopack: {
     rules: {
       "*.css": {

@@ -6,7 +6,6 @@
     "skipLibCheck": true,
     "strict": true,
     "noEmit": true,
-    "allowImportingTsExtensions": true,
     "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "bundler",
@@ -45,8 +44,5 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts"
   ],
-  "exclude": [
-    "node_modules",
-    ".next/dev/types/validator.ts"
-  ]
+  "exclude": ["node_modules", ".next/dev/types/validator.ts"]
 }

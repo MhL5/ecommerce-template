@@ -15,46 +15,46 @@ Then open http://localhost:3000. Use `pnpm build` for a production build and `pn
 
 ### Shop
 
-| Route | What it does |
-| --- | --- |
-| `/` | Hero, value props, categories, featured products, sale banner, new arrivals |
-| `/products` | Search, filters (category, brand, price, rating, stock, sale), sort and pagination, all kept in the URL. The heading follows the selected category, search or deals |
-| `/products/[slug]` | Gallery, price and stock, option picker for products with variants (the choice is kept in `?variant=`), add to cart, save to wishlist, description / specs / reviews tabs (signed-in shoppers can write a review, published after admin approval), related products |
-| `/wishlist` | Saved products (no account needed) |
-| `/cart` | Line items, quantity changes, totals, free-shipping progress. There's also a mini cart in the header, and every product card has a quick-add button |
-| `/checkout` | Contact, address (signed-in shoppers can pick a saved address or save a new one), delivery, discount code and test-card payment, validated with zod |
-| `/checkout/success?order=…` | Order confirmation |
-| `/login`, `/register` | Mock auth |
-| `/account`, `/account/orders` | Profile (edit name, change password), stats and order history with a status timeline; processing orders can be cancelled |
-| `/account/addresses` | Address book: add, edit, delete, pick the default used at checkout |
+| Route                         | What it does                                                                                                                                                                                                                                                        |
+| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `/`                           | Hero, value props, categories, featured products, sale banner, new arrivals                                                                                                                                                                                         |
+| `/products`                   | Search, filters (category, brand, price, rating, stock, sale), sort and pagination, all kept in the URL. The heading follows the selected category, search or deals                                                                                                 |
+| `/products/[slug]`            | Gallery, price and stock, option picker for products with variants (the choice is kept in `?variant=`), add to cart, save to wishlist, description / specs / reviews tabs (signed-in shoppers can write a review, published after admin approval), related products |
+| `/wishlist`                   | Saved products (no account needed)                                                                                                                                                                                                                                  |
+| `/cart`                       | Line items, quantity changes, totals, free-shipping progress. There's also a mini cart in the header, and every product card has a quick-add button                                                                                                                 |
+| `/checkout`                   | Contact, address (signed-in shoppers can pick a saved address or save a new one), delivery, discount code and test-card payment, validated with zod                                                                                                                 |
+| `/checkout/success?order=…`   | Order confirmation                                                                                                                                                                                                                                                  |
+| `/login`, `/register`         | Mock auth                                                                                                                                                                                                                                                           |
+| `/account`, `/account/orders` | Profile (edit name, change password), stats and order history with a status timeline; processing orders can be cancelled                                                                                                                                            |
+| `/account/addresses`          | Address book: add, edit, delete, pick the default used at checkout                                                                                                                                                                                                  |
 
 ### Admin panel (`/admin`, admin account only)
 
-| Route | What it does |
-| --- | --- |
-| `/admin` | Dashboard: revenue / orders / average order / customers with change vs the previous 30 days, a 30-day revenue chart, orders by status, recent orders, low stock, best sellers |
-| `/admin/products` | Add, edit, delete and feature products in a side-sheet form; "Reset catalog" undoes every change |
-| `/admin/orders` | Filter by status, search, open an order and move it Processing → Shipped → Delivered (or cancel it) |
-| `/admin/customers` | Accounts and guest shoppers with order count, total spent and last order |
-| `/admin/reviews` | Moderation queue: publish, reject or delete reviews written by shoppers |
-| `/admin/discounts` | Create, edit, switch off and delete promo codes, with start/end dates, a minimum subtotal and a usage limit; usage is counted from orders |
+| Route              | What it does                                                                                                                                                                  |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `/admin`           | Dashboard: revenue / orders / average order / customers with change vs the previous 30 days, a 30-day revenue chart, orders by status, recent orders, low stock, best sellers |
+| `/admin/products`  | Add, edit, delete and feature products in a side-sheet form; "Reset catalog" undoes every change                                                                              |
+| `/admin/orders`    | Filter by status, search, open an order and move it Processing → Shipped → Delivered (or cancel it)                                                                           |
+| `/admin/customers` | Accounts and guest shoppers with order count, total spent and last order                                                                                                      |
+| `/admin/reviews`   | Moderation queue: publish, reject or delete reviews written by shoppers                                                                                                       |
+| `/admin/discounts` | Create, edit, switch off and delete promo codes, with start/end dates, a minimum subtotal and a usage limit; usage is counted from orders                                     |
 
 Admin changes show up in the shop straight away: new products get their own pages, edits change prices and stock, and deleted products disappear from listings, carts and wishlists.
 
 ### Demo accounts and codes
 
-| Role | Email | Password |
-| --- | --- | --- |
-| Customer | `demo@northstar.test` | `demo1234` |
-| Admin | `admin@northstar.test` | `admin1234` |
+| Role     | Email                  | Password    |
+| -------- | ---------------------- | ----------- |
+| Customer | `demo@northstar.test`  | `demo1234`  |
+| Admin    | `admin@northstar.test` | `admin1234` |
 
 The login page has buttons that fill these in. At checkout, use the test card `4242 4242 4242 4242` with any future expiry and any CVC (the "Use test card" button fills it in). Discount codes (the admin can change these under Discounts):
 
-| Code | Effect |
-| --- | --- |
-| `WELCOME10` | 10% off |
-| `FREESHIP` | Free shipping on any delivery speed |
-| `SAVE20` | $20 off orders of $100 or more |
+| Code        | Effect                              |
+| ----------- | ----------------------------------- |
+| `WELCOME10` | 10% off                             |
+| `FREESHIP`  | Free shipping on any delivery speed |
+| `SAVE20`    | $20 off orders of $100 or more      |
 
 ## How it's put together
 
@@ -62,7 +62,7 @@ The login page has buttons that fill these in. At checkout, use the test card `4
 - **Mock data**: the catalogue lives in `src/features/products/api/data`, users (two demo logins plus eight background shoppers) in `src/features/auth/api/data/users.ts`, the order history (about 40 generated orders) in `src/features/orders/api/data/seed-orders.ts`, shopper reviews waiting for moderation in `src/features/reviews/api/data/seed-reviews.ts`, and discount codes in `src/features/checkout/api/data/discount-codes.ts`.
 - **Browser state**: the cart, wishlist, session, registered users, profile edits, placed orders, order status changes (with their history), saved addresses, shopper reviews, discount codes and admin catalogue edits are kept in `localStorage` through `src/lib/createLocalStore.ts`, using `useSyncExternalStore` with zod validation. To start over, clear the site's storage.
 - **Catalogue = base + overrides**: the server renders the base data. Admin edits are stored as overrides (`src/features/products/api/catalog-store.ts`) that client components merge in after hydration.
-- **Product images**: generated SVGs in `public/`. To regenerate them, run `pnpm generate:images`.
+- **Product images**: real photography hotlinked from [Pexels](https://www.pexels.com/license/) and mapped per slug in `src/features/products/api/data/product-images.ts`; category tiles do the same in `categories.ts`. `next.config.ts` allows the Pexels host in `images.remotePatterns`.
 - **Variants**: a few products (Classic Organic Cotton Tee, Merino Crew Sweater, Trail Running Shoes) come in options such as Color and Size, like the `product_variant` table. Each variant has its own stock and SKU; `product.stock` is their sum. Cart lines and order items keep the variant, and the admin edits stock per variant. Other products have no options.
 
 ## Database

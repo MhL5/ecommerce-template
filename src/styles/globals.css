@@ -129,26 +129,29 @@
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-  button:not(:disabled),
-  [role="button"]:not(:disabled) {
-    cursor: pointer;
-  }
-  html {
-    @apply scroll-smooth font-sans;
-  }
-
-  ::selection {
-    @apply bg-selection text-selection-foreground;
+    @apply border-border caret-primary outline-ring/50;
   }
 
   *:not(body, html) {
     scrollbar-width: thin;
     scrollbar-color: var(--muted-foreground) transparent;
+  }
+
+  html {
+    @apply scroll-smooth font-sans;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  ::selection {
+    @apply bg-selection text-selection-foreground;
   }
 }
 

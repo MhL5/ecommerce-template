@@ -23,7 +23,7 @@ export default function Providers({ children }: ProvidersProps) {
       <DirectionProvider>
         <ThemeProvider>
           <TooltipProvider>
-            <Toaster limit={3}>{children}</Toaster>
+            <Toaster>{children}</Toaster>
           </TooltipProvider>
         </ThemeProvider>
       </DirectionProvider>

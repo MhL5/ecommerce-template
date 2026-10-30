@@ -1,4 +1,5 @@
 import { categories } from "@/features/products/api/data/categories";
+import { fallbackProductImage } from "@/features/products/api/data/product-images";
 import { products as baseProducts } from "@/features/products/api/data/products";
 import type { CategoryId, Product } from "@/features/products/types";
 import { createLocalStore } from "@/lib/createLocalStore";
@@ -186,7 +187,7 @@ function createProduct(input: NewProductInput): Product {
     specs: [],
     rating: 0,
     reviewCount: 0,
-    images: [category?.image ?? "/categories/electronics.svg"],
+    images: [category?.image ?? fallbackProductImage],
     createdAt: new Date().toISOString(),
   };
   if (product.compareAtPrice === undefined) delete product.compareAtPrice;
