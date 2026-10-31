@@ -1,27 +1,19 @@
-import {
-  type InferInsertModel,
-  count,
-  getTableName,
-  is,
-  sql,
-} from "drizzle-orm";
-import {
-  type PgAsyncDatabase,
-  type PgQueryResultHKT,
-  PgTable,
-} from "drizzle-orm/pg-core";
+import contractJson from "@/prisma/contract.json" with { type: "json" };
+import type { db as client } from "@/prisma/db";
 
-import * as schema from "../schema";
 import { buildSeed } from "./data";
 
-// Any async Postgres driver (node-postgres in the CLI, PGlite in tests).
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type Database = PgAsyncDatabase<PgQueryResultHKT, any>;
+type Database = typeof client;
+
+/** Every table in the contract, quoted for `truncate`. */
+const tableNames = Object.keys(
+  contractJson.storage.namespaces.public.entries.table,
+).map((name) => `"${name}"`);
 
 /**
  * Inserts the mock catalogue, users and order history in one transaction.
  *
- * With `reset`, every table in the schema is truncated first (including
+ * With `reset`, every table in the contract is truncated first (including
  * sessions, carts and wishlists). Without it, the seed refuses to run on a
  * database that already has products, so it never mixes with real data.
  */
@@ -30,49 +22,70 @@ async function seedDatabase(db: Database, { reset = false } = {}) {
 
   await db.transaction(async (tx) => {
     if (reset) {
-      const tables = Object.values(schema)
-        .filter((value) => is(value, PgTable))
-        .map((table) => `"${getTableName(table)}"`);
-      await tx.execute(sql.raw(`truncate table ${tables.join(", ")} cascade`));
+      // Table names come from the contract, not user input, so they are
+      // spliced in as SQL text rather than bound as parameters.
+      const statement = `truncate table ${tableNames.join(", ")} cascade`;
+      const strings = Object.assign([statement], { raw: [statement] });
+      await tx.execute(tx.raw.sql(strings).affectedCount().build());
     } else {
-      const [existing] = await tx.select({ n: count() }).from(schema.product);
-      if (existing && existing.n > 0)
+      const existing = await tx.orm.public.Product.aggregate((a) => ({
+        n: a.count(),
+      }));
+      if (existing.n > 0)
         throw new Error(
           `The database already has ${existing.n} products. Run with --reset to wipe it and seed again.`,
         );
     }
 
-    const insert = async <T extends PgTable>(
-      table: T,
-      rows: InferInsertModel<T>[],
+    // Stay well under Postgres' 65k bind-parameter limit.
+    const insert = async <Row>(
+      create: (rows: Row[]) => Promise<number>,
+      rows: Row[],
     ) => {
-      // Stay well under Postgres' 65k bind-parameter limit. The cast is only
-      // because drizzle can't resolve `values()` for a generic table.
       for (let i = 0; i < rows.length; i += 500)
-        await tx.insert(table).values(rows.slice(i, i + 500) as never);
+        await create(rows.slice(i, i + 500));
     };
 
-    await insert(schema.user, data.userRows);
-    await insert(schema.category, data.categoryRows);
-    await insert(schema.brand, data.brandRows);
-    await insert(schema.product, data.productRows);
-    await insert(schema.productOption, data.optionRows);
-    await insert(schema.productOptionValue, data.optionValueRows);
-    await insert(schema.productVariant, data.variantRows);
-    await insert(schema.productVariantOptionValue, data.variantOptionRows);
-    await insert(schema.productImage, data.imageRows);
-    await insert(schema.attribute, data.attributeRows);
-    await insert(schema.categoryAttribute, data.categoryAttributeRows);
-    await insert(schema.productAttributeValue, data.valueRows);
-    await insert(schema.review, data.reviewRows);
-    await insert(schema.address, data.addressRows);
-    await insert(schema.discount, data.discountRows);
-    await insert(schema.shippingMethod, data.shippingRows);
-    await insert(schema.order, data.orderRows);
-    await insert(schema.orderItem, data.itemRows);
-    await insert(schema.orderStatusEvent, data.eventRows);
-    await insert(schema.payment, data.paymentRows);
-    await insert(schema.discountRedemption, data.redemptionRows);
+    const orm = tx.orm.public;
+    await insert((r) => orm.User.createAndCount(r), data.userRows);
+    await insert((r) => orm.Category.createAndCount(r), data.categoryRows);
+    await insert((r) => orm.Brand.createAndCount(r), data.brandRows);
+    await insert((r) => orm.Product.createAndCount(r), data.productRows);
+    await insert((r) => orm.ProductOption.createAndCount(r), data.optionRows);
+    await insert(
+      (r) => orm.ProductOptionValue.createAndCount(r),
+      data.optionValueRows,
+    );
+    await insert((r) => orm.ProductVariant.createAndCount(r), data.variantRows);
+    await insert(
+      (r) => orm.ProductVariantOptionValue.createAndCount(r),
+      data.variantOptionRows,
+    );
+    await insert((r) => orm.ProductImage.createAndCount(r), data.imageRows);
+    await insert((r) => orm.Attribute.createAndCount(r), data.attributeRows);
+    await insert(
+      (r) => orm.CategoryAttribute.createAndCount(r),
+      data.categoryAttributeRows,
+    );
+    await insert(
+      (r) => orm.ProductAttributeValue.createAndCount(r),
+      data.valueRows,
+    );
+    await insert((r) => orm.Review.createAndCount(r), data.reviewRows);
+    await insert((r) => orm.Address.createAndCount(r), data.addressRows);
+    await insert((r) => orm.Discount.createAndCount(r), data.discountRows);
+    await insert(
+      (r) => orm.ShippingMethod.createAndCount(r),
+      data.shippingRows,
+    );
+    await insert((r) => orm.Order.createAndCount(r), data.orderRows);
+    await insert((r) => orm.OrderItem.createAndCount(r), data.itemRows);
+    await insert((r) => orm.OrderStatusEvent.createAndCount(r), data.eventRows);
+    await insert((r) => orm.Payment.createAndCount(r), data.paymentRows);
+    await insert(
+      (r) => orm.DiscountRedemption.createAndCount(r),
+      data.redemptionRows,
+    );
   });
 
   return summarize(data);

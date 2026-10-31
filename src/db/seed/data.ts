@@ -4,10 +4,6 @@
  * Pure and deterministic: no database access, and ids come from `seedId`, so
  * the same rows are produced on every run. `index.ts` inserts them.
  */
-import type {
-  OrderAddress as DbOrderAddress,
-  OrderItemOption,
-} from "@/db/schema";
 import { demoShoppers, seedUsers } from "@/features/auth/api/data/users";
 import {
   FREE_SHIPPING_THRESHOLD,
@@ -20,11 +16,16 @@ import { categories } from "@/features/products/api/data/categories";
 import { products } from "@/features/products/api/data/products";
 import { buildReviews } from "@/features/products/api/data/reviews";
 import type { Product } from "@/features/products/types";
+import type {
+  Contract,
+  OrderAddressInput as DbOrderAddress,
+  OrderItemOptionInput as OrderItemOption,
+} from "@/prisma/contract";
+import type { CreateInput } from "@prisma/orm-postgres/orm-client";
 
-import type * as schema from "../schema";
 import { seedId, slugify } from "./ids";
 
-type Insert<T extends { $inferInsert: unknown }> = T["$inferInsert"];
+type Insert<Model extends string> = CreateInput<Contract, Model>;
 
 const productId = (id: string) => seedId(`product:${id}`);
 const variantId = (id: string) => seedId(`variant:${id}`);
@@ -35,7 +36,7 @@ function defaultVariantId(product: Product) {
 }
 
 function buildCatalog() {
-  const categoryRows: Insert<typeof schema.category>[] = categories.map(
+  const categoryRows: Insert<"Category">[] = categories.map(
     (category, position) => ({
       id: seedId(`category:${category.id}`),
       slug: category.id,
@@ -47,19 +48,18 @@ function buildCatalog() {
   );
 
   const brandNames = [...new Set(products.map((p) => p.brand))].sort();
-  const brandRows: Insert<typeof schema.brand>[] = brandNames.map((name) => ({
+  const brandRows: Insert<"Brand">[] = brandNames.map((name) => ({
     id: seedId(`brand:${slugify(name)}`),
     slug: slugify(name),
     name,
   }));
 
-  const productRows: Insert<typeof schema.product>[] = [];
-  const imageRows: Insert<typeof schema.productImage>[] = [];
-  const optionRows: Insert<typeof schema.productOption>[] = [];
-  const optionValueRows: Insert<typeof schema.productOptionValue>[] = [];
-  const variantRows: Insert<typeof schema.productVariant>[] = [];
-  const variantOptionRows: Insert<typeof schema.productVariantOptionValue>[] =
-    [];
+  const productRows: Insert<"Product">[] = [];
+  const imageRows: Insert<"ProductImage">[] = [];
+  const optionRows: Insert<"ProductOption">[] = [];
+  const optionValueRows: Insert<"ProductOptionValue">[] = [];
+  const variantRows: Insert<"ProductVariant">[] = [];
+  const variantOptionRows: Insert<"ProductVariantOptionValue">[] = [];
 
   for (const p of products) {
     const id = productId(p.id);
@@ -78,7 +78,7 @@ function buildCatalog() {
       featured: p.featured,
       // Kept from the mock data so listings look the same as the mock UI;
       // recompute from `review` once real reviews come in.
-      ratingAverage: p.rating,
+      ratingAverage: p.rating.toFixed(2),
       reviewCount: p.reviewCount,
       publishedAt: createdAt,
       createdAt,
@@ -183,21 +183,16 @@ function buildAttributes() {
   const labels = [
     ...new Set(products.flatMap((p) => p.specs.map((s) => s.label))),
   ];
-  const attributeRows: Insert<typeof schema.attribute>[] = labels.map(
-    (name, position) => ({
-      id: seedId(`attribute:${slugify(name)}`),
-      slug: slugify(name),
-      name,
-      type: "text",
-      position,
-    }),
-  );
+  const attributeRows: Insert<"Attribute">[] = labels.map((name, position) => ({
+    id: seedId(`attribute:${slugify(name)}`),
+    slug: slugify(name),
+    name,
+    type: "text",
+    position,
+  }));
 
-  const valueRows: Insert<typeof schema.productAttributeValue>[] = [];
-  const categoryLinks = new Map<
-    string,
-    Insert<typeof schema.categoryAttribute>
-  >();
+  const valueRows: Insert<"ProductAttributeValue">[] = [];
+  const categoryLinks = new Map<string, Insert<"CategoryAttribute">>();
 
   for (const p of products) {
     const seen = new Set<string>();
@@ -230,7 +225,7 @@ function buildAttributes() {
   };
 }
 
-function buildReviewRows(): Insert<typeof schema.review>[] {
+function buildReviewRows(): Insert<"Review">[] {
   return products.flatMap((p: Product) =>
     buildReviews(p).map((review) => {
       const date = new Date(review.date);
@@ -250,23 +245,21 @@ function buildReviewRows(): Insert<typeof schema.review>[] {
 }
 
 function buildCheckoutConfig() {
-  const discountRows: Insert<typeof schema.discount>[] = discountCodes.map(
-    (code) => ({
-      id: seedId(`discount:${code.code}`),
-      code: code.code,
-      description: code.description,
-      kind: code.kind === "free-shipping" ? "free_shipping" : code.kind,
-      value: code.value,
-      minSubtotal: code.minSubtotal ?? null,
-      startsAt: code.startsAt ? new Date(code.startsAt) : null,
-      endsAt: code.endsAt ? new Date(code.endsAt) : null,
-      usageLimit: code.usageLimit,
-      isActive: code.isActive,
-    }),
-  );
+  const discountRows: Insert<"Discount">[] = discountCodes.map((code) => ({
+    id: seedId(`discount:${code.code}`),
+    code: code.code,
+    description: code.description,
+    kind: code.kind === "free-shipping" ? "free_shipping" : code.kind,
+    value: code.value,
+    minSubtotal: code.minSubtotal ?? null,
+    startsAt: code.startsAt ? new Date(code.startsAt) : null,
+    endsAt: code.endsAt ? new Date(code.endsAt) : null,
+    usageLimit: code.usageLimit,
+    isActive: code.isActive,
+  }));
 
-  const shippingRows: Insert<typeof schema.shippingMethod>[] =
-    SHIPPING_METHODS.map((method, position) => ({
+  const shippingRows: Insert<"ShippingMethod">[] = SHIPPING_METHODS.map(
+    (method, position) => ({
       id: seedId(`shipping:${method.id}`),
       code: method.id,
       name: method.label,
@@ -277,7 +270,8 @@ function buildCheckoutConfig() {
       minDeliveryDays: method.id === "standard" ? 3 : 1,
       maxDeliveryDays: method.id === "standard" ? 5 : 2,
       position,
-    }));
+    }),
+  );
 
   return { discountRows, shippingRows };
 }
@@ -287,7 +281,7 @@ function buildCheckoutConfig() {
  * sign in as these users until Better Auth is added and they register or get
  * a credential account.
  */
-function buildUsers(): Insert<typeof schema.user>[] {
+function buildUsers(): Insert<"User">[] {
   return seedUsers.map((user) => {
     const createdAt = new Date(user.createdAt);
     return {
@@ -302,7 +296,7 @@ function buildUsers(): Insert<typeof schema.user>[] {
   });
 }
 
-function buildAddresses(): Insert<typeof schema.address>[] {
+function buildAddresses(): Insert<"Address">[] {
   return demoShoppers.map((shopper) => {
     const [firstName = "", ...rest] = shopper.name.split(" ");
     return {
@@ -326,13 +320,14 @@ function toDbAddress(address: OrderAddress): DbOrderAddress {
   return {
     firstName: address.firstName,
     lastName: address.lastName,
+    company: null,
     address1: address.address1,
-    ...(address.address2 ? { address2: address.address2 } : {}),
+    address2: address.address2 || null,
     city: address.city,
     region: address.region,
     postalCode: address.postalCode,
     country: address.country,
-    ...(address.phone ? { phone: address.phone } : {}),
+    phone: address.phone || null,
   };
 }
 
@@ -354,21 +349,21 @@ function statusTimeline(status: OrderStatus, placed: Date) {
 }
 
 function buildOrders(
-  variantRows: Insert<typeof schema.productVariant>[],
-  optionRows: Insert<typeof schema.productOption>[],
-  optionValueRows: Insert<typeof schema.productOptionValue>[],
-  variantOptionRows: Insert<typeof schema.productVariantOptionValue>[],
+  variantRows: Insert<"ProductVariant">[],
+  optionRows: Insert<"ProductOption">[],
+  optionValueRows: Insert<"ProductOptionValue">[],
+  variantOptionRows: Insert<"ProductVariantOptionValue">[],
 ) {
   const variants = new Map(variantRows.map((v) => [v.id!, v]));
   const optionNames = new Map(optionRows.map((o) => [o.id!, o.name]));
   const optionValues = new Map(optionValueRows.map((v) => [v.id!, v.value]));
   const methodLabel = new Map(SHIPPING_METHODS.map((m) => [m.id, m.label]));
 
-  const orderRows: Insert<typeof schema.order>[] = [];
-  const itemRows: Insert<typeof schema.orderItem>[] = [];
-  const eventRows: Insert<typeof schema.orderStatusEvent>[] = [];
-  const paymentRows: Insert<typeof schema.payment>[] = [];
-  const redemptionRows: Insert<typeof schema.discountRedemption>[] = [];
+  const orderRows: Insert<"Order">[] = [];
+  const itemRows: Insert<"OrderItem">[] = [];
+  const eventRows: Insert<"OrderStatusEvent">[] = [];
+  const paymentRows: Insert<"Payment">[] = [];
+  const redemptionRows: Insert<"DiscountRedemption">[] = [];
 
   for (const order of seedOrders) {
     const id = seedId(`order:${order.id}`);

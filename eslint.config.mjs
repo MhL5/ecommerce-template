@@ -12,6 +12,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Emitted by `prisma contract emit`.
+    "src/prisma/contract.d.ts",
+    "migrations/snapshots/**",
   ]),
   {
     rules: {

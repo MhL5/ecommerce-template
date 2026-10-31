@@ -67,13 +67,15 @@ The login page has buttons that fill these in. At checkout, use the test card `4
 
 ## Database
 
-The schema lives in `src/db/schema` (Drizzle, Postgres 15+), and `docs/adr/0001-product-variants-and-attributes.md` explains the product model. The app doesn't read from the database yet. Set `NEXT_DATABASE_URL` in `.env`, then:
+The schema is a Prisma 8 data contract in `src/prisma/contract.prisma` (Postgres 15+), and `docs/adr/0001-product-variants-and-attributes.md` explains the product model. `prisma.config.ts` points the CLI at it, and `src/prisma/db.ts` exports the typed client (`db.orm.public.Product`, …). The app doesn't read from the database yet. Set `NEXT_DATABASE_URL` in `.env`, then:
 
 ```bash
-pnpm db:migrate
+pnpm db:init
 pnpm db:seed
 ```
 
-`pnpm db:seed` turns the mock data into rows: categories, brands, the 36 products with their variants, images and spec attributes, reviews, discount codes, shipping methods, users and the ~40 seeded orders (with items, payments and status history). Ids are deterministic, so seeding again gives the same ids. It refuses to run if the database already has products; `pnpm db:seed --reset` truncates every table first. Users are created without passwords: Better Auth will own credentials once it's added. `pnpm db:generate` makes a migration after a schema change and `pnpm db:studio` opens Drizzle Studio.
+`pnpm db:seed` turns the mock data into rows: categories, brands, the 36 products with their variants, images and spec attributes, reviews, discount codes, shipping methods, users and the ~40 seeded orders (with items, payments and status history). Ids are deterministic, so seeding again gives the same ids. It refuses to run if the database already has products; `pnpm db:seed --reset` truncates every table first. Users are created without passwords: Better Auth will own credentials once it's added.
+
+After editing the contract, run `pnpm db:emit` to regenerate `contract.json` / `contract.d.ts` (commit both; `pnpm build` also emits first). Then either `pnpm db:update` to push the change straight to a dev database, or `pnpm db:plan --name <slug>` to write a migration under `migrations/app/` and `pnpm db:migrate` to apply it. `pnpm db:verify` checks the database matches the contract.
 
 `PROGRESS.md` records the decisions and the build log, and `TODO.md` is the task checklist.
