@@ -1,0 +1,83 @@
+// use prisma-8
+
+// Auth
+//
+// Shaped to match Better Auth's core schema (plus the `admin` plugin fields)
+// so its adapter can use them as-is. Keep column names in sync with
+// `npx @better-auth/cli generate` when Better Auth is added.
+
+model User {
+  id            String             @id
+  name          String
+  email         String             @unique
+  emailVerified Boolean            @default(false) @map("email_verified")
+  image         String?
+  // Better Auth admin plugin. Configure it with `defaultRole: "customer"`.
+  role          String             @default("customer")
+  banned        Boolean            @default(false)
+  banReason     String?            @map("ban_reason")
+  banExpires    TimestamptzJsDate? @map("ban_expires")
+
+  // Auth
+  sessions      Session[]
+  accounts      Account[]
+
+  // Customer
+  addresses     Address[]
+  cart          Cart?
+  wishlist      WishlistItem[]
+
+  // Activity
+  orders        Order[]
+  reviews       Review[]
+  +Timestamps
+
+  @@map("user")
+}
+
+model Session {
+  id             String            @id
+  userId         String            @map("user_id")
+  user           User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  token          String            @unique
+  expiresAt      TimestamptzJsDate @map("expires_at")
+  ipAddress      String?           @map("ip_address")
+  userAgent      String?           @map("user_agent")
+  // Better Auth admin plugin.
+  impersonatedBy String?           @map("impersonated_by")
+  +Timestamps
+
+  @@index([userId], map: "session_user_id_idx")
+  @@map("session")
+}
+
+model Account {
+  id                    String             @id
+  userId                String             @map("user_id")
+  user                  User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accountId             String             @map("account_id")
+  providerId            String             @map("provider_id")
+  accessToken           String?            @map("access_token")
+  refreshToken          String?            @map("refresh_token")
+  idToken               String?            @map("id_token")
+  accessTokenExpiresAt  TimestamptzJsDate? @map("access_token_expires_at")
+  refreshTokenExpiresAt TimestamptzJsDate? @map("refresh_token_expires_at")
+  scope                 String?
+  /// Hashed by Better Auth for the email/password provider.
+  password              String?
+  +Timestamps
+
+  @@index([userId], map: "account_user_id_idx")
+  @@map("account")
+}
+
+model Verification {
+  id         String            @id
+  identifier String
+  value      String
+  expiresAt  TimestamptzJsDate @map("expires_at")
+  +Timestamps
+
+  @@index([identifier], map: "verification_identifier_idx")
+  @@map("verification")
+}

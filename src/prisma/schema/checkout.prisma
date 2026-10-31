@@ -1,0 +1,61 @@
+// use prisma-8
+
+// Checkout configuration: discount codes and shipping methods.
+//
+// Both are shop-managed settings that carts and orders point at. Orders copy
+// what they need at checkout (see orders.prisma), so editing a discount or
+// shipping method never changes an old order.
+
+/// - `percent`: `value` is a percentage of the subtotal (10 = 10%)
+/// - `fixed`: `value` is cents off the subtotal
+/// - `free_shipping`: shipping costs nothing; `value` is ignored
+enum DiscountKind {
+  @@type("pg/text@1")
+  percent       = "percent"
+  fixed         = "fixed"
+  free_shipping = "free_shipping"
+}
+
+model Discount {
+  id                    Id                   @id
+  /// Stored upper-case; match codes case-insensitively.
+  code                  String               @unique
+  description           String               @default("")
+  kind                  DiscountKind
+  value                 Int                  @default(0)
+  /// Minimum subtotal in cents for the code to apply.
+  minSubtotal           Int?                 @map("min_subtotal")
+  startsAt              TimestamptzJsDate?   @map("starts_at")
+  endsAt                TimestamptzJsDate?   @map("ends_at")
+  /// Total redemptions allowed across all customers.
+  usageLimit            Int?                 @map("usage_limit")
+  usageLimitPerCustomer Int?                 @map("usage_limit_per_customer")
+  /// Cached count of `discount_redemption` rows.
+  usedCount             Int                  @default(0) @map("used_count")
+  isActive              Boolean              @default(true) @map("is_active")
+  redemptions           DiscountRedemption[]
+  +Timestamps
+
+  @@check(expression: sql`value >= 0`, name: "discount_value_ck")
+  @@check(expression: sql`kind <> 'percent' or value <= 100`, name: "discount_percent_ck")
+  @@map("discount")
+}
+
+model ShippingMethod {
+  id               Id      @id
+  /// Stable key used in code, e.g. "standard" or "express".
+  code             String  @unique
+  name             String
+  description      String?
+  /// Price in integer cents.
+  price            Int
+  /// Subtotal in cents at or above which shipping is free.
+  freeOverSubtotal Int?    @map("free_over_subtotal")
+  minDeliveryDays  Int?    @map("min_delivery_days")
+  maxDeliveryDays  Int?    @map("max_delivery_days")
+  isActive         Boolean @default(true) @map("is_active")
+  position         Int     @default(0)
+  +Timestamps
+
+  @@map("shipping_method")
+}

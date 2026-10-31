@@ -1,0 +1,71 @@
+// use prisma-8
+
+// Customer: things a shopper keeps between visits — addresses, wishlist, cart.
+
+model Address {
+  id                Id      @id
+  userId            String  @map("user_id")
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  /// Optional nickname, e.g. "Home" or "Work".
+  label             String?
+  firstName         String  @map("first_name")
+  lastName          String  @map("last_name")
+  company           String?
+  address1          String
+  address2          String?
+  city              String
+  region            String
+  postalCode        String  @map("postal_code")
+  /// ISO 3166-1 alpha-2, e.g. "US".
+  country           Char(2)
+  phone             String?
+  isDefaultShipping Boolean @default(false) @map("is_default_shipping")
+  isDefaultBilling  Boolean @default(false) @map("is_default_billing")
+  +Timestamps
+
+  @@index([userId], map: "address_user_id_idx")
+  @@map("address")
+}
+
+model WishlistItem {
+  userId    String  @map("user_id")
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  productId Uuid    @map("product_id")
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  +CreatedAt
+
+  @@id([userId, productId])
+  @@map("wishlist_item")
+}
+
+/// A signed-in user's cart, or a guest cart found by the `token` in a cookie.
+/// Merge the guest cart into the user's cart on sign-in.
+model Cart {
+  id         Id                 @id
+  userId     String?            @unique @map("user_id")
+  user       User?              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  token      String?            @unique
+  discountId Uuid?              @map("discount_id")
+  discount   Discount?          @relation(fields: [discountId], references: [id], onDelete: SetNull)
+  /// Guest carts can be cleaned up after this.
+  expiresAt  TimestamptzJsDate? @map("expires_at")
+  items      CartItem[]
+  +Timestamps
+
+  @@check(expression: sql`user_id is not null or token is not null`, name: "cart_owner_ck")
+  @@map("cart")
+}
+
+model CartItem {
+  id        Id             @id
+  cartId    Uuid           @map("cart_id")
+  cart      Cart           @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  variantId Uuid           @map("variant_id")
+  variant   ProductVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
+  quantity  Int
+  +Timestamps
+
+  @@unique([cartId, variantId], map: "cart_item_cart_variant_uq")
+  @@check(expression: sql`quantity > 0`, name: "cart_item_quantity_ck")
+  @@map("cart_item")
+}

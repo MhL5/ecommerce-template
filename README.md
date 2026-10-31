@@ -67,7 +67,7 @@ The login page has buttons that fill these in. At checkout, use the test card `4
 
 ## Database
 
-The schema is a Prisma 8 data contract in `src/prisma/contract.prisma` (Postgres 15+), and `docs/adr/0001-product-variants-and-attributes.md` explains the product model. `prisma.config.ts` points the CLI at it, and `src/prisma/db.ts` exports the typed client (`db.orm.public.Product`, …). The app doesn't read from the database yet. Set `NEXT_DATABASE_URL` in `.env`, then:
+The schema is a Prisma 8 data contract split by domain across `src/prisma/schema/*.prisma` (Postgres 15+; start with `base.prisma`, whose header lists the files), and `docs/adr/0001-product-variants-and-attributes.md` explains the product model. `prisma.config.ts` points the CLI at it, and `src/prisma/db.ts` exports the typed client (`db.orm.public.Product`, …). The app doesn't read from the database yet. Set `NEXT_DATABASE_URL` in `.env`, then:
 
 ```bash
 pnpm db:init

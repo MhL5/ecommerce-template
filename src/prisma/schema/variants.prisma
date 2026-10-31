@@ -1,0 +1,105 @@
+// use prisma-8
+
+// Product options, variants and images.
+//
+//   Product ─┬─ ProductOption ── ProductOptionValue       "Color" → "Red"
+//            ├─ ProductVariant ─ ProductVariantOptionValue  "Red / XL" picks one value per option
+//            └─ ProductImage                                optionally tied to one variant
+//
+// Prices and stock live on the variant, never on the product.
+
+/// An axis a product varies on, e.g. "Color" or "Size".
+model ProductOption {
+  id        Id                   @id
+  productId Uuid                 @map("product_id")
+  product   Product              @relation(fields: [productId], references: [id], onDelete: Cascade)
+  name      String
+  position  Int                  @default(0)
+  values    ProductOptionValue[]
+
+  @@unique([productId, name], map: "product_option_product_name_uq")
+  @@map("product_option")
+}
+
+/// One choice on an option, e.g. "Red" for Color.
+model ProductOptionValue {
+  id       Id            @id
+  optionId Uuid          @map("option_id")
+  option   ProductOption @relation(fields: [optionId], references: [id], onDelete: Cascade)
+  value    String
+  /// Hex colour or image URL for swatch pickers.
+  swatch   String?
+  position Int           @default(0)
+
+  @@unique([optionId, value], map: "product_option_value_option_value_uq")
+  // Target for the composite FK that keeps a variant's value on the right option.
+  @@unique([optionId, id], map: "product_option_value_option_id_uq")
+  @@map("product_option_value")
+}
+
+/// A sellable combination of option values (or the single default variant).
+model ProductVariant {
+  id              Id                          @id
+  productId       Uuid                        @map("product_id")
+  product         Product                     @relation(fields: [productId], references: [id], onDelete: Cascade)
+  sku             String?                     @unique
+  barcode         String?
+  /// Display name built from the option values, e.g. "Red / XL".
+  title           String                      @default("")
+  /// Price in integer cents.
+  price           Int
+  /// Original price in cents when the variant is on sale.
+  compareAtPrice  Int?                        @map("compare_at_price")
+  /// What the shop paid, in cents, for margin reports.
+  costPrice       Int?                        @map("cost_price")
+  stock           Int                         @default(0)
+  trackInventory  Boolean                     @default(true) @map("track_inventory")
+  allowBackorder  Boolean                     @default(false) @map("allow_backorder")
+  weightGrams     Int?                        @map("weight_grams")
+  isDefault       Boolean                     @default(false) @map("is_default")
+  isActive        Boolean                     @default(true) @map("is_active")
+  position        Int                         @default(0)
+  optionValues    ProductVariantOptionValue[]
+  images          ProductImage[]
+  attributeValues ProductAttributeValue[]
+  +Timestamps
+
+  @@index([productId], map: "product_variant_product_id_idx")
+  // At most one default variant per product.
+  @@index([productId], where: sql`is_default`, unique: true, name: "product_variant_one_default_uq")
+  // Target for the composite FKs (image, attribute value) that keep a variant on its product.
+  @@unique([productId, id], map: "product_variant_product_id_uq")
+  @@check(expression: sql`price >= 0`, name: "product_variant_price_ck")
+  @@check(expression: sql`compare_at_price is null or compare_at_price > price`, name: "product_variant_compare_at_price_ck")
+  @@map("product_variant")
+}
+
+/// Which value a variant has for each option (one value per option).
+model ProductVariantOptionValue {
+  variantId     Uuid               @map("variant_id")
+  variant       ProductVariant     @relation(fields: [variantId], references: [id], onDelete: Cascade)
+  optionId      Uuid               @map("option_id")
+  option        ProductOption      @relation(fields: [optionId], references: [id], onDelete: Cascade)
+  optionValueId Uuid               @map("option_value_id")
+  value         ProductOptionValue @relation(fields: [optionId, optionValueId], references: [optionId, id], onDelete: Cascade, map: "product_variant_option_value_value_fk")
+
+  @@id([variantId, optionId])
+  @@index([optionValueId], map: "product_variant_option_value_value_idx")
+  @@map("product_variant_option_value")
+}
+
+/// Product gallery. Images with a `variantId` show when that variant is picked.
+model ProductImage {
+  id        Id              @id
+  productId Uuid            @map("product_id")
+  product   Product         @relation(fields: [productId], references: [id], onDelete: Cascade)
+  variantId Uuid?           @map("variant_id")
+  variant   ProductVariant? @relation(fields: [productId, variantId], references: [productId, id], onDelete: Cascade, map: "product_image_variant_fk")
+  url       String
+  alt       String          @default("")
+  position  Int             @default(0)
+  +Timestamps
+
+  @@index([productId], map: "product_image_product_id_idx")
+  @@map("product_image")
+}

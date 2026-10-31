@@ -1,0 +1,100 @@
+// use prisma-8
+
+// Attributes: descriptive facts about a product that don't create variants,
+// e.g. Material, Fabric weight, Wattage, Water resistance.
+//
+// An attribute is defined once (with a type and optional unit) and reused
+// across products, so the shop can filter on it ("Material: Wool") and the
+// admin can offer a consistent picker. Categories can suggest attributes.
+//
+//   Attribute ─┬─ AttributeOption          allowed values for select / multiselect
+//              ├─ CategoryAttribute        which categories suggest it
+//              └─ ProductAttributeValue    the value a product (or variant) has
+
+/// - `text`: free text ("Hand wash only")
+/// - `number`: numeric value, shown with `unit` ("254" g)
+/// - `boolean`: yes / no ("Waterproof")
+/// - `select`: one of `attribute_option` ("Material: Wool")
+/// - `multiselect`: several of `attribute_option` ("Features: GPS, NFC")
+enum AttributeType {
+  @@type("pg/text@1")
+  text        = "text"
+  number      = "number"
+  boolean     = "boolean"
+  select      = "select"
+  multiselect = "multiselect"
+}
+
+model Attribute {
+  id           Id                  @id
+  slug         String              @unique
+  name         String
+  description  String?
+  type         AttributeType       @default(text)
+  /// Shown after number values, e.g. "g", "mAh", "cm".
+  unit         String?
+  /// Show as a facet on product listings.
+  isFilterable Boolean             @default(false) @map("is_filterable")
+  position     Int                 @default(0)
+  options      AttributeOption[]
+  /// Join rows; each carries its `category`.
+  categories   CategoryAttribute[]
+  +Timestamps
+
+  @@map("attribute")
+}
+
+/// Allowed values for `select` / `multiselect` attributes.
+model AttributeOption {
+  id          Id        @id
+  attributeId Uuid      @map("attribute_id")
+  attribute   Attribute @relation(fields: [attributeId], references: [id], onDelete: Cascade)
+  value       String
+  position    Int       @default(0)
+
+  @@unique([attributeId, value], map: "attribute_option_attribute_value_uq")
+  // Target for the composite FK that keeps a value's option on its attribute.
+  @@unique([attributeId, id], map: "attribute_option_attribute_id_uq")
+  @@map("attribute_option")
+}
+
+/// Attributes a category suggests (or requires) for its products.
+model CategoryAttribute {
+  categoryId  Uuid      @map("category_id")
+  category    Category  @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  attributeId Uuid      @map("attribute_id")
+  attribute   Attribute @relation(fields: [attributeId], references: [id], onDelete: Cascade)
+  isRequired  Boolean   @default(false) @map("is_required")
+  position    Int       @default(0)
+
+  @@id([categoryId, attributeId])
+  @@map("category_attribute")
+}
+
+/// An attribute value on a product, or on one variant when `variantId` is set.
+/// Exactly one `value*` / `optionId` column is filled, matching the attribute
+/// type. `multiselect` attributes get one row per chosen option.
+model ProductAttributeValue {
+  id           Id               @id
+  productId    Uuid             @map("product_id")
+  product      Product          @relation(fields: [productId], references: [id], onDelete: Cascade)
+  variantId    Uuid?            @map("variant_id")
+  variant      ProductVariant?  @relation(fields: [productId, variantId], references: [productId, id], onDelete: Cascade, map: "product_attribute_value_variant_fk")
+  attributeId  Uuid             @map("attribute_id")
+  attribute    Attribute        @relation(fields: [attributeId], references: [id], onDelete: Cascade)
+  valueText    String?          @map("value_text")
+  valueNumber  Numeric?         @map("value_number")
+  valueBoolean Boolean?         @map("value_boolean")
+  optionId     Uuid?            @map("option_id")
+  option       AttributeOption? @relation(fields: [attributeId, optionId], references: [attributeId, id], onDelete: Cascade, map: "product_attribute_value_option_fk")
+  position     Int              @default(0)
+
+  @@index([productId], map: "product_attribute_value_product_id_idx")
+  // Facet filtering: "products with Material = Wool" / "Weight < 300".
+  @@index([attributeId, optionId], map: "product_attribute_value_option_idx")
+  @@index([attributeId, valueNumber], map: "product_attribute_value_number_idx")
+  // One row per (product, variant, attribute, option), treating NULLs as equal.
+  @@index(expression: sql`product_id, coalesce(variant_id, '00000000-0000-0000-0000-000000000000'::uuid), attribute_id, coalesce(option_id, '00000000-0000-0000-0000-000000000000'::uuid)`, unique: true, name: "product_attribute_value_uq")
+  @@check(expression: sql`num_nonnulls(value_text, value_number, value_boolean, option_id) = 1`, name: "product_attribute_value_one_value_ck")
+  @@map("product_attribute_value")
+}

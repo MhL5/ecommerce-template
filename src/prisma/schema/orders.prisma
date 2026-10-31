@@ -1,0 +1,190 @@
+// use prisma-8
+
+// Orders. Everything an order shows (names, options, prices, addresses) is
+// copied onto it at checkout, so editing or deleting products, discounts or
+// shipping methods never changes an old order.
+//
+//   Order ─┬─ OrderItem            what was bought (snapshot of the variant)
+//          ├─ OrderStatusEvent     status timeline
+//          ├─ Payment              payment attempts and refunds
+//          └─ DiscountRedemption   the discount code used, if any
+
+// ---------------------------------------------------------------------------
+// Snapshots stored as JSON on the order and its items
+// ---------------------------------------------------------------------------
+
+/// Snapshot of an address at checkout.
+type OrderAddress {
+  firstName  String
+  lastName   String
+  company    String?
+  address1   String
+  address2   String?
+  city       String
+  region     String
+  postalCode String
+  country    String
+  phone      String?
+}
+
+/// Snapshot of the option values on the variant that was bought.
+type OrderItemOption {
+  name  String
+  value String
+}
+
+// ---------------------------------------------------------------------------
+// Statuses
+// ---------------------------------------------------------------------------
+
+enum OrderStatus {
+  @@type("pg/text@1")
+  pending    = "pending"
+  processing = "processing"
+  shipped    = "shipped"
+  delivered  = "delivered"
+  cancelled  = "cancelled"
+  refunded   = "refunded"
+}
+
+enum PaymentStatus {
+  @@type("pg/text@1")
+  pending            = "pending"
+  authorized         = "authorized"
+  paid               = "paid"
+  failed             = "failed"
+  refunded           = "refunded"
+  partially_refunded = "partially_refunded"
+}
+
+// ---------------------------------------------------------------------------
+// Models
+// ---------------------------------------------------------------------------
+
+model Order {
+  id                 Id                 @id
+  /// Human-friendly reference shown to customers, e.g. `NS-4F7K2Q`.
+  number             String             @unique
+  /// `null` for guest checkout (or once the account is deleted).
+  userId             String?            @map("user_id")
+  user               User?              @relation(fields: [userId], references: [id], onDelete: SetNull)
+  email              String
+  status             OrderStatus        @default(pending)
+  paymentStatus      PaymentStatus      @default(pending) @map("payment_status")
+  currency           Char(3)            @default("USD")
+  // Totals in integer cents.
+  subtotal           Int
+  discountTotal      Int                @default(0) @map("discount_total")
+  shippingTotal      Int                @default(0) @map("shipping_total")
+  taxTotal           Int                @default(0) @map("tax_total")
+  total              Int
+  discountId         Uuid?              @map("discount_id")
+  discount           Discount?          @relation(fields: [discountId], references: [id], onDelete: SetNull)
+  discountCode       String?            @map("discount_code")
+  shippingMethodId   Uuid?              @map("shipping_method_id")
+  shippingMethod     ShippingMethod?    @relation(fields: [shippingMethodId], references: [id], onDelete: SetNull)
+  shippingMethodName String             @map("shipping_method_name")
+  shippingAddress    OrderAddress       @map("shipping_address")
+  /// `null` when billing matches shipping.
+  billingAddress     OrderAddress?      @map("billing_address")
+  customerNote       String?            @map("customer_note")
+  cancelledAt        TimestamptzJsDate? @map("cancelled_at")
+  items              OrderItem[]
+  statusEvents       OrderStatusEvent[]
+  payments           Payment[]
+  +Timestamps
+
+  @@index([userId], map: "order_user_id_idx")
+  @@index([email], map: "order_email_idx")
+  @@index([status], map: "order_status_idx")
+  @@index([createdAt], map: "order_created_at_idx")
+  @@map("order")
+}
+
+model OrderItem {
+  id           Id                @id
+  orderId      Uuid              @map("order_id")
+  order        Order             @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId    Uuid?             @map("product_id")
+  product      Product?          @relation(fields: [productId], references: [id], onDelete: SetNull)
+  variantId    Uuid?             @map("variant_id")
+  variant      ProductVariant?   @relation(fields: [variantId], references: [id], onDelete: SetNull)
+  productName  String            @map("product_name")
+  productSlug  String            @map("product_slug")
+  brandName    String?           @map("brand_name")
+  /// e.g. "Red / XL"; empty for products without options.
+  variantTitle String            @default("") @map("variant_title")
+  options      OrderItemOption[] @default(sql`'[]'::jsonb`)
+  sku          String?
+  image        String?
+  /// Unit price in cents at checkout.
+  unitPrice    Int               @map("unit_price")
+  quantity     Int
+  /// `unitPrice * quantity`, in cents.
+  lineTotal    Int               @map("line_total")
+  +CreatedAt
+
+  @@index([orderId], map: "order_item_order_id_idx")
+  @@index([variantId], map: "order_item_variant_id_idx")
+  @@check(expression: sql`quantity > 0`, name: "order_item_quantity_ck")
+  @@map("order_item")
+}
+
+/// Status timeline shown on the order page and in the admin.
+model OrderStatusEvent {
+  id      Id          @id
+  orderId Uuid        @map("order_id")
+  order   Order       @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  status  OrderStatus
+  note    String?
+  /// Admin or customer who made the change; `null` for the system.
+  actorId String?     @map("actor_id")
+  actor   User?       @relation(fields: [actorId], references: [id], onDelete: SetNull)
+  +CreatedAt
+
+  @@index([orderId], map: "order_status_event_order_id_idx")
+  @@map("order_status_event")
+}
+
+/// A payment attempt or refund against an order, from any provider.
+model Payment {
+  id                Id            @id
+  orderId           Uuid          @map("order_id")
+  order             Order         @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  /// e.g. "mock", "stripe".
+  provider          String
+  /// The provider's id for this payment (charge / intent id).
+  providerReference String?       @map("provider_reference")
+  status            PaymentStatus @default(pending)
+  /// Amount in cents.
+  amount            Int
+  refundedAmount    Int           @default(0) @map("refunded_amount")
+  currency          Char(3)       @default("USD")
+  cardBrand         String?       @map("card_brand")
+  cardLast4         Char(4)?      @map("card_last4")
+  failureReason     String?       @map("failure_reason")
+  +Timestamps
+
+  @@index([orderId], map: "payment_order_id_idx")
+  @@index([provider, providerReference], map: "payment_provider_reference_idx")
+  @@map("payment")
+}
+
+/// One use of a discount code, for usage limits and reporting.
+model DiscountRedemption {
+  id         Id       @id
+  discountId Uuid     @map("discount_id")
+  discount   Discount @relation(fields: [discountId], references: [id], onDelete: Cascade)
+  orderId    Uuid     @map("order_id")
+  order      Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  userId     String?  @map("user_id")
+  user       User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  email      String
+  /// Cents taken off the order.
+  amount     Int
+  +CreatedAt
+
+  @@unique([discountId, orderId], map: "discount_redemption_discount_order_uq")
+  @@index([discountId, email], map: "discount_redemption_discount_email_idx")
+  @@map("discount_redemption")
+}

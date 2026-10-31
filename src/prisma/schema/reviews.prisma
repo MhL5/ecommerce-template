@@ -1,0 +1,34 @@
+// use prisma-8
+
+// Reviews
+//
+// `Product.ratingAverage` / `Product.reviewCount` cache the published reviews.
+
+enum ReviewStatus {
+  @@type("pg/text@1")
+  pending   = "pending"
+  published = "published"
+  rejected  = "rejected"
+}
+
+model Review {
+  id                 Id           @id
+  productId          Uuid         @map("product_id")
+  product            Product      @relation(fields: [productId], references: [id], onDelete: Cascade)
+  /// `null` once the author's account is deleted; `authorName` stays.
+  userId             String?      @map("user_id")
+  user               User?        @relation(fields: [userId], references: [id], onDelete: SetNull)
+  authorName         String       @map("author_name")
+  rating             SmallInt
+  title              String
+  body               String
+  status             ReviewStatus @default(published)
+  /// The author bought this product in a delivered order.
+  isVerifiedPurchase Boolean      @default(false) @map("is_verified_purchase")
+  +Timestamps
+
+  @@index([productId, status], map: "review_product_id_idx")
+  @@unique([productId, userId], map: "review_product_user_uq")
+  @@check(expression: sql`rating between 1 and 5`, name: "review_rating_ck")
+  @@map("review")
+}

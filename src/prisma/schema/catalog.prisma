@@ -1,0 +1,87 @@
+// use prisma-8
+
+// Catalog: categories, brands and products.
+//
+// A product is the thing a customer browses; a variant is the thing they buy.
+// Products declare options (Color, Size, …) with values (Red, XL, …) and every
+// sellable combination is a variant with its own SKU, price, stock and images.
+// A product without options still has exactly one default variant, so prices
+// and stock always live on `product_variant`.
+//
+// Options, variants and images are in variants.prisma; descriptive attributes
+// (Material, Wattage, …) are in attributes.prisma.
+
+enum ProductStatus {
+  @@type("pg/text@1")
+  draft    = "draft"
+  active   = "active"
+  archived = "archived"
+}
+
+model Category {
+  id          Id                  @id
+  /// Parent category for nesting, e.g. Clothing → Shirts.
+  parentId    Uuid?               @map("parent_id")
+  parent      Category?           @relation("CategoryParent", fields: [parentId], references: [id], onDelete: SetNull)
+  slug        String              @unique
+  name        String
+  description String?
+  image       String?
+  position    Int                 @default(0)
+  isActive    Boolean             @default(true) @map("is_active")
+  children    Category[]          @relation("CategoryParent")
+  products    Product[]
+  /// Join rows; each carries its `attribute`.
+  attributes  CategoryAttribute[]
+  +Timestamps
+
+  @@index([parentId], map: "category_parent_id_idx")
+  @@map("category")
+}
+
+model Brand {
+  id          Id        @id
+  slug        String    @unique
+  name        String
+  description String?
+  logo        String?
+  products    Product[]
+  +Timestamps
+
+  @@map("brand")
+}
+
+model Product {
+  id              Id                      @id
+  slug            String                  @unique
+  name            String
+  brandId         Uuid?                   @map("brand_id")
+  brand           Brand?                  @relation(fields: [brandId], references: [id], onDelete: SetNull)
+  categoryId      Uuid?                   @map("category_id")
+  category        Category?               @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  description     String                  @default("")
+  /// Short selling points shown above the fold.
+  highlights      String[]                @default(sql`'{}'`)
+  tags            String[]                @default(sql`'{}'`)
+  status          ProductStatus           @default(draft)
+  featured        Boolean                 @default(false)
+  /// Cached from published reviews so listings can sort without a join.
+  ratingAverage   Numeric(3, 2)           @default(0) @map("rating_average")
+  reviewCount     Int                     @default(0) @map("review_count")
+  seoTitle        String?                 @map("seo_title")
+  seoDescription  String?                 @map("seo_description")
+  /// Escape hatch for data that doesn't deserve a column or attribute.
+  metadata        Jsonb                   @default(sql`'{}'::jsonb`)
+  publishedAt     TimestamptzJsDate?      @map("published_at")
+  options         ProductOption[]
+  variants        ProductVariant[]
+  images          ProductImage[]
+  attributeValues ProductAttributeValue[]
+  reviews         Review[]
+  +Timestamps
+
+  @@index([categoryId], map: "product_category_id_idx")
+  @@index([brandId], map: "product_brand_id_idx")
+  @@index([status], map: "product_status_idx")
+  @@map("product")
+}

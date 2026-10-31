@@ -1,0 +1,41 @@
+// use prisma-8
+
+// Shared building blocks used by every other file in this folder.
+//
+// The data contract is split by domain across `src/prisma/schema/*.prisma`
+// (`prisma.config.ts` reads them all as one contract). Edit the files here, then
+// run `pnpm db:emit` to regenerate `contract.json` / `contract.d.ts` in
+// `src/prisma/`.
+//
+//   base.prisma        shared types and mixins (this file)
+//   auth.prisma        User, Session, Account, Verification (Better Auth)
+//   catalog.prisma     Category, Brand, Product
+//   variants.prisma    options, variants and product images
+//   attributes.prisma  reusable descriptive facts (Material, Wattage, …)
+//   reviews.prisma     Review
+//   checkout.prisma    Discount, ShippingMethod
+//   customer.prisma    Address, WishlistItem, Cart, CartItem
+//   orders.prisma      Order, OrderItem, Payment, DiscountRedemption, …
+//
+// Conventions:
+// - Table and column names stay snake_case in Postgres (`@map` / `@@map`);
+//   fields are camelCase in TypeScript.
+// - Money is always integer cents.
+//
+// See docs/adr/0001-product-variants-and-attributes.md for the catalog model.
+
+types {
+  /// Primary key for domain tables (auth tables use Better Auth's text ids).
+  Id = Uuid @default(sql`gen_random_uuid()`)
+}
+
+/// `createdAt` + `updatedAt`, for rows that change over time.
+model mixin Timestamps {
+  createdAt temporal.CreatedAtJsDate @default(now()) @map("created_at")
+  updatedAt temporal.UpdatedAtJsDate @default(now()) @map("updated_at")
+}
+
+/// `createdAt` only, for append-only rows.
+model mixin CreatedAt {
+  createdAt temporal.CreatedAtJsDate @default(now()) @map("created_at")
+}
