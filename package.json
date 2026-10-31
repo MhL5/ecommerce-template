@@ -19,6 +19,8 @@
     "db:seed": "tsx src/db/seed/index.ts"
   },
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.1160.0",
+    "@aws-sdk/s3-request-presigner": "^3.1160.0",
     "@base-ui/react": "^1.9.0",
     "@hugeicons/core-free-icons": "^4.3.5",
     "@hugeicons/react": "^1.1.10",
