@@ -1,9 +1,9 @@
 import { createEnv } from "@t3-oss/env-nextjs";
-import z from "zod";
-
-const urlSchema = z.url().refine((url) => !url.endsWith("/"), {
-  error: "URL must not end with a trailing slash",
-});
+/**
+ * NOTE:using @ import for `urlSchema` breaks env validation
+ * causes this error:Cannot find module './src/schema/urlSchema'
+ */
+import { urlSchema } from "../schema/urlSchema";
 
 const clientEnv = createEnv({
   client: {
