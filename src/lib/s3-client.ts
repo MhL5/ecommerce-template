@@ -1,5 +1,9 @@
 import { serverEnv } from "@/env/serverEnv";
-import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
+import {
+  DeleteObjectCommand,
+  PutObjectCommand,
+  S3Client,
+} from "@aws-sdk/client-s3";
 import "dotenv/config";
 
 type Bucket = string;
@@ -37,4 +41,10 @@ async function uploadObject({
   return getObjectUrl({ bucket, key });
 }
 
-export { uploadObject };
+type DeleteObjectParams = { bucket: Bucket; key: Key };
+
+async function deleteObject({ bucket, key }: DeleteObjectParams) {
+  await s3.send(new DeleteObjectCommand({ Bucket: bucket, Key: key }));
+}
+
+export { deleteObject, uploadObject };
